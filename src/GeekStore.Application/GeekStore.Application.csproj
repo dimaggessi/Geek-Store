@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\GeekStore.Infrastructure\GeekStore.Infrastructure.csproj" />
     <ProjectReference Include="..\GeekStore.Domain\GeekStore.Domain.csproj" />
   </ItemGroup>
 
