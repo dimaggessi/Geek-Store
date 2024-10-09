@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using GeekStore.Domain.Entities;
 using GeekStore.Domain.Interfaces;
 
-namespace GeekStore.Infrastructure.Persistence.Specifications
+namespace GeekStore.Domain.Specifications
 {
     public abstract class Specification<T> : ISpecification<T> where T : BaseEntity
     {
@@ -10,9 +10,13 @@ namespace GeekStore.Infrastructure.Persistence.Specifications
             Criteria = criteria;
 
         public bool IsSplitQuery { get; protected set; }
-
+        public bool IsDistinct { get ; protected set; }
+        public bool IsPaginationEnabled { get; private set; }
+        public int Take { get; private set; }
+        public int Skip { get; private set; }
+        
         // specify a match for where statement
-        public Expression<Func<T, bool>>? Criteria {get;}
+        public Expression<Func<T, bool>>? Criteria { get; }
         // specify include statements
         public List<Expression<Func<T, object>>> IncludeExpressions { get; } = [];
         // specify orderby statement
@@ -29,5 +33,11 @@ namespace GeekStore.Infrastructure.Persistence.Specifications
         protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescendingExpression) =>
             OrderByDescendingExpression = orderByDescendingExpression;
 
+        protected void AddPagination(int skip, int take)
+        {
+            Skip = skip;
+            Take = take;
+            IsPaginationEnabled = true;
+        }
     }
 }
