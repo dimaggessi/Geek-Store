@@ -2,12 +2,18 @@ namespace GeekStore.Domain.Shared
 {
     public class Error
     {
-        public Error(string message, string code)
+        public Error(string code, string message)
         {
-            Message = message;
             Code = code;
+            Message = message;
         }
-        public string Message { get; }
+        public Error(string code, IEnumerable<string> errorMessages)
+        {
+            Code = code;
+            ErrorMessages = errorMessages;
+        }
         public string Code { get; }
+        public string? Message { get; }
+        public IEnumerable<string>? ErrorMessages { get; }
     }
 }

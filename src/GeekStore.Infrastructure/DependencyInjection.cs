@@ -27,7 +27,6 @@ namespace GeekStore.Infrastructure
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnityOfWork, UnityOfWork>();
-        }
-        
+        }       
     }
 }

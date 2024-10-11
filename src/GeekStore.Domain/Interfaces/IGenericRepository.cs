@@ -1,4 +1,3 @@
-using System.Reflection.Metadata;
 using GeekStore.Domain.Entities;
 
 namespace GeekStore.Domain.Interfaces
