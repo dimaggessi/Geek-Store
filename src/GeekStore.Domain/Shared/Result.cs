@@ -1,6 +1,8 @@
+using GeekStore.Domain.Interfaces;
+
 namespace GeekStore.Domain.Shared
 {
-    public class Result<T>
+    public class Result<T> : IResult
     {
         private Result(T value)
         {
@@ -11,11 +13,10 @@ namespace GeekStore.Domain.Shared
         {
             Error = error;
             Value = default;
-        }        
+        }
         public T? Value{ get; }
         public Error? Error{ get; }
-        public bool IsSuccess => Error == null;
-
+        public bool IsSuccess => Error is null;
         public static Result<T> Success(T value) => new Result<T>(value);
         public static Result<T> Failure(Error error) => new Result<T>(error);
 
