@@ -7,13 +7,7 @@ namespace GeekStore.Domain.Shared
             Code = code;
             Message = message;
         }
-        public Error(string code, IEnumerable<string> errorMessages)
-        {
-            Code = code;
-            ErrorMessages = errorMessages;
-        }
         public string Code { get; }
-        public string? Message { get; }
-        public IEnumerable<string>? ErrorMessages { get; }
+        public string Message { get; }
     }
 }
