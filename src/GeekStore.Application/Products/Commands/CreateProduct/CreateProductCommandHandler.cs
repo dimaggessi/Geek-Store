@@ -32,13 +32,15 @@ namespace GeekStore.Application.Products.Commands
 
             _unityOfWork.GetRepository<Product>().Add(product);
 
-            if(!await _unityOfWork.CommitAsync(cancellationToken))
+            var result = await _unityOfWork.CommitAsync(cancellationToken);
+
+            if (!result)
             {
-                return Result<Product>.Failure(
+                return Result.Failure<Product>(
                     new Error("Error", "Something went wrong while creating the product!"));
             }
 
-            return Result<Product>.Success(product);
+            return Result.Success<Product>(product);
         }
     }
 }

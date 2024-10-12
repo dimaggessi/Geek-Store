@@ -1,6 +1,7 @@
 using GeekStore.Application.Products.Commands.CreateProduct;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GeekStore.API.Controllers
 {
@@ -19,7 +20,16 @@ namespace GeekStore.API.Controllers
 
             return result.Map<IActionResult>(
                 onSuccess: product => Ok(product),
-                onFailure: error => BadRequest(error)
+                onFailure: error =>
+                {
+                    var errorResponse = new
+                    {
+                        Error = error,
+                        ValidationErrors = result.ValidationErrors
+                    };
+
+                    return BadRequest(errorResponse);
+                }
             );
         }
     }

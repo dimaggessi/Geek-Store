@@ -1,7 +1,9 @@
-namespace GeekStore.Domain.Interfaces
+﻿using GeekStore.Domain.Shared;
+
+namespace GeekStore.Domain.Interfaces;
+public interface IResult
 {
-    public interface IResult
-    {
-        public bool IsSuccess { get;}
-    }
+    Error? Error { get; }
+    bool IsSuccess { get; }
+    bool IsFailure { get; }
 }

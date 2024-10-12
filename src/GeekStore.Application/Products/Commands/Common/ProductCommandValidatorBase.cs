@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation;
 
 namespace GeekStore.Application.Products.Commands.Common
 {
-    public class ProductValidatorBase : AbstractValidator<ProductCommandBase>
+    public abstract class ProductCommandValidatorBase<T> : AbstractValidator<T> where T : ProductCommandBase
     {
-        public ProductValidatorBase()
+        protected ProductCommandValidatorBase()
         {
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("Product name is required.")

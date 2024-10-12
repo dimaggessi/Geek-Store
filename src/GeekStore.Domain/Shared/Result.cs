@@ -1,28 +1,29 @@
-using GeekStore.Domain.Interfaces;
+﻿using GeekStore.Domain.Interfaces;
 
-namespace GeekStore.Domain.Shared
+namespace GeekStore.Domain.Shared;
+public class Result : IResult
 {
-    public class Result<T> : IResult
+    protected internal Result()
     {
-        private Result(T value)
-        {
-            Value = value;
-            Error = null;
-        }
-        private Result(Error error)
-        {
-            Error = error;
-            Value = default;
-        }
-        public T? Value{ get; }
-        public Error? Error{ get; }
-        public bool IsSuccess => Error is null;
-        public static Result<T> Success(T value) => new Result<T>(value);
-        public static Result<T> Failure(Error error) => new Result<T>(error);
-
-        public TResult Map<TResult>(Func<T, TResult> onSuccess, Func<Error, TResult> onFailure)
-        {
-            return IsSuccess ? onSuccess(Value!) : onFailure(Error!);
-        }
+        Error = null;
+        ValidationErrors = null;
     }
+    protected internal Result(Error error)
+    {
+        Error = error;
+    }
+    protected internal Result(Error error, Error[] errors)
+    {
+        Error = error;
+        ValidationErrors = errors;
+    }
+    public bool IsSuccess => Error is null;
+    public bool IsFailure => !IsSuccess;
+    public Error? Error { get; }
+    public Error[]? ValidationErrors { get; }
+
+    public static Result Failure(Error error) => new(error);
+    public static Result<T> Failure<T>(Error error) => new Result<T>(error);
+    public static Result Success() => new();
+    public static Result<T> Success<T>(T value) => new Result<T>(value);
 }
