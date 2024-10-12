@@ -1,3 +1,5 @@
+using GeekStore.Domain.Interfaces;
+
 namespace GeekStore.Domain.Shared
 {
     public class Result<T> : Result

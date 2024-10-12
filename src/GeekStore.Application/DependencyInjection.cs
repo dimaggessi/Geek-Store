@@ -16,6 +16,7 @@ namespace GeekStore.Application
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
         }
     }
 }

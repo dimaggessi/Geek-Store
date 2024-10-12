@@ -25,7 +25,7 @@ namespace GeekStore.API.RequestPipeline
                 return Results.Problem(new ProblemDetails 
                 {
                     Title = "Um erro ocorreu ao processar sua requisição",
-                    Detail = exception.Message,
+                    //Detail = exception.Message,
                     Status = (int)HttpStatusCode.InternalServerError
                 });
             });
