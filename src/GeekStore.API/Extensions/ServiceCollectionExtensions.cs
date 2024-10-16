@@ -4,12 +4,12 @@ namespace GeekStore.API.Extensions
     {
         public static IServiceCollection AddGlobalErrorHandling(this IServiceCollection services)
         {
-            // Fornece informações personalizadas
+            // Detailed information
             services.AddProblemDetails(options => 
             {
                 options.CustomizeProblemDetails = context =>
                 {
-                    // adiciona a propriedade customizada traceId
+                    // add traceId property
                     context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
                 };
             });

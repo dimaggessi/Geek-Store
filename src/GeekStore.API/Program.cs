@@ -2,6 +2,7 @@ using GeekStore.API.Extensions;
 using GeekStore.Application;
 using GeekStore.Infrastructure;
 using GeekStore.API.RequestPipeline;
+using GeekStore.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.UseGlobalErrorHandling();
 

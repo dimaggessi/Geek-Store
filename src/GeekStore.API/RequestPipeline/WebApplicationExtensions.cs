@@ -1,4 +1,5 @@
 using System.Net;
+using GeekStore.Domain.Shared;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +20,12 @@ namespace GeekStore.API.RequestPipeline
 
                 if (exception is null)
                 {
-                    return Results.Problem("Um erro inesperado aconteceu.");
+                    return Results.Problem(ResourceErrorMessages.UNEXPECTED_ERROR);
                 }
 
                 return Results.Problem(new ProblemDetails 
                 {
-                    Title = "Um erro ocorreu ao processar sua requisição",
+                    Title = ResourceErrorMessages.REQUEST_ERROR,
                     Detail = exception.Message,
                     Status = (int)HttpStatusCode.InternalServerError
                 });

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using GeekStore.Domain.Shared;
 
 namespace GeekStore.Application.Products.Queries.GetProducts;
 public class GetProductQueryValidator : AbstractValidator<GetProductsQuery>
@@ -7,11 +8,11 @@ public class GetProductQueryValidator : AbstractValidator<GetProductsQuery>
     {
         RuleFor(x => x.PageIndex)
             .NotEmpty()
-            .WithMessage("Page index is required")
+            .WithMessage(ResourceErrorMessages.REQUIRED_PAGE_INDEX)
             .GreaterThan(0)
-            .WithMessage("Page index must be greater than zero.");
+            .WithMessage(ResourceErrorMessages.MIN_PAGE_INDEX);
         RuleFor(x => x.PageSize)
             .LessThanOrEqualTo(10)
-            .WithMessage("Page size must be between 1 and 10.");
+            .WithMessage(ResourceErrorMessages.INTERVAL_PAGE_SIZE);
     }
 }

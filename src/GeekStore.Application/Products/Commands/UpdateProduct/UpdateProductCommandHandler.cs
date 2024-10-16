@@ -20,7 +20,8 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         if (product is null)
         {
             return Result.Failure<Product>(new Error(
-                "Not found", "Product was not found"));
+                ResourceErrorMessages.DEFAULT_NOT_FOUND, 
+                ResourceErrorMessages.PRODUCT_NOT_FOUND));
         }
 
         product.Name = request.Name;
@@ -42,6 +43,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         return result ?
             Result.Success(product) :
             Result.Failure<Product>(new Error(
-                "Persistence problem", "Unable to persist product in database"));
+                ResourceErrorMessages.DEFAULT_ERROR, 
+                ResourceErrorMessages.ERROR_UPDATE_PRODUCT));
     }
 }

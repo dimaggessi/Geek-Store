@@ -19,7 +19,8 @@ public sealed class DeleteProductCommandHandler : IRequestHandler<DeleteProductC
 
         if (product is null)
             return Result.Failure<Product>(new Error(
-                "Not found", "Product was not found"));
+                ResourceErrorMessages.DEFAULT_NOT_FOUND, 
+                ResourceErrorMessages.PRODUCT_NOT_FOUND));
 
         _unityOfWork.GetRepository<Product>().Remove(product);
 
@@ -28,6 +29,7 @@ public sealed class DeleteProductCommandHandler : IRequestHandler<DeleteProductC
         return result ?
             Result.Success(product) :
             Result.Failure<Product>(new Error(
-                "Problem into database", "Unable to remove product"));
+                ResourceErrorMessages.DEFAULT_ERROR, 
+                ResourceErrorMessages.ERROR_REMOVE_PRODUCT));
     }
 }

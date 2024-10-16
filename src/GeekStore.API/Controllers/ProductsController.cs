@@ -3,6 +3,7 @@ using GeekStore.Application.Products.Commands.DeleteProduct;
 using GeekStore.Application.Products.Commands.UpdateProduct;
 using GeekStore.Application.Products.Queries.GetProductById;
 using GeekStore.Application.Products.Queries.GetProducts;
+using GeekStore.Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,7 +82,8 @@ namespace GeekStore.API.Controllers
             [FromBody] UpdateProductCommand request)
         {
             if (request.Id != id)
-                return BadRequest("Url Id and Product Id mismatch");
+                return BadRequest(
+                    ResourceErrorMessages.PRODUCT_ID_AND_URL_MISMATCH);
 
             var result = await _mediator.Send(request);
 

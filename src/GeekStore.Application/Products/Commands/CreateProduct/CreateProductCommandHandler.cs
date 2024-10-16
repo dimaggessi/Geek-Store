@@ -37,7 +37,9 @@ namespace GeekStore.Application.Products.Commands
             if (!result)
             {
                 return Result.Failure<Product>(
-                    new Error("Error", "Something went wrong while creating the product!"));
+                    new Error(
+                        ResourceErrorMessages.DEFAULT_ERROR, 
+                        ResourceErrorMessages.ERROR_CREATE_PRODUCT));
             }
 
             return Result.Success(product);

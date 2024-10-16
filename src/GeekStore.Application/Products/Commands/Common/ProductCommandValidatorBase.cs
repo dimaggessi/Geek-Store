@@ -1,4 +1,5 @@
 using FluentValidation;
+using GeekStore.Domain.Shared;
 
 namespace GeekStore.Application.Products.Commands.Common
 {
@@ -7,37 +8,37 @@ namespace GeekStore.Application.Products.Commands.Common
         protected ProductCommandValidatorBase()
         {
             RuleFor(p => p.Name)
-                .NotEmpty().WithMessage("Product name is required.")
-                .MaximumLength(100).WithMessage("Product name must not exceed 100 characters.");
+                .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_NAME)
+                .MaximumLength(100).WithMessage(ResourceErrorMessages.MAX_PRODUCT_NAME);
             RuleFor(p => p.Description)
-                .NotEmpty().WithMessage("Product description is required.")
-                .MaximumLength(300).WithMessage("Product description must not exceed 300 characters.");
+                .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_DESCRIPTION)
+                .MaximumLength(300).WithMessage(ResourceErrorMessages.MAX_PRODUCT_DESCRIPTION);
             RuleFor(p => p.Picture)
-                .NotEmpty().WithMessage("Product picture is required.");
+                .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_PICTURE);
             RuleFor(p => p.Type)
-                .NotEmpty().WithMessage("Product type is required.")
-                .MaximumLength(100).WithMessage("Product type must not exceed 100 characters.");
+                .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_TYPE)
+                .MaximumLength(100).WithMessage(ResourceErrorMessages.MAX_PRODUCT_TYPE);
             RuleFor(p => p.Brand)
-                .NotEmpty().WithMessage("Product brand is required.")
-                .MaximumLength(100).WithMessage("Product brand must not exceed 100 characters.");
+                .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_BRAND)
+                .MaximumLength(100).WithMessage(ResourceErrorMessages.MAX_PRODUCT_BRAND);
             RuleFor(p => p.Quantity)
-                .NotNull().WithMessage("Product quantity is required.")
-                .GreaterThanOrEqualTo(0).WithMessage("Product quantity cannot be negative.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_QUANTITY)
+                .GreaterThanOrEqualTo(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_QUANTITY);
             RuleFor(p => p.Price)
-                .NotNull().WithMessage("Product price is required.")
-                .GreaterThan(0).WithMessage("Price must be greater than zero.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_PRICE)
+                .GreaterThan(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_PRICE);
             RuleFor(p => p.Width)
-                .NotNull().WithMessage("Product width is required.")
-                .GreaterThan(0).WithMessage("Product width must be greater than zero.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_WIDTH)
+                .GreaterThan(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_WIDTH);
             RuleFor(p => p.Height)
-                .NotNull().WithMessage("Product height is required.")
-                .GreaterThan(0).WithMessage("Product height must be greater than zero.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_HEIGHT)
+                .GreaterThan(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_HEIGHT);
             RuleFor(p => p.Length)
-                .NotNull().WithMessage("Product length is required.")
-                .GreaterThan(0).WithMessage("Product length must be greater than zero.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_LENGTH)
+                .GreaterThan(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_LENGTH);
             RuleFor(p => p.Weight)
-                .NotNull().WithMessage("Product height is required.")
-                .GreaterThan(0).WithMessage("Product weight must be greater than zero.");
+                .NotNull().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_WEIGHT)
+                .GreaterThan(0).WithMessage(ResourceErrorMessages.MIN_PRODUCT_WEIGHT);
         }
     }
 }

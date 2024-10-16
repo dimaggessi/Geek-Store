@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using GeekStore.Domain.Shared;
 
 namespace GeekStore.Application.Products.Queries.GetProductById;
 public class GetProductByIdQueryValidator : AbstractValidator<GetProductByIdQuery>
@@ -7,6 +8,6 @@ public class GetProductByIdQueryValidator : AbstractValidator<GetProductByIdQuer
     {
         RuleFor(x => x.Id)
             .NotEmpty()
-            .WithMessage("Product Id is required.");
+            .WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_ID);
     }
 }
