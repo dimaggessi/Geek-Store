@@ -1,5 +1,4 @@
 using FluentValidation;
-using GeekStore.Domain.Interfaces;
 using GeekStore.Domain.Shared;
 using MediatR;
 

@@ -26,7 +26,7 @@ public sealed class DeleteProductCommandHandler : IRequestHandler<DeleteProductC
         var result = await _unityOfWork.CommitAsync(cancellationToken);
 
         return result ?
-            Result.Success<Product>(product) :
+            Result.Success(product) :
             Result.Failure<Product>(new Error(
                 "Problem into database", "Unable to remove product"));
     }

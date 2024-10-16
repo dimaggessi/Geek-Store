@@ -40,7 +40,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         var result = await _unitOfWork.CommitAsync(cancellationToken);
 
         return result ?
-            Result.Success<Product>(product) :
+            Result.Success(product) :
             Result.Failure<Product>(new Error(
                 "Persistence problem", "Unable to persist product in database"));
     }

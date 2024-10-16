@@ -40,7 +40,7 @@ namespace GeekStore.Application.Products.Commands
                     new Error("Error", "Something went wrong while creating the product!"));
             }
 
-            return Result.Success<Product>(product);
+            return Result.Success(product);
         }
     }
 }
