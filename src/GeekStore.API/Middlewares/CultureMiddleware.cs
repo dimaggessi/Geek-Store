@@ -12,7 +12,7 @@ public class CultureMiddleware
     }
     public async Task Invoke(HttpContext context)
     {
-        var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures);
+        var supportedLanguages = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
         var requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
 
@@ -22,7 +22,7 @@ public class CultureMiddleware
             await _next(context);
         }
 
-        var cultureInfo = new CultureInfo(requestedCulture);
+        var cultureInfo = new CultureInfo(requestedCulture!);
 
         CultureInfo.CurrentCulture = cultureInfo;
         CultureInfo.CurrentUICulture = cultureInfo;

@@ -166,7 +166,7 @@
     <value>O preço do produto precisa ser positivo.</value>
   </data>
   <data name="MIN_PRODUCT_QUANTITY" xml:space="preserve">
-    <value>A quantidade do produto não pode ser negativa.</value>
+    <value>A quantidade do produto não pode ser zero ou negativa.</value>
   </data>
   <data name="MIN_PRODUCT_HEIGHT" xml:space="preserve">
     <value>A altura do produto precisa ser maior que zero.</value>
@@ -218,5 +218,20 @@
   </data>
   <data name="INTERVAL_PAGE_SIZE" xml:space="preserve">
     <value>PageSize precisa ser um número entre 1 e 10.</value>
+  </data>
+  <data name="SHOPPING_CART_ERROR" xml:space="preserve">
+    <value>Ocorreu um erro com o carrinho de compras.</value>
+  </data>
+  <data name="EMPTY_SHOPPING_CART_ID" xml:space="preserve">
+    <value>O Id do carrinho de compras deve ser informado.</value>
+  </data>
+  <data name="REMOVE_ERROR" xml:space="preserve">
+    <value>Um erro ocorreu ao tentar remover do banco de dados.</value>
+  </data>
+  <data name="GENERIC_SUCCESS_OPERATION" xml:space="preserve">
+    <value>Operação realizada com successo.</value>
+  </data>
+  <data name="SHOPPING_CART_NULL" xml:space="preserve">
+    <value>O carrinho de compras não pode ser nulo.</value>
   </data>
 </root>

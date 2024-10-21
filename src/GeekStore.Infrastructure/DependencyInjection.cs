@@ -4,6 +4,7 @@ using GeekStore.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace GeekStore.Infrastructure
 {
@@ -12,6 +13,7 @@ namespace GeekStore.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddDatabaseContext(services, configuration);
+            AddRedis(services, configuration);
             AddRepositories(services);
         }
 
@@ -22,11 +24,23 @@ namespace GeekStore.Infrastructure
                 dbContextOptions.UseSqlServer(configuration.GetConnectionString("SqlServer"));
             });
         }
+        private static void AddRedis(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<IConnectionMultiplexer>(config =>
+            {
+                var connectionString = configuration.GetConnectionString("Redis") ??
+                    throw new InvalidOperationException("Connection string was not found");
+
+                var options = ConfigurationOptions.Parse(connectionString, true);
+                return ConnectionMultiplexer.Connect(options);
+            });
+        }
 
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnityOfWork, UnityOfWork>();
-        }       
+            services.AddSingleton<IShoppingCartRepository, ShoppingCartRepository>();
+        }
     }
 }

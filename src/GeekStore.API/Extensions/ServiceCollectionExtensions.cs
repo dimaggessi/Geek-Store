@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace GeekStore.API.Extensions
 {
     public static class ServiceCollectionExtensions

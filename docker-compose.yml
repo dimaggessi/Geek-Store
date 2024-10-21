@@ -10,5 +10,13 @@ services:
       - 1433:1433
     volumes:
       - sql-data:/var/opt/mssql
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data/
 volumes:
   sql-data:
+  redis-data:
