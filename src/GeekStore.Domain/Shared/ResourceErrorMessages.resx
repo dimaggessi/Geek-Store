@@ -166,7 +166,7 @@
     <value>Price must be greater than zero.</value>
   </data>
   <data name="MIN_PRODUCT_QUANTITY" xml:space="preserve">
-    <value>Product quantity cannot be negative.</value>
+    <value>Product quantity cannot be zero or negative.</value>
   </data>
   <data name="MIN_PRODUCT_HEIGHT" xml:space="preserve">
     <value>Product height must be greater than zero.</value>
@@ -218,5 +218,20 @@
   </data>
   <data name="INTERVAL_PAGE_SIZE" xml:space="preserve">
     <value>Page size must be between 1 and 10.</value>
+  </data>
+  <data name="SHOPPING_CART_ERROR" xml:space="preserve">
+    <value>An error with shopping cart was happen.</value>
+  </data>
+  <data name="EMPTY_SHOPPING_CART_ID" xml:space="preserve">
+    <value>Shopping cart Id is required.</value>
+  </data>
+  <data name="REMOVE_ERROR" xml:space="preserve">
+    <value>Error while removing from database.</value>
+  </data>
+  <data name="GENERIC_SUCCESS_OPERATION" xml:space="preserve">
+    <value>Successful operation.</value>
+  </data>
+  <data name="SHOPPING_CART_NULL" xml:space="preserve">
+    <value>The given shopping cart cannot be null.</value>
   </data>
 </root>

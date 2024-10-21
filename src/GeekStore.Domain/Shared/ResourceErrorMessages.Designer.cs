@@ -187,6 +187,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shopping cart Id is required..
+        /// </summary>
+        public static string EMPTY_SHOPPING_CART_ID {
+            get {
+                return ResourceManager.GetString("EMPTY_SHOPPING_CART_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while creating the product!.
         /// </summary>
         public static string ERROR_CREATE_PRODUCT {
@@ -210,6 +219,15 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_UPDATE_PRODUCT {
             get {
                 return ResourceManager.GetString("ERROR_UPDATE_PRODUCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful operation..
+        /// </summary>
+        public static string GENERIC_SUCCESS_OPERATION {
+            get {
+                return ResourceManager.GetString("GENERIC_SUCCESS_OPERATION", resourceCulture);
             }
         }
         
@@ -295,7 +313,7 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product quantity cannot be negative..
+        ///   Looks up a localized string similar to Product quantity cannot be zero or negative..
         /// </summary>
         public static string MIN_PRODUCT_QUANTITY {
             get {
@@ -340,6 +358,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while removing from database..
+        /// </summary>
+        public static string REMOVE_ERROR {
+            get {
+                return ResourceManager.GetString("REMOVE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while processing your request..
         /// </summary>
         public static string REQUEST_ERROR {
@@ -354,6 +381,24 @@ namespace GeekStore.Domain.Shared {
         public static string REQUIRED_PAGE_INDEX {
             get {
                 return ResourceManager.GetString("REQUIRED_PAGE_INDEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error with shopping cart was happen..
+        /// </summary>
+        public static string SHOPPING_CART_ERROR {
+            get {
+                return ResourceManager.GetString("SHOPPING_CART_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given shopping cart cannot be null..
+        /// </summary>
+        public static string SHOPPING_CART_NULL {
+            get {
+                return ResourceManager.GetString("SHOPPING_CART_NULL", resourceCulture);
             }
         }
         

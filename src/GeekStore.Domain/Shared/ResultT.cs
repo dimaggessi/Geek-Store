@@ -16,8 +16,11 @@ namespace GeekStore.Domain.Shared
         }
         public T? Value { get; }
 
-        public TResult Map<TResult>(Func<T, TResult> onSuccess, Func<Error, TResult> onFailure)
+        public TResult Map<TResult>(Func<T, TResult>? onSuccess, Func<Error, TResult>? onFailure)
         {
+            onSuccess ??= _ => default!;
+            onFailure ??= _ => default!;
+
             return IsSuccess ? onSuccess(Value!) : onFailure(Error!);
         }
     }
