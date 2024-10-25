@@ -36,7 +36,3 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 await app.RunAsync();
-
-
-
-

@@ -3,6 +3,7 @@ using GeekStore.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GeekStore.API.Extensions
 {
@@ -43,18 +44,18 @@ namespace GeekStore.API.Extensions
                     Version = "v1"
                 });
 
-                // Adiciona tags manualmente aos controladores, se necessário
+                // Adiciona tags manualmente aos controladores, se necessï¿½rio
                 options.DocInclusionPredicate((docName, apiDesc) =>
                 {
                     return true; // Incluir todas as rotas no mesmo documento (v1)
                 });
 
-                // Adicionar descrições nas tags, como "Authorization" para as rotas de autenticação
+                // Adicionar descriï¿½ï¿½es nas tags, como "Authorization" para as rotas de autenticaï¿½ï¿½o
                 options.TagActionsBy(apiDesc =>
                 {
                     if (apiDesc.RelativePath?.StartsWith("api/auth") == true)
                     {
-                        return new[] { "Authorization" }; // Atribuir tag "Authorization" aos endpoints de autenticação
+                        return new[] { "Authorization" }; // Atribuir tag "Authorization" aos endpoints de autenticaï¿½ï¿½o
                     }
 
                     return new[] { "GeekStore API" }; // Atribuir tag "GeekStore API" aos demais endpoints
