@@ -6,6 +6,6 @@ namespace GeekStore.API.Controllers
     [Route("api/[controller]")]
     public class ApiController : ControllerBase
     {
-        
+
     }
 }

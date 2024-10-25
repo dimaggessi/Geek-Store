@@ -5,5 +5,5 @@ using MediatR;
 namespace GeekStore.Application.Products.Commands.DeleteProduct;
 public sealed record DeleteProductCommand : IRequest<Result<Product>>
 {
-    public required int Id { get; init; }
+    public int Id { get; init; }
 }

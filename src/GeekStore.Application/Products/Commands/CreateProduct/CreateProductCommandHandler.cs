@@ -17,11 +17,11 @@ namespace GeekStore.Application.Products.Commands
         {
             var product = new Product 
             {
-                Name = request.Name,
-                Description = request.Description,
-                Picture = request.Picture,
-                Type = request.Type,
-                Brand = request.Brand,
+                Name = request.Name!,
+                Description = request.Description!,
+                Picture = request.Picture!,
+                Type = request.Type!,
+                Brand = request.Brand!,
                 Quantity = request.Quantity,
                 Price = request.Price,
                 Width = request.Width,

@@ -16,17 +16,19 @@ public class CultureMiddleware
 
         var requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
 
-        if (string.IsNullOrWhiteSpace(requestedCulture) || 
+        if (string.IsNullOrWhiteSpace(requestedCulture) ||
             !supportedLanguages.Any(c => c.Name.Equals(requestedCulture)))
         {
-            await _next(context);
+            var defaultCulture = new CultureInfo("en-US");
+            CultureInfo.CurrentCulture = defaultCulture;
+            CultureInfo.CurrentUICulture = defaultCulture;
+        } 
+        else 
+        {
+            var cultureInfo = new CultureInfo(requestedCulture!);
+            CultureInfo.CurrentCulture = cultureInfo;
+            CultureInfo.CurrentUICulture = cultureInfo;
         }
-
-        var cultureInfo = new CultureInfo(requestedCulture!);
-
-        CultureInfo.CurrentCulture = cultureInfo;
-        CultureInfo.CurrentUICulture = cultureInfo;
-
         await _next(context);
     }
 }

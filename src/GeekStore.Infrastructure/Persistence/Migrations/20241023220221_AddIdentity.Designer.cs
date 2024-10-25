@@ -4,6 +4,7 @@ using GeekStore.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
-    partial class GeekStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241023220221_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -127,8 +127,6 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -227,13 +225,13 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5bf58df4-8708-4fd8-ba9f-ba5f6c74c6e5",
+                            Id = "ec41b536-2e1c-448c-a801-8e12a76f3248",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ed854c7c-e69f-482c-989f-83e1e3d3ae70",
+                            Id = "8fa9c612-89b7-4970-abd1-b19abc1ef65c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -343,15 +341,6 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", "identity");
-                });
-
-            modelBuilder.Entity("GeekStore.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("GeekStore.Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

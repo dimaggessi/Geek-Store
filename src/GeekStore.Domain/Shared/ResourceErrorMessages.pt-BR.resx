@@ -234,4 +234,61 @@
   <data name="SHOPPING_CART_NULL" xml:space="preserve">
     <value>O carrinho de compras não pode ser nulo.</value>
   </data>
+  <data name="AUTH_USER_NOT_SIGNED_IN" xml:space="preserve">
+    <value>Usuário não está logado.</value>
+  </data>
+  <data name="AUTH_DEFAULT_ERROR" xml:space="preserve">
+    <value>Erro de autenticação.</value>
+  </data>
+  <data name="AUTH_EMAIL_ALREADY_EXISTS" xml:space="preserve">
+    <value>Email informado já cadastrado.</value>
+  </data>
+  <data name="AUTH_UNEXPECTED_CREATE_USER_ERROR" xml:space="preserve">
+    <value>Ocorreu um erro ao tentar criar o usuário.</value>
+  </data>
+  <data name="AUTH_CREATE_USER_SUCCESS" xml:space="preserve">
+    <value>Usuário cadastrado com successo.</value>
+  </data>
+  <data name="AUTH_EMAIL_CLAIM_NOT_FOUND" xml:space="preserve">
+    <value>O atributo email não foi encontrado.</value>
+  </data>
+  <data name="AUTH_USER_NOT_FOUND" xml:space="preserve">
+    <value>Usuário não foi encontrado.</value>
+  </data>
+  <data name="ADDRESS_CITY" xml:space="preserve">
+    <value>Cidade deve ser informada.</value>
+  </data>
+  <data name="ADDRESS_CITY_MAX" xml:space="preserve">
+    <value>Cidade não deve exceder 50 caracteres.</value>
+  </data>
+  <data name="ADDRESS_COUNTRY" xml:space="preserve">
+    <value>País deve ser informado.</value>
+  </data>
+  <data name="ADDRESS_COUNTRY_MAX" xml:space="preserve">
+    <value>País não deve exceder 50 caracteres.</value>
+  </data>
+  <data name="ADDRESS_NEIGHBORHOOD_MAX" xml:space="preserve">
+    <value>Bairro não deve exceder 50 caracteres.</value>
+  </data>
+  <data name="ADDRESS_POSTAL_CODE" xml:space="preserve">
+    <value>CEP deve ser informado.</value>
+  </data>
+  <data name="ADDRESS_POSTAL_CODE_MAX" xml:space="preserve">
+    <value>CEP não deve exceder 20 caracteres.</value>
+  </data>
+  <data name="ADDRESS_STATE" xml:space="preserve">
+    <value>Estado deve ser informado.</value>
+  </data>
+  <data name="ADDRESS_STATE_MAX" xml:space="preserve">
+    <value>Estado não deve exceder 50 caracteres.</value>
+  </data>
+  <data name="ADDRESS_STREET" xml:space="preserve">
+    <value>Rua deve ser informada.</value>
+  </data>
+  <data name="ADDRESS_STREET_MAX" xml:space="preserve">
+    <value>Rua não deve exceder 100 caracteres.</value>
+  </data>
+  <data name="ADDRESS_ERROR" xml:space="preserve">
+    <value>Problema ao configurar o endereço do usuário.</value>
+  </data>
 </root>

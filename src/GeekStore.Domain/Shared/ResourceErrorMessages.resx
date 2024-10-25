@@ -234,4 +234,61 @@
   <data name="SHOPPING_CART_NULL" xml:space="preserve">
     <value>The given shopping cart cannot be null.</value>
   </data>
+  <data name="AUTH_USER_NOT_SIGNED_IN" xml:space="preserve">
+    <value>User is not signed in.</value>
+  </data>
+  <data name="AUTH_DEFAULT_ERROR" xml:space="preserve">
+    <value>Authentication error.</value>
+  </data>
+  <data name="AUTH_EMAIL_ALREADY_EXISTS" xml:space="preserve">
+    <value>The given email already exists.</value>
+  </data>
+  <data name="AUTH_UNEXPECTED_CREATE_USER_ERROR" xml:space="preserve">
+    <value>An error occurred while attempt to create user.</value>
+  </data>
+  <data name="AUTH_CREATE_USER_SUCCESS" xml:space="preserve">
+    <value>User created with success.</value>
+  </data>
+  <data name="AUTH_EMAIL_CLAIM_NOT_FOUND" xml:space="preserve">
+    <value>Email claim not found.</value>
+  </data>
+  <data name="AUTH_USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="ADDRESS_CITY" xml:space="preserve">
+    <value>City is required.</value>
+  </data>
+  <data name="ADDRESS_CITY_MAX" xml:space="preserve">
+    <value>City cannot exceed 50 characters.</value>
+  </data>
+  <data name="ADDRESS_COUNTRY" xml:space="preserve">
+    <value>Country is required.</value>
+  </data>
+  <data name="ADDRESS_COUNTRY_MAX" xml:space="preserve">
+    <value>Country cannot exceed 50 characters.</value>
+  </data>
+  <data name="ADDRESS_NEIGHBORHOOD_MAX" xml:space="preserve">
+    <value>Neighborhood cannot exceed 100 characters.</value>
+  </data>
+  <data name="ADDRESS_POSTAL_CODE" xml:space="preserve">
+    <value>Postal Code is required.</value>
+  </data>
+  <data name="ADDRESS_POSTAL_CODE_MAX" xml:space="preserve">
+    <value>Postal Code cannot exceed 20 characters.</value>
+  </data>
+  <data name="ADDRESS_STATE" xml:space="preserve">
+    <value>State is required.</value>
+  </data>
+  <data name="ADDRESS_STATE_MAX" xml:space="preserve">
+    <value>State cannot exceed 50 characters.</value>
+  </data>
+  <data name="ADDRESS_STREET" xml:space="preserve">
+    <value>Street is required.</value>
+  </data>
+  <data name="ADDRESS_STREET_MAX" xml:space="preserve">
+    <value>Street cannot exceed 100 characters</value>
+  </data>
+  <data name="ADDRESS_ERROR" xml:space="preserve">
+    <value>Problem while setting user address.</value>
+  </data>
 </root>

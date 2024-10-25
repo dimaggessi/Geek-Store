@@ -2,11 +2,11 @@ namespace GeekStore.Application.Products.Commands.Common
 {
     public record ProductCommandBase
     {
-        public required string Name { get; init; }
-        public required string Description { get; init; }
-        public required string Picture { get; init; }
-        public required string Type { get; init; }
-        public required string Brand { get; init; }
+        public string? Name { get; init; }
+        public string? Description { get; init; }
+        public string? Picture { get; init; }
+        public string? Type { get; init; }
+        public string? Brand { get; init; }
         public int Quantity { get; init; }
         public decimal Price { get; init; }
         public decimal Width { get; init; }

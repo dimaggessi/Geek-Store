@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeekStore.Domain\GeekStore.Domain.csproj" />
+    <ProjectReference Include="..\GeekStore.Infrastructure\GeekStore.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

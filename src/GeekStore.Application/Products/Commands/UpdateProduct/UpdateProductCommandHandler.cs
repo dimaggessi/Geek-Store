@@ -24,11 +24,11 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
                 ResourceErrorMessages.PRODUCT_NOT_FOUND));
         }
 
-        product.Name = request.Name;
-        product.Description = request.Description;
-        product.Picture = request.Picture;
-        product.Type = request.Type;
-        product.Brand = request.Brand;
+        product.Name = request.Name!;
+        product.Description = request.Description!;
+        product.Picture = request.Picture!;
+        product.Type = request.Type!;
+        product.Brand = request.Brand!;
         product.Quantity = request.Quantity;
         product.Price = request.Price;
         product.Width = request.Width;

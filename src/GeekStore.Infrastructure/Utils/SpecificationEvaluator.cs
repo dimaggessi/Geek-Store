@@ -29,6 +29,11 @@ namespace GeekStore.Infrastructure.Persistence.Specifications
                 query = query.OrderByDescending(specification.OrderByDescendingExpression);
             }
 
+            if (specification.IsPaginationEnabled)
+            {
+                query = query.Skip(specification.Skip).Take(specification.Take);
+            }
+
             if (specification.IsSplitQuery)
             {
                 query = query.AsSplitQuery();

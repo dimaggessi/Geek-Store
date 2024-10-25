@@ -61,6 +61,177 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City is required..
+        /// </summary>
+        public static string ADDRESS_CITY {
+            get {
+                return ResourceManager.GetString("ADDRESS_CITY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City cannot exceed 50 characters..
+        /// </summary>
+        public static string ADDRESS_CITY_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_CITY_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country is required..
+        /// </summary>
+        public static string ADDRESS_COUNTRY {
+            get {
+                return ResourceManager.GetString("ADDRESS_COUNTRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country cannot exceed 50 characters..
+        /// </summary>
+        public static string ADDRESS_COUNTRY_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_COUNTRY_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Problem while setting user address..
+        /// </summary>
+        public static string ADDRESS_ERROR {
+            get {
+                return ResourceManager.GetString("ADDRESS_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neighborhood cannot exceed 100 characters..
+        /// </summary>
+        public static string ADDRESS_NEIGHBORHOOD_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_NEIGHBORHOOD_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code is required..
+        /// </summary>
+        public static string ADDRESS_POSTAL_CODE {
+            get {
+                return ResourceManager.GetString("ADDRESS_POSTAL_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code cannot exceed 20 characters..
+        /// </summary>
+        public static string ADDRESS_POSTAL_CODE_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_POSTAL_CODE_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State is required..
+        /// </summary>
+        public static string ADDRESS_STATE {
+            get {
+                return ResourceManager.GetString("ADDRESS_STATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State cannot exceed 50 characters..
+        /// </summary>
+        public static string ADDRESS_STATE_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_STATE_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street is required..
+        /// </summary>
+        public static string ADDRESS_STREET {
+            get {
+                return ResourceManager.GetString("ADDRESS_STREET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street cannot exceed 100 characters.
+        /// </summary>
+        public static string ADDRESS_STREET_MAX {
+            get {
+                return ResourceManager.GetString("ADDRESS_STREET_MAX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User created with success..
+        /// </summary>
+        public static string AUTH_CREATE_USER_SUCCESS {
+            get {
+                return ResourceManager.GetString("AUTH_CREATE_USER_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authentication error..
+        /// </summary>
+        public static string AUTH_DEFAULT_ERROR {
+            get {
+                return ResourceManager.GetString("AUTH_DEFAULT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given email already exists..
+        /// </summary>
+        public static string AUTH_EMAIL_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("AUTH_EMAIL_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email claim not found..
+        /// </summary>
+        public static string AUTH_EMAIL_CLAIM_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("AUTH_EMAIL_CLAIM_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while attempt to create user..
+        /// </summary>
+        public static string AUTH_UNEXPECTED_CREATE_USER_ERROR {
+            get {
+                return ResourceManager.GetString("AUTH_UNEXPECTED_CREATE_USER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found..
+        /// </summary>
+        public static string AUTH_USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("AUTH_USER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is not signed in..
+        /// </summary>
+        public static string AUTH_USER_NOT_SIGNED_IN {
+            get {
+                return ResourceManager.GetString("AUTH_USER_NOT_SIGNED_IN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error..
         /// </summary>
         public static string DEFAULT_ERROR {
