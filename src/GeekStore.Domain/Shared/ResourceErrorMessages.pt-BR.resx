@@ -291,4 +291,73 @@
   <data name="ADDRESS_ERROR" xml:space="preserve">
     <value>Problema ao configurar o endereço do usuário.</value>
   </data>
+  <data name="CART_NOT_FOUND" xml:space="preserve">
+    <value>Carrinho não encontrado.</value>
+  </data>
+  <data name="EMPTY_POSTAL_CODE" xml:space="preserve">
+    <value>O CEP deve ser informado.</value>
+  </data>
+  <data name="VALID_POSTAL_CODE" xml:space="preserve">
+    <value>O CEP deve conter exatamente 8 dígitos numéricos, sem hífen.</value>
+  </data>
+  <data name="EMPTY_DELIVERY_METHOD_ID" xml:space="preserve">
+    <value>O campo Id do método de entrega  deve ser informado.</value>
+  </data>
+  <data name="EMPTY_PRODUCT_LIST" xml:space="preserve">
+    <value>A lista de produtos não pode estar vazia, precisa conter ao menos um produto.</value>
+  </data>
+  <data name="ERROR_DELIVERY_METHODS_NOT_FOUND" xml:space="preserve">
+    <value>Ocorreu um erro na requisição para obter os métodos de entrega.</value>
+  </data>
+  <data name="ERROR_PICTURE_URL" xml:space="preserve">
+    <value>A imagem deve conter uma URL válida.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_INTENT_ID" xml:space="preserve">
+    <value>Nenhuma ordem de pagamento foi encontrada para esse pedido.</value>
+  </data>
+  <data name="ERROR_DELIVERY_METHOD_SELECT" xml:space="preserve">
+    <value>Nenhum método de entrega foi selecionado.</value>
+  </data>
+  <data name="ERROR_GET_PRODUCT" xml:space="preserve">
+    <value>Não foi possível recuperar o item de produto do banco de dados.</value>
+  </data>
+  <data name="ERROR_ORDER_PERSIST" xml:space="preserve">
+    <value>Um erro inesperado aconteceu ao tentar persistir o pedido no banco de dados.</value>
+  </data>
+  <data name="ADDRESS_NULL" xml:space="preserve">
+    <value>O endereço deve ser informado.</value>
+  </data>
+  <data name="EMPTY_ADDRESS_NAME" xml:space="preserve">
+    <value>O nome do endereço deve ser informado.</value>
+  </data>
+  <data name="EMPTY_CUSTOMER_EMAIL" xml:space="preserve">
+    <value>O email do cliente deve ser informado.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_CARD_BRAND" xml:space="preserve">
+    <value>A bandeira do cartão é obrigatória.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_CARD_LAST4" xml:space="preserve">
+    <value>Os últimos quatro digitos do cartão são obrigatórios.</value>
+  </data>
+  <data name="ERROR_EMAIL_INVALID" xml:space="preserve">
+    <value>O email deve estar em um formato válido "email@provedor".</value>
+  </data>
+  <data name="ERROR_INVALID_ID" xml:space="preserve">
+    <value>A propriedade Id deve ser maior que zero.</value>
+  </data>
+  <data name="INVALID_CARD_BRAND" xml:space="preserve">
+    <value>A bandeira do cartão deve ter entre 2 e 50 caracteres.</value>
+  </data>
+  <data name="PAYMENT_SUMMARY_NOT_NULL" xml:space="preserve">
+    <value>O sumário do pagamento é obrigatório.</value>
+  </data>
+  <data name="INVALID_CARD_EXPMONTH" xml:space="preserve">
+    <value>O mês de expiração do cartão deve estar entre 1 e 12.</value>
+  </data>
+  <data name="INVALID_CARD_YEAR" xml:space="preserve">
+    <value>O ano de expiração do cartão deve ser o ano atual ou maior.</value>
+  </data>
+  <data name="ERROR_EMAIL_NOT_FOUND" xml:space="preserve">
+    <value>O email do usuário não foi encontrado. Você deve estar autenticado para realizar essa operação.</value>
+  </data>
 </root>

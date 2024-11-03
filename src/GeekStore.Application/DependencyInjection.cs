@@ -1,6 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using GeekStore.Application.Behaviors;
+using GeekStore.Application.Orders.Commands.CreateOrder;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,10 +14,10 @@ namespace GeekStore.Application
             services.AddMediatR(config => 
                 config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
+            services.AddValidatorsFromAssembly(typeof(CreateOrderCommandValidator).Assembly);
         }
     }
 }

@@ -4,6 +4,7 @@ using GeekStore.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
-    partial class GeekStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028225058_OrderAggregate")]
+    partial class OrderAggregate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,13 +287,13 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "90e8f38d-dbc2-4fde-94f4-46a36e1a9482",
+                            Id = "8e80b2ff-c540-4aa2-9301-9213342df3a5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "16a1dc20-56b4-4cf9-9fc0-dcc638ce9027",
+                            Id = "c06727e2-b65f-4187-9b30-fa444b4689e6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -428,9 +431,6 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
 
                             b1.Property<decimal>("Discount")
                                 .HasColumnType("decimal(18,2)");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()

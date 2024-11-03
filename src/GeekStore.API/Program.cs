@@ -8,14 +8,14 @@ using GeekStore.Domain.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddGlobalErrorHandling();
-builder.Services.AddControllers();
 builder.Services.AddIdentity();
+builder.Services.AddCorsWithOptions();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -26,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAnyOrigin");
 app.UseMiddleware<CultureMiddleware>();
 app.UseGlobalErrorHandling();
 app.MapControllers();

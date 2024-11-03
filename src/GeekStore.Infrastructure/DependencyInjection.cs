@@ -1,6 +1,7 @@
 using GeekStore.Domain.Interfaces;
 using GeekStore.Infrastructure.Persistence;
 using GeekStore.Infrastructure.Persistence.Repositories;
+using GeekStore.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace GeekStore.Infrastructure
             AddDatabaseContext(services, configuration);
             AddRedis(services, configuration);
             AddRepositories(services);
+            AddInfraServices(services);
         }
 
         private static void AddDatabaseContext(IServiceCollection services, IConfiguration configuration)
@@ -41,6 +43,12 @@ namespace GeekStore.Infrastructure
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddSingleton<IShoppingCartRepository, ShoppingCartRepository>();
+        }
+
+        private static void AddInfraServices(IServiceCollection services)
+        {
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IDeliveryService, DeliveryService>();
         }
     }
 }

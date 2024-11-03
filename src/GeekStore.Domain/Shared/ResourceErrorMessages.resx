@@ -291,4 +291,73 @@
   <data name="ADDRESS_ERROR" xml:space="preserve">
     <value>Problem while setting user address.</value>
   </data>
+  <data name="CART_NOT_FOUND" xml:space="preserve">
+    <value>Cart not found.</value>
+  </data>
+  <data name="EMPTY_POSTAL_CODE" xml:space="preserve">
+    <value>Postal Code is required.</value>
+  </data>
+  <data name="VALID_POSTAL_CODE" xml:space="preserve">
+    <value>Postal Code must be valid with exactly 8 numeric digits.</value>
+  </data>
+  <data name="EMPTY_DELIVERY_METHOD_ID" xml:space="preserve">
+    <value>Delivery Method ID is required.</value>
+  </data>
+  <data name="EMPTY_PRODUCT_LIST" xml:space="preserve">
+    <value>The list of products must contain at least one product, cannot be empty.</value>
+  </data>
+  <data name="ERROR_DELIVERY_METHODS_NOT_FOUND" xml:space="preserve">
+    <value>An error occurred while trying to get delivery methods.</value>
+  </data>
+  <data name="ERROR_PICTURE_URL" xml:space="preserve">
+    <value>Picture must be a valid URI.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_INTENT_ID" xml:space="preserve">
+    <value>No payment intent was found for this order.</value>
+  </data>
+  <data name="ERROR_DELIVERY_METHOD_SELECT" xml:space="preserve">
+    <value>No delivery method selected.</value>
+  </data>
+  <data name="ERROR_GET_PRODUCT" xml:space="preserve">
+    <value>Unable to get product item from the database.</value>
+  </data>
+  <data name="ERROR_ORDER_PERSIST" xml:space="preserve">
+    <value>An unexpected error occurred while trying to persist order in database.</value>
+  </data>
+  <data name="ADDRESS_NULL" xml:space="preserve">
+    <value>Address is required and cannot be null.</value>
+  </data>
+  <data name="EMPTY_ADDRESS_NAME" xml:space="preserve">
+    <value>Address name is required.</value>
+  </data>
+  <data name="EMPTY_CUSTOMER_EMAIL" xml:space="preserve">
+    <value>Customer email is required.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_CARD_BRAND" xml:space="preserve">
+    <value>Card brand is required.</value>
+  </data>
+  <data name="EMPTY_PAYMENT_CARD_LAST4" xml:space="preserve">
+    <value>Card last four digits are required.</value>
+  </data>
+  <data name="ERROR_EMAIL_INVALID" xml:space="preserve">
+    <value>Email must be in a valid format email@provider</value>
+  </data>
+  <data name="ERROR_INVALID_ID" xml:space="preserve">
+    <value>Property Id must be greater than zero.</value>
+  </data>
+  <data name="INVALID_CARD_BRAND" xml:space="preserve">
+    <value>Card brand must have between 2 and 50 caracteres.</value>
+  </data>
+  <data name="PAYMENT_SUMMARY_NOT_NULL" xml:space="preserve">
+    <value>Payment Summary is required and cannot be null.</value>
+  </data>
+  <data name="INVALID_CARD_EXPMONTH" xml:space="preserve">
+    <value>The card's month expiration date must be between 1 and 12.</value>
+  </data>
+  <data name="INVALID_CARD_YEAR" xml:space="preserve">
+    <value>The card's expiration year must be the current year or greater.</value>
+  </data>
+  <data name="ERROR_EMAIL_NOT_FOUND" xml:space="preserve">
+    <value>User's email was not found. You must be logged in.</value>
+  </data>
 </root>

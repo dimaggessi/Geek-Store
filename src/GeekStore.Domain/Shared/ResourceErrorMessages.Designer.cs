@@ -115,6 +115,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address is required and cannot be null..
+        /// </summary>
+        public static string ADDRESS_NULL {
+            get {
+                return ResourceManager.GetString("ADDRESS_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postal Code is required..
         /// </summary>
         public static string ADDRESS_POSTAL_CODE {
@@ -232,6 +241,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cart not found..
+        /// </summary>
+        public static string CART_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("CART_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error..
         /// </summary>
         public static string DEFAULT_ERROR {
@@ -246,6 +264,69 @@ namespace GeekStore.Domain.Shared {
         public static string DEFAULT_NOT_FOUND {
             get {
                 return ResourceManager.GetString("DEFAULT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address name is required..
+        /// </summary>
+        public static string EMPTY_ADDRESS_NAME {
+            get {
+                return ResourceManager.GetString("EMPTY_ADDRESS_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer email is required..
+        /// </summary>
+        public static string EMPTY_CUSTOMER_EMAIL {
+            get {
+                return ResourceManager.GetString("EMPTY_CUSTOMER_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Method ID is required..
+        /// </summary>
+        public static string EMPTY_DELIVERY_METHOD_ID {
+            get {
+                return ResourceManager.GetString("EMPTY_DELIVERY_METHOD_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card brand is required..
+        /// </summary>
+        public static string EMPTY_PAYMENT_CARD_BRAND {
+            get {
+                return ResourceManager.GetString("EMPTY_PAYMENT_CARD_BRAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card last four digits are required..
+        /// </summary>
+        public static string EMPTY_PAYMENT_CARD_LAST4 {
+            get {
+                return ResourceManager.GetString("EMPTY_PAYMENT_CARD_LAST4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No payment intent was found for this order..
+        /// </summary>
+        public static string EMPTY_PAYMENT_INTENT_ID {
+            get {
+                return ResourceManager.GetString("EMPTY_PAYMENT_INTENT_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code is required..
+        /// </summary>
+        public static string EMPTY_POSTAL_CODE {
+            get {
+                return ResourceManager.GetString("EMPTY_POSTAL_CODE", resourceCulture);
             }
         }
         
@@ -291,6 +372,15 @@ namespace GeekStore.Domain.Shared {
         public static string EMPTY_PRODUCT_LENGTH {
             get {
                 return ResourceManager.GetString("EMPTY_PRODUCT_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The list of products must contain at least one product, cannot be empty..
+        /// </summary>
+        public static string EMPTY_PRODUCT_LIST {
+            get {
+                return ResourceManager.GetString("EMPTY_PRODUCT_LIST", resourceCulture);
             }
         }
         
@@ -376,6 +466,78 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No delivery method selected..
+        /// </summary>
+        public static string ERROR_DELIVERY_METHOD_SELECT {
+            get {
+                return ResourceManager.GetString("ERROR_DELIVERY_METHOD_SELECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to get delivery methods..
+        /// </summary>
+        public static string ERROR_DELIVERY_METHODS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERROR_DELIVERY_METHODS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email must be in a valid format email@provider.
+        /// </summary>
+        public static string ERROR_EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("ERROR_EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User&apos;s email was not found. You must be logged in..
+        /// </summary>
+        public static string ERROR_EMAIL_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERROR_EMAIL_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get product item from the database..
+        /// </summary>
+        public static string ERROR_GET_PRODUCT {
+            get {
+                return ResourceManager.GetString("ERROR_GET_PRODUCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property Id must be greater than zero..
+        /// </summary>
+        public static string ERROR_INVALID_ID {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred while trying to persist order in database..
+        /// </summary>
+        public static string ERROR_ORDER_PERSIST {
+            get {
+                return ResourceManager.GetString("ERROR_ORDER_PERSIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picture must be a valid URI..
+        /// </summary>
+        public static string ERROR_PICTURE_URL {
+            get {
+                return ResourceManager.GetString("ERROR_PICTURE_URL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to remove product..
         /// </summary>
         public static string ERROR_REMOVE_PRODUCT {
@@ -408,6 +570,33 @@ namespace GeekStore.Domain.Shared {
         public static string INTERVAL_PAGE_SIZE {
             get {
                 return ResourceManager.GetString("INTERVAL_PAGE_SIZE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card brand must have between 2 and 50 caracteres..
+        /// </summary>
+        public static string INVALID_CARD_BRAND {
+            get {
+                return ResourceManager.GetString("INVALID_CARD_BRAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The card&apos;s month expiration date must be between 1 and 12..
+        /// </summary>
+        public static string INVALID_CARD_EXPMONTH {
+            get {
+                return ResourceManager.GetString("INVALID_CARD_EXPMONTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The card&apos;s expiration year must be the current year or greater..
+        /// </summary>
+        public static string INVALID_CARD_YEAR {
+            get {
+                return ResourceManager.GetString("INVALID_CARD_YEAR", resourceCulture);
             }
         }
         
@@ -511,6 +700,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Summary is required and cannot be null..
+        /// </summary>
+        public static string PAYMENT_SUMMARY_NOT_NULL {
+            get {
+                return ResourceManager.GetString("PAYMENT_SUMMARY_NOT_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Id and url mismatch..
         /// </summary>
         public static string PRODUCT_ID_AND_URL_MISMATCH {
@@ -579,6 +777,15 @@ namespace GeekStore.Domain.Shared {
         public static string UNEXPECTED_ERROR {
             get {
                 return ResourceManager.GetString("UNEXPECTED_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code must be valid with exactly 8 numeric digits..
+        /// </summary>
+        public static string VALID_POSTAL_CODE {
+            get {
+                return ResourceManager.GetString("VALID_POSTAL_CODE", resourceCulture);
             }
         }
     }
