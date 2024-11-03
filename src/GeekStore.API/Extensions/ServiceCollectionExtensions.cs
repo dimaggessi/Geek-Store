@@ -65,5 +65,21 @@ namespace GeekStore.API.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddCorsWithOptions(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
+            return services;
+        }
     }
 }

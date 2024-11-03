@@ -25,7 +25,7 @@ public class CartItemValidator : AbstractValidator<CartItem>
         RuleFor(x => x.Picture)
             .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_PICTURE)
             .Must(p => Uri.IsWellFormedUriString(p, UriKind.RelativeOrAbsolute))
-            .WithMessage("Picture must be a valid URI.");
+            .WithMessage(ResourceErrorMessages.ERROR_PICTURE_URL);
 
         RuleFor(x => x.Brand)
             .NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_PRODUCT_BRAND)

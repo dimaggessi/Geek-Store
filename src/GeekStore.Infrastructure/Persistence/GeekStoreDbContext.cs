@@ -1,4 +1,5 @@
 using GeekStore.Domain.Entities;
+using GeekStore.Domain.Entities.OrderAggregate;
 using GeekStore.Infrastructure.Persistence.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,8 @@ public class GeekStoreDbContext : IdentityDbContext<ApplicationUser>
     }
     public DbSet<Product> Products{ get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

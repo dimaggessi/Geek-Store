@@ -2,17 +2,8 @@
 using GeekStore.Domain.Interfaces;
 using GeekStore.Domain.Shared;
 using MediatR;
-using System.Text.Json.Serialization;
 
 namespace GeekStore.Application.Cart.UpdateCart;
-
-public sealed record UpdateCartCommand : IRequest<Result<ShoppingCart>>
-{
-    public required string Id { get; init; }
-
-    [JsonPropertyName("Items")]
-    public List<CartItem> Items { get; init; } = [];
-}
 
 public class UpdateCartCommandHandler(IShoppingCartRepository cartRepository)
         : IRequestHandler<UpdateCartCommand, Result<ShoppingCart>>
@@ -22,8 +13,10 @@ public class UpdateCartCommandHandler(IShoppingCartRepository cartRepository)
         {
             var cart = new ShoppingCart
             {
-                Id = request.Id,
-                Items = request.Items,
+                Id = request.Id!,
+                Items = request.Items!,
+                PostalCode = request.PostalCode,
+                DeliveryMethodId = request.DeliveryMethodId
             };
 
             var updated = await cartRepository.SetCartAsync(cart);

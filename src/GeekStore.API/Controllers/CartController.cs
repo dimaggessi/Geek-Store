@@ -33,7 +33,6 @@ public class CartController(ISender mediator) : ApiController
     public async Task<IActionResult> UpdateCart(
         [FromBody] UpdateCartCommand cart)
     {
-
         var result = await mediator.Send(cart);
 
         return result.Map<IActionResult>(
