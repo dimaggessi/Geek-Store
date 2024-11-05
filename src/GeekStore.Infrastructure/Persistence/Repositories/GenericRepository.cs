@@ -23,7 +23,7 @@ namespace GeekStore.Infrastructure.Persistence.Repositories
             return await _context.Set<T>().ToListAsync(cancellationToken);
         }
 
-        public async Task<T?> GetEntityWithSpecification(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        public async Task<T?> GetEntityWithSpecificationAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
         {
             return await ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
         }

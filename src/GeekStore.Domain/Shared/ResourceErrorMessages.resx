@@ -120,6 +120,9 @@
   <data name="EMPTY_PRODUCT_NAME" xml:space="preserve">
     <value>Product name is required.</value>
   </data>
+  <data name="EMPTY_PRODUCT_NAME1" xml:space="preserve">
+    <value>Product name is required.</value>
+  </data>
   <data name="EMPTY_PRODUCT_BRAND" xml:space="preserve">
     <value>Product brand is required.</value>
   </data>
@@ -359,5 +362,11 @@
   </data>
   <data name="ERROR_EMAIL_NOT_FOUND" xml:space="preserve">
     <value>User's email was not found. You must be logged in.</value>
+  </data>
+  <data name="EMPTY_ORDER_ID" xml:space="preserve">
+    <value>Order Id is required.</value>
+  </data>
+  <data name="ERROR_ORDER_NOT_FOUND" xml:space="preserve">
+    <value>No orders were found.</value>
   </data>
 </root>

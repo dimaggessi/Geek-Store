@@ -120,6 +120,9 @@
   <data name="EMPTY_PRODUCT_NAME" xml:space="preserve">
     <value>É necessário informar o nome do produto.</value>
   </data>
+  <data name="EMPTY_PRODUCT_NAME1" xml:space="preserve">
+    <value>É necessário informar o nome do produto.</value>
+  </data>
   <data name="EMPTY_PRODUCT_BRAND" xml:space="preserve">
     <value>É necessário informar a marca do produto.</value>
   </data>
@@ -359,5 +362,11 @@
   </data>
   <data name="ERROR_EMAIL_NOT_FOUND" xml:space="preserve">
     <value>O email do usuário não foi encontrado. Você deve estar autenticado para realizar essa operação.</value>
+  </data>
+  <data name="EMPTY_ORDER_ID" xml:space="preserve">
+    <value>O Id do pedido deve ser informado.</value>
+  </data>
+  <data name="ERROR_ORDER_NOT_FOUND" xml:space="preserve">
+    <value>Nenhum pedido foi encontrado.</value>
   </data>
 </root>

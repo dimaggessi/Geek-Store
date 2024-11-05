@@ -17,7 +17,6 @@ namespace GeekStore.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddValidatorsFromAssembly(typeof(CreateOrderCommandValidator).Assembly);
         }
     }
 }

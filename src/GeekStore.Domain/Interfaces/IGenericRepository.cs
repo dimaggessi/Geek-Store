@@ -6,7 +6,7 @@ namespace GeekStore.Domain.Interfaces
     {
         Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default);
-        Task<T?> GetEntityWithSpecification(ISpecification<T> specification,
+        Task<T?> GetEntityWithSpecificationAsync(ISpecification<T> specification,
             CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> GetAllWithSpecificationAsync(ISpecification<T> specification,
             CancellationToken cancellationToken = default);

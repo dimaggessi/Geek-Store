@@ -295,6 +295,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order Id is required..
+        /// </summary>
+        public static string EMPTY_ORDER_ID {
+            get {
+                return ResourceManager.GetString("EMPTY_ORDER_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Card brand is required..
         /// </summary>
         public static string EMPTY_PAYMENT_CARD_BRAND {
@@ -390,6 +399,15 @@ namespace GeekStore.Domain.Shared {
         public static string EMPTY_PRODUCT_NAME {
             get {
                 return ResourceManager.GetString("EMPTY_PRODUCT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product name is required..
+        /// </summary>
+        public static string EMPTY_PRODUCT_NAME1 {
+            get {
+                return ResourceManager.GetString("EMPTY_PRODUCT_NAME1", resourceCulture);
             }
         }
         
@@ -516,6 +534,15 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_INVALID_ID {
             get {
                 return ResourceManager.GetString("ERROR_INVALID_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No orders were found..
+        /// </summary>
+        public static string ERROR_ORDER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERROR_ORDER_NOT_FOUND", resourceCulture);
             }
         }
         

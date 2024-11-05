@@ -1,5 +1,8 @@
 ﻿using GeekStore.API.DTOs;
+using GeekStore.API.Extensions;
 using GeekStore.Application.Orders.Commands.CreateOrder;
+using GeekStore.Application.Orders.Queries.GetAllOrdersByUserEmail;
+using GeekStore.Application.Orders.Queries.GetOrderById;
 using GeekStore.Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +16,60 @@ public class OrdersController : ApiController
     public OrdersController(ISender mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllOrdersForUser()
+    {
+        var email = User.FindFirstValue(ClaimTypes.Email);
+
+        var request = new GetAllOrdersQuery
+        {
+            CustomerEmail = email
+        };
+
+        var result = await _mediator.Send(request);
+
+        return result.Map<IActionResult>(
+            onSuccess: orders => Ok(orders.Select(order => order.ToDto()).ToList()),
+            onFailure: error =>
+            {
+                var errorResponse = new
+                {
+                    Error = error,
+                    ValidationErrors = result.ValidationErrors
+                };
+
+                return BadRequest(errorResponse);
+            });
+    }
+
+    [HttpGet("{orderId:int}")]
+    public async Task<IActionResult> GetOrderById(int orderId)
+    {
+        var email = User.FindFirstValue(ClaimTypes.Email);
+
+        var request = new GetOrderByIdQuery
+        {
+            CustomerEmail = email,
+            OrderId = orderId
+        };
+        
+        var result = await _mediator.Send(request);
+
+        return result.Map<IActionResult>(
+            onSuccess: order => Ok(order.ToDto()),
+            onFailure: error =>
+            {
+                var errorResponse = new
+                {
+                    Error = error,
+                    ValidationErrors = result.ValidationErrors
+                };
+
+                return BadRequest(errorResponse);
+            }
+        );
     }
 
     [HttpPost]
@@ -46,6 +103,7 @@ public class OrdersController : ApiController
                 };
 
                 return BadRequest(errorResponse);
-            });
+            }
+        );
     }
 }
