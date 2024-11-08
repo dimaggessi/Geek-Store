@@ -1,6 +1,17 @@
 services:
-  mssql:
-    container_name: sql-server
+  nginx-angular-app:
+    image: nginx:alpine
+    container_name: nginx-angular-app
+    build:
+      context: .
+      dockerfile: src/GeekStore.Client/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+    - ./src/GeekStore.Client/dist/geek-store.client:/usr/share/nginx/html
+  mssql-database:
+    container_name: sql-server-database
     image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-20.04
     restart: always
     environment:
@@ -10,8 +21,8 @@ services:
       - 1433:1433
     volumes:
       - sql-data:/var/opt/mssql
-  redis:
-    container_name: redis
+  redis-database:
+    container_name: redis-database
     image: redis:latest
     ports:
       - "6379:6379"
