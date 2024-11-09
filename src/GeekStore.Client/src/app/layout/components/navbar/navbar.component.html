@@ -1,0 +1,86 @@
+<section>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+        <div class="container d-flex flex-nowrap">
+            <div class="logo d-flex">
+                <a href="" class="navbar-brand">
+                    <img src="images/geek-store-logo.png" alt="Logo Geek Store">
+                </a>
+                <h2 class="text-primary mt-3 me-4">GeekStore</h2>
+            </div>  
+            <div class="navbar-collapse collapse d-none d-lg-block">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-3">
+                        <a href="" class="nav-link bar-hover">Início</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a href="" class="nav-link bar-hover">Loja</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a href="" class="nav-link bar-hover">Categorias</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a href="" class="nav-link bar-hover">Marcas</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search form-group px-4 left-inner-addon d-none d-md-block w-75">
+                <span class="fa-stack">
+                    <a href="#">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
+                    </a>
+                </span>
+                <input type="text" class="form-control form-control-sm pt-2" placeholder="Buscar..">
+            </div>
+            <div class="dark-theme ms-auto">
+                <input type="checkbox" class="checkbox" id="checkbox">
+                <label for="checkbox" class="checkbox-label">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <span class="ball"></span>
+                </label>
+            </div>
+            <div class="shopping-cart px-2">
+                <span class="fa-stack">
+                    <a href="#">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-cart-shopping fa-stack-1x text-white"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="account-login">
+                <span class="fa-stack">
+                    <a href="#">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fa-solid fa-regular fa-user fa-stack-1x text-white"></i>
+                    </a>
+                </span>
+            </div>
+            <button 
+            class="navbar-toggler ms-2"
+            type="button"
+            (click)="isCollapsed = !isCollapsed"
+            aria-controls="navbarNavDropdown"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div [ngClass]="{'slide-menu': true, 'show': isCollapsed}" class="bg-primary text-center text-light d-lg-none mt-6 z-0">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item me-3">
+                <a href="" class="nav-link second-nav">Início</a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="" class="nav-link second-nav">Loja</a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="" class="nav-link second-nav">Categorias</a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="" class="nav-link second-nav">Marcas</a>
+            </li>
+        </ul>
+    </div>
+</section>

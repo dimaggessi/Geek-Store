@@ -1,0 +1,90 @@
+@import "../../../../styles.scss";
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon span {
+    position: absolute;
+    padding: 3px 15px;
+}
+.left-inner-addon input.form-control {
+    padding-left: 45px;
+}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+    display: none !important;
+}
+
+.checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.fa-moon {color: #fff;}
+.fa-sun {color: #f1c40f;}
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+}
+
+#checkbox {display: none;}
+
+.navbar {
+    transition: all 0.5s ease-in-out;
+}
+
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.slide-menu {
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-out;
+}
+
+.slide-menu.show {
+    height: 180px;
+}
+
+.bar-hover {
+    position: relative;
+}
+
+.bar-hover::after {
+    content: '';
+    opacity: 0;
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: $secondary;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.bar-hover:hover::after {
+    opacity: 1;
+}
+
+.second-nav:hover {
+    color: $secondary;
+}
