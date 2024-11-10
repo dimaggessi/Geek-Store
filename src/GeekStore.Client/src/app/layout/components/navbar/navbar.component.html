@@ -1,5 +1,5 @@
 <section>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+    <nav class="navbar navbar-expand-lg fixed-top position-relative z-3 navbar-light">
         <div class="container d-flex flex-nowrap">
             <div class="logo d-flex">
                 <a href="" class="navbar-brand">
@@ -67,7 +67,7 @@
             </button>
         </div>
     </nav>
-    <div [ngClass]="{'slide-menu': true, 'show': isCollapsed}" class="bg-primary text-center text-light d-lg-none mt-6 z-0">
+    <div [ngClass]="{'slide-menu': true, 'show': isCollapsed}" class="bg-primary text-center text-light d-lg-none z-0">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item me-3">
                 <a href="" class="nav-link second-nav">Início</a>
