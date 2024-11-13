@@ -5,6 +5,7 @@ namespace GeekStore.Domain.Interfaces
     public interface IValidationResult
     {
         public static readonly Error ValidationError = new(
-            "ValidationError", "A validation problem occurred.");
+            ResourceErrorMessages.VALIDATION_ERROR_CODE, 
+            ResourceErrorMessages.VALIDATION_ERROR_MESSAGE);
     }
 }

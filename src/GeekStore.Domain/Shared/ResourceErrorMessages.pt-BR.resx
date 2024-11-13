@@ -369,4 +369,46 @@
   <data name="ERROR_ORDER_NOT_FOUND" xml:space="preserve">
     <value>Nenhum pedido foi encontrado.</value>
   </data>
+  <data name="VALIDATION_ERROR_CODE" xml:space="preserve">
+    <value>Erro de validação.</value>
+  </data>
+  <data name="VALIDATION_ERROR_MESSAGE" xml:space="preserve">
+    <value>Um problema de validação ocorreu.</value>
+  </data>
+  <data name="EMPTY_USER_FIRST_NAME" xml:space="preserve">
+    <value>O nome é obrigatório.</value>
+  </data>
+  <data name="ERROR_USER_FIRST_NAME_LENGTH" xml:space="preserve">
+    <value>O nome deve conter de 2 a 50 caracteres.</value>
+  </data>
+  <data name="EMPTY_USER_LAST_NAME" xml:space="preserve">
+    <value>O sobrenome é obrigatório.</value>
+  </data>
+  <data name="ERROR_USER_LAST_NAME_LENGTH" xml:space="preserve">
+    <value>O sobrenome deve conter de 2 a 50 caracteres.</value>
+  </data>
+  <data name="EMPTY_USER_EMAIL" xml:space="preserve">
+    <value>O email é obrigatório.</value>
+  </data>
+  <data name="ERROR_INVALID_EMAIL" xml:space="preserve">
+    <value>O email deve ter um formato válido.</value>
+  </data>
+  <data name="EMPTY_USER_PASSWORD" xml:space="preserve">
+    <value>A senha é obrigatória.</value>
+  </data>
+  <data name="ERROR_INVALID_PASSWORD_LENGTH" xml:space="preserve">
+    <value>A senha deve conter no mínimo 6 caracteres.</value>
+  </data>
+  <data name="ERROR_INVALID_PASSWORD_UPPERCASE" xml:space="preserve">
+    <value>A senha deve ter pelo menos uma letra maiúscula.</value>
+  </data>
+  <data name="ERROR_INVALID_PASSWORD_LOWERCASE" xml:space="preserve">
+    <value>A senha deve ter pelo menos uma letra minúscula."</value>
+  </data>
+  <data name="ERROR_INVALID_PASSWORD_NUMBER" xml:space="preserve">
+    <value>A senha deve ter pelo menos um número.</value>
+  </data>
+  <data name="ERROR_INVALID_PASSWORD_SPECIAL" xml:space="preserve">
+    <value>A senha deve conter pelo menos um caractere especial: ' * $ &amp; ( ) # @.</value>
+  </data>
 </root>

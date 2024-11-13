@@ -1,7 +1,7 @@
 ﻿using GeekStore.Domain.Interfaces;
 
 namespace GeekStore.Domain.Shared;
-public class ValidationResult : Result, IValidationResult
+public class ValidationResult : Result
 {
     private ValidationResult(Error[] errors)
         : base(IValidationResult.ValidationError, errors) { }

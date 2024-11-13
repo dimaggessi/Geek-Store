@@ -20,7 +20,7 @@ public class AuthController(ISender _mediator) : ApiController
 
         if (result.IsSuccess)
         {
-            return Ok(ResourceErrorMessages.AUTH_CREATE_USER_SUCCESS);
+            return Ok();
         }
 
         var failureResponse = new

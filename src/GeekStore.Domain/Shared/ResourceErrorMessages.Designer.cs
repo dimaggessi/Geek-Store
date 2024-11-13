@@ -475,6 +475,42 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email is required..
+        /// </summary>
+        public static string EMPTY_USER_EMAIL {
+            get {
+                return ResourceManager.GetString("EMPTY_USER_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The first name is required..
+        /// </summary>
+        public static string EMPTY_USER_FIRST_NAME {
+            get {
+                return ResourceManager.GetString("EMPTY_USER_FIRST_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The last name is required..
+        /// </summary>
+        public static string EMPTY_USER_LAST_NAME {
+            get {
+                return ResourceManager.GetString("EMPTY_USER_LAST_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is required..
+        /// </summary>
+        public static string EMPTY_USER_PASSWORD {
+            get {
+                return ResourceManager.GetString("EMPTY_USER_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while creating the product!.
         /// </summary>
         public static string ERROR_CREATE_PRODUCT {
@@ -529,11 +565,65 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email must have a valid format..
+        /// </summary>
+        public static string ERROR_INVALID_EMAIL {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property Id must be greater than zero..
         /// </summary>
         public static string ERROR_INVALID_ID {
             get {
                 return ResourceManager.GetString("ERROR_INVALID_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must contain at least 6 characters..
+        /// </summary>
+        public static string ERROR_INVALID_PASSWORD_LENGTH {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_PASSWORD_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must contain at least one lowercase letter..
+        /// </summary>
+        public static string ERROR_INVALID_PASSWORD_LOWERCASE {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_PASSWORD_LOWERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must contain at least one number..
+        /// </summary>
+        public static string ERROR_INVALID_PASSWORD_NUMBER {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_PASSWORD_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must contain at least one special character:  &apos; * $ &amp; ( ) # @..
+        /// </summary>
+        public static string ERROR_INVALID_PASSWORD_SPECIAL {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_PASSWORD_SPECIAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must contain at least one uppercase letter..
+        /// </summary>
+        public static string ERROR_INVALID_PASSWORD_UPPERCASE {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_PASSWORD_UPPERCASE", resourceCulture);
             }
         }
         
@@ -579,6 +669,24 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_UPDATE_PRODUCT {
             get {
                 return ResourceManager.GetString("ERROR_UPDATE_PRODUCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The first name must be between 2 and 50 characters..
+        /// </summary>
+        public static string ERROR_USER_FIRST_NAME_LENGTH {
+            get {
+                return ResourceManager.GetString("ERROR_USER_FIRST_NAME_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The last name must be between 2 and 50 characters..
+        /// </summary>
+        public static string ERROR_USER_LAST_NAME_LENGTH {
+            get {
+                return ResourceManager.GetString("ERROR_USER_LAST_NAME_LENGTH", resourceCulture);
             }
         }
         
@@ -813,6 +921,24 @@ namespace GeekStore.Domain.Shared {
         public static string VALID_POSTAL_CODE {
             get {
                 return ResourceManager.GetString("VALID_POSTAL_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation Error.
+        /// </summary>
+        public static string VALIDATION_ERROR_CODE {
+            get {
+                return ResourceManager.GetString("VALIDATION_ERROR_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A validation problem occurred..
+        /// </summary>
+        public static string VALIDATION_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("VALIDATION_ERROR_MESSAGE", resourceCulture);
             }
         }
     }
