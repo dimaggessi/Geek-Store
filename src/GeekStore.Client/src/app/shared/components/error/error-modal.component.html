@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title">Ocorreu um erro ao processar a requisição.</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+<div class="modal-body">
+  <ul>
+    <li *ngIf="error" class="text-danger">
+      {{ error.message }}
+    </li>
+  </ul>
+  <div *ngIf="validationErrors!.length > 0">
+    <ul>
+      <li *ngFor="let error of validationErrors" class="text-muted">
+        <small>{{ error.message }}</small>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="activeModal.close()"
+  >
+    Fechar
+  </button>
+</div>
