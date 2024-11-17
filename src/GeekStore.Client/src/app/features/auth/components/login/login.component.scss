@@ -1,0 +1,45 @@
+.container {
+  align-items: center !important;
+}
+
+.row {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.no-border-bottom {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.no-border-bottom:focus {
+  border-color: var(--main-dark);
+  box-shadow: none;
+}
+
+.card {
+  background: linear-gradient(135deg, var(--main-primary) 50%, #ffffff 50%);
+  border: none;
+  color: #333;
+
+  @media (max-width: 1024px) {
+    margin-top: 0 !important;
+  }
+}
+
+.card-body {
+  padding: 20px;
+  color: #333;
+}
+
+.email-error {
+  position: absolute;
+  transform: translateY(75px);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  color: #dc4c64 !important;
+}

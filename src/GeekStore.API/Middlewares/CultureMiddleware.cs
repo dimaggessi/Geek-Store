@@ -14,7 +14,8 @@ public class CultureMiddleware
     {
         var supportedLanguages = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-        var requestedCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
+        var acceptLanguage = context.Request.Headers.AcceptLanguage.FirstOrDefault();
+        var requestedCulture = acceptLanguage?.Split(",")[0];
 
         if (string.IsNullOrWhiteSpace(requestedCulture) ||
             !supportedLanguages.Any(c => c.Name.Equals(requestedCulture)))

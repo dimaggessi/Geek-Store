@@ -583,6 +583,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email or password..
+        /// </summary>
+        public static string ERROR_INVALID_LOGIN {
+            get {
+                return ResourceManager.GetString("ERROR_INVALID_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password must contain at least 6 characters..
         /// </summary>
         public static string ERROR_INVALID_PASSWORD_LENGTH {
@@ -624,6 +633,15 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_INVALID_PASSWORD_UPPERCASE {
             get {
                 return ResourceManager.GetString("ERROR_INVALID_PASSWORD_UPPERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed. Please, try again to log in..
+        /// </summary>
+        public static string ERROR_LOGIN_FAILED {
+            get {
+                return ResourceManager.GetString("ERROR_LOGIN_FAILED", resourceCulture);
             }
         }
         

@@ -1,11 +1,13 @@
 ﻿using GeekStore.Application.Authentication.Register;
+using GeekStore.Domain.Entities;
 using GeekStore.Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeekStore.API.Controllers;
-public class AuthController(ISender _mediator) : ApiController
+public class AuthController(ISender _mediator, 
+    SignInManager<ApplicationUser> signInManager) : ApiController
 {
     [HttpGet]
     public ActionResult GetAuthState()
@@ -14,21 +16,45 @@ public class AuthController(ISender _mediator) : ApiController
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterCommand request)
+    public async Task<IActionResult> Register(
+        [FromQuery] bool? useCookies, 
+        [FromQuery] bool? useSessionCookies, 
+        [FromBody] RegisterCommand request)
     {
         var result = await _mediator.Send(request);
 
-        if (result.IsSuccess)
+        if (result.IsFailure)
         {
-            return Ok();
+            var failureResponse = new
+            {
+                Error = result.Error,
+                ValidationErrors = result.ValidationErrors
+            };
+
+            return BadRequest(failureResponse);
         }
 
-        var failureResponse = new
-        {
-            Error = result.Error,
-            ValidationErrors = result.ValidationErrors
-        };
+        var useCookieScheme = (useCookies == true) || (useSessionCookies == true);
+        var isPersistent = (useCookies == true) && (useSessionCookies != true);
 
-        return BadRequest(failureResponse);
+        signInManager.AuthenticationScheme = useCookieScheme ? 
+            IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
+
+        // User login without password verification
+        await signInManager.SignInAsync(result.Value!, isPersistent);
+
+        return result.Map<IActionResult>(
+            onSuccess: user =>
+            {
+                var successResponse = new
+                {
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    IsEmailConfirmed = user.EmailConfirmed
+                };
+                return Ok(successResponse);
+            },
+            onFailure: (error) => BadRequest(error));
     }
 }

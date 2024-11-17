@@ -411,4 +411,10 @@
   <data name="ERROR_USER_LAST_NAME_LENGTH" xml:space="preserve">
     <value>The last name must be between 2 and 50 characters.</value>
   </data>
+  <data name="ERROR_LOGIN_FAILED" xml:space="preserve">
+    <value>Login failed. Please, try again to log in.</value>
+  </data>
+  <data name="ERROR_INVALID_LOGIN" xml:space="preserve">
+    <value>Invalid email or password.</value>
+  </data>
 </root>

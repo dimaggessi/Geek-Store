@@ -73,10 +73,11 @@ public static class IdentityApiEndpointRouteBuilderExtensions
             return TypedResults.NoContent();
         }).RequireAuthorization();
 
-        routeGroup.MapPost("/login", async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>>
+        routeGroup.MapPost("/login", async Task<Results<Ok<AccessTokenResponse >, BadRequest<object>, EmptyHttpResult>>
             ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp) =>
         {
             var signInManager = sp.GetRequiredService<SignInManager<TUser>>();
+            var userManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
 
             var useCookieScheme = (useCookies == true) || (useSessionCookies == true);
             var isPersistent = (useCookies == true) && (useSessionCookies != true);
@@ -98,7 +99,11 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
             if (!result.Succeeded)
             {
-                return TypedResults.Problem(result.ToString(), statusCode: StatusCodes.Status401Unauthorized);
+                return TypedResults.BadRequest<object>(new
+                {
+                    Error = new Error(
+                    ResourceErrorMessages.DEFAULT_ERROR, ResourceErrorMessages.ERROR_INVALID_LOGIN)
+                });
             }
 
             // The signInManager already produced the needed response in the form of a cookie or bearer token.
@@ -128,14 +133,17 @@ public static class IdentityApiEndpointRouteBuilderExtensions
         routeGroup.MapGet("/user-info", async Task<Results<Ok<object>, ValidationProblem, NotFound, BadRequest<object>>>
             (ClaimsPrincipal claimsPrincipal, [FromServices] IServiceProvider sp) =>
         {
-            var signInManager = sp.GetRequiredService<SignInManager<ApplicationUser>>();
             var userManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
 
-            if (!signInManager.IsSignedIn(claimsPrincipal))
+
+            if (!claimsPrincipal.Identity?.IsAuthenticated ?? true)
             {
 
-                return TypedResults.BadRequest((object)new {Error = new Error(
-                    ResourceErrorMessages.AUTH_DEFAULT_ERROR, ResourceErrorMessages.AUTH_USER_NOT_SIGNED_IN)});
+                return TypedResults.BadRequest<object>(new 
+                {
+                    Error = new Error(
+                    ResourceErrorMessages.AUTH_DEFAULT_ERROR, ResourceErrorMessages.AUTH_USER_NOT_SIGNED_IN)
+                });
             }
 
             if (await userManager.GetUserAsync(claimsPrincipal) is not { } user)
@@ -146,7 +154,7 @@ public static class IdentityApiEndpointRouteBuilderExtensions
             var userWithAddress = await userManager.GetUserWithAddressByEmail(claimsPrincipal);
             var infoResponse = await CreateInfoResponseAsync(user, userManager);
 
-            return TypedResults.Ok((object)new
+            return TypedResults.Ok<object>(new
             {
                 Email = infoResponse.Email,
                 FirstName = user.FirstName,

@@ -13,9 +13,15 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGlobalErrorHandling();
-builder.Services.AddIdentity();
 builder.Services.AddCorsWithOptions();
 builder.Services.AddControllers();
+builder.Services.AddIdentity();
+builder.Services.AddAuthentication();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
 var app = builder.Build();
 
@@ -26,7 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAnyOrigin");
+app.UseCors(policy =>
+    policy.WithOrigins("http://localhost:4200")
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowCredentials());
 app.UseMiddleware<CultureMiddleware>();
 app.UseGlobalErrorHandling();
 app.MapControllers();
@@ -34,10 +44,7 @@ app.MapGroup("api/Auth")
     .MapGeekStoreCustomIdentityApi<ApplicationUser>()
     .WithTags("Auth");
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 await app.RunAsync();
-
-
-
-
