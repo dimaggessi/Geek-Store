@@ -9,10 +9,10 @@ namespace GeekStore.API.Controllers;
 public class AuthController(ISender _mediator, 
     SignInManager<ApplicationUser> signInManager) : ApiController
 {
-    [HttpGet]
-    public ActionResult GetAuthState()
+    [HttpGet("is-authenticated")]
+    public IActionResult IsAuthenticated()
     {
-        return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });
+        return Ok(User.Identity?.IsAuthenticated ?? false);
     }
 
     [HttpPost("register")]
@@ -48,10 +48,14 @@ public class AuthController(ISender _mediator,
             {
                 var successResponse = new
                 {
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    IsEmailConfirmed = user.EmailConfirmed
+                    User = new
+                    {
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        IsEmailConfirmed = user.EmailConfirmed
+
+                    }
                 };
                 return Ok(successResponse);
             },

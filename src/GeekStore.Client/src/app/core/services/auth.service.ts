@@ -4,6 +4,7 @@ import {map, Observable} from 'rxjs';
 import {UserInterface} from '@shared/types/user.interface';
 import {environment} from '@environments/environment';
 import {AuthResponseInterface} from '@shared/types/auth.interface';
+import {RegisterRequestInterface} from '@features/auth/types/registerRequest.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,17 @@ import {AuthResponseInterface} from '@shared/types/auth.interface';
 export class AuthService {
   constructor(@Inject(HttpClient) private http: HttpClient) {}
 
-  register(data: any): Observable<UserInterface> {
+  register(request: RegisterRequestInterface): Observable<UserInterface> {
     const url = environment.apiUrl + '/auth/register';
 
     let params = new HttpParams();
     params = params.append('useCookies', true);
 
     return this.http
-      .post<AuthResponseInterface>(url, data, {params, withCredentials: true})
+      .post<AuthResponseInterface>(url, request, {
+        params,
+        withCredentials: true,
+      })
       .pipe(map((response) => response.user));
   }
 
@@ -28,17 +32,16 @@ export class AuthService {
     let params = new HttpParams();
     params = params.append('useCookies', true);
 
-    return this.http
-      .post<void>(url, data, {
-        params,
-        withCredentials: true,
-      })
-      .pipe(
-        map(() => {
-          // TODO: Retirar do código depois do teste
-          console.log('Login bem-sucedido, cookie armazenado no navegador.');
-        })
-      );
+    return this.http.post<void>(url, data, {
+      params,
+      withCredentials: true,
+    });
+  }
+
+  logout() {
+    const url = environment.apiUrl + '/auth/logout';
+
+    return this.http.post(url, {}, {withCredentials: true});
   }
 
   getUserInfo(): Observable<UserInterface> {
@@ -46,12 +49,16 @@ export class AuthService {
 
     return this.http
       .get<AuthResponseInterface>(url, {withCredentials: true})
-      .pipe(map((response) => response.user));
+      .pipe(
+        map((response) => {
+          return response.user;
+        })
+      );
   }
 
-  logout() {
-    const url = environment.apiUrl + '/auth/logout';
+  isAuthenticated(): Observable<boolean> {
+    const url = environment.apiUrl + '/auth/is-authenticated';
 
-    return this.http.post(url, {});
+    return this.http.get<boolean>(url, {withCredentials: true});
   }
 }

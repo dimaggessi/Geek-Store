@@ -1,7 +1,7 @@
+import {ErrorResponseInterface} from './../../../shared/types/errors.interface';
 import {UserInterface} from './../../../shared/types/user.interface';
-import {createActionGroup, props} from '@ngrx/store';
+import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import {RegisterRequestInterface} from '../types/registerRequest.interface';
-import {ErrorResponseInterface} from '@shared/types/errors.interface';
 import {LoginRequestInterface} from '../types/loginRequest.interface';
 
 export const authActions = createActionGroup({
@@ -14,5 +14,11 @@ export const authActions = createActionGroup({
     Login: props<{request: LoginRequestInterface}>(),
     'Login success': props<{user: UserInterface}>(),
     'Login failure': props<{errors: ErrorResponseInterface}>(),
+
+    GetUser: emptyProps(),
+    'GetUser success': props<{user: UserInterface}>(),
+    'GetUser failure': props<{errors: ErrorResponseInterface}>(),
+
+    Logout: emptyProps(),
   },
 });

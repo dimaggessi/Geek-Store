@@ -1,11 +1,13 @@
-import {createFeature, createReducer, on} from '@ngrx/store';
+import {createFeature, createReducer, emptyProps, on} from '@ngrx/store';
 import {AuthStateInterface} from '../types/authState.interface';
 import {authActions} from './auth.actions';
+import {routerNavigationAction} from '@ngrx/router-store';
 
 const initialState: AuthStateInterface = {
+  isLoggedIn: false,
   isSubmitting: false,
   isLoading: false,
-  user: undefined,
+  user: null,
   errors: null,
 };
 
@@ -22,6 +24,7 @@ const authFeature = createFeature({
       ...state,
       errors: null,
       isSubmitting: false,
+      isLoggedIn: true,
       user: action.user,
     })),
     on(authActions.registerFailure, (state, action) => ({
@@ -43,7 +46,29 @@ const authFeature = createFeature({
       ...state,
       isSubmitting: false,
       errors: action.errors,
-    }))
+    })),
+    on(authActions.getUser, (state) => ({
+      ...state,
+      isLoading: true,
+      errors: null,
+    })),
+    on(authActions.getUserSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      user: action.user,
+    })),
+    on(authActions.getUserFailure, (state) => ({
+      ...state,
+      isLoading: false,
+      user: null,
+    })),
+    on(authActions.logout, (state) => ({
+      ...state,
+      ...initialState,
+      user: null,
+    })),
+    // ngrx router-store package (clean errors on navigation)
+    on(routerNavigationAction, (state) => ({...state, errors: null}))
   ),
 });
 

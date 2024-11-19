@@ -81,3 +81,55 @@ export const redirectAfterLoginEffect = createEffect(
   },
   {functional: true, dispatch: false}
 );
+
+export const getUserEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+    return actions$.pipe(
+      ofType(authActions.getUser),
+      switchMap(() => {
+        return authService.isAuthenticated().pipe(
+          switchMap((isAuth) => {
+            console.log('User is authenticated:', isAuth);
+            if (!isAuth) {
+              return of(
+                authActions.getUserFailure({
+                  errors: {error: {code: 'error', message: 'cookie not found'}},
+                })
+              );
+            }
+            return authService.getUserInfo().pipe(
+              map((user: UserInterface) => {
+                return authActions.getUserSuccess({user});
+              })
+            );
+          })
+        );
+      }),
+      catchError((errorResponse: HttpErrorResponse) => {
+        return of(authActions.getUserFailure({errors: errorResponse}));
+      })
+    );
+  },
+  {functional: true}
+);
+
+export const logoutEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    authService = inject(AuthService)
+  ) => {
+    return actions$.pipe(
+      ofType(authActions.logout),
+      switchMap(() => {
+        return authService.logout().pipe(
+          tap(() => {
+            localStorage.removeItem('auth');
+            router.navigateByUrl('/');
+          })
+        );
+      })
+    );
+  },
+  {functional: true, dispatch: false}
+);

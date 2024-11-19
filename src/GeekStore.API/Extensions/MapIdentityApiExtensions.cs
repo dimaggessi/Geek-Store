@@ -156,11 +156,14 @@ public static class IdentityApiEndpointRouteBuilderExtensions
 
             return TypedResults.Ok<object>(new
             {
-                Email = infoResponse.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Address = userWithAddress?.Address,
-                IsEmailConfirmed = infoResponse.IsEmailConfirmed
+                User = new
+                {
+                    Email = infoResponse.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Address = userWithAddress?.Address,
+                    IsEmailConfirmed = infoResponse.IsEmailConfirmed
+                }
             });
         });
 
