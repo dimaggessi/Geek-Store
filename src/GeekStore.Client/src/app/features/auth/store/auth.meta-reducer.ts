@@ -7,7 +7,7 @@ export function localStorageSyncReducer(
   return (state, action) => {
     const nextState = reducer(state, action);
 
-    console.log('--- inside meta reducer ---');
+    console.log('--- Inside meta reducer ---');
     console.log('Action Triggered -- Action:', action.type);
     console.log('Next State:', nextState);
 

@@ -19,7 +19,7 @@ import {
   ErrorInterface,
   ErrorResponseInterface,
   ValidationErrorInterface,
-} from '@shared/types/errors.interface';
+} from '@shared/models/errors.interface';
 import {ErrorModalComponent} from '@shared/components/error/error-modal.component';
 import {NgbModal, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 

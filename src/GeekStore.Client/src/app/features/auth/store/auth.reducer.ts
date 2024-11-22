@@ -1,4 +1,4 @@
-import {createFeature, createReducer, emptyProps, on} from '@ngrx/store';
+import {createFeature, createReducer, on} from '@ngrx/store';
 import {AuthStateInterface} from '../types/authState.interface';
 import {authActions} from './auth.actions';
 import {routerNavigationAction} from '@ngrx/router-store';

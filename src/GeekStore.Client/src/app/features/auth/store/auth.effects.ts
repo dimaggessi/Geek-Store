@@ -1,9 +1,9 @@
-import {AuthService} from './../../../core/services/auth.service';
+import {AuthService} from '@features/auth/services/auth.service';
 import {inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {authActions} from './auth.actions';
 import {catchError, map, of, switchMap, tap} from 'rxjs';
-import {UserInterface} from '@shared/types/user.interface';
+import {UserInterface} from '@shared/models/user.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 
@@ -114,11 +114,7 @@ export const getUserEffect = createEffect(
 );
 
 export const logoutEffect = createEffect(
-  (
-    actions$ = inject(Actions),
-    router = inject(Router),
-    authService = inject(AuthService)
-  ) => {
+  (actions$ = inject(Actions), router = inject(Router), authService = inject(AuthService)) => {
     return actions$.pipe(
       ofType(authActions.logout),
       switchMap(() => {

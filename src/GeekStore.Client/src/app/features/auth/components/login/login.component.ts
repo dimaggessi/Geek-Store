@@ -21,7 +21,7 @@ import {
   ErrorInterface,
   ErrorResponseInterface,
   ValidationErrorInterface,
-} from '@shared/types/errors.interface';
+} from '@shared/models/errors.interface';
 import {BehaviorSubject, combineLatest, debounceTime, Observable} from 'rxjs';
 
 @Component({

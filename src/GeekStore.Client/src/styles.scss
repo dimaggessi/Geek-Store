@@ -1,15 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  padding-top: 100px; // Ajuste o valor conforme a altura da navbar
+}
+
 // Fonts - Baloo 2 / Lato
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-:root{
-  --main-primary: #FFA500;
+:root {
+  --main-primary: #ffa500;
   --main-secondary: #6c757d;
   --main-dark: #343a40;
   --main-light: #f8f9fa;
 }
-
 
 /* Bootstrap */
 
@@ -19,12 +22,12 @@ $font-family-base: $font-family-sans-serif;
 $headings-font-family: 'Baloo 2', sans-serif;
 
 // Colors:
-$primary: #FFA500;         // Laranja vibrante para o logo e elementos de destaque
-$secondary: #6c757d;       // Cinza escuro para elementos secundários
-$dark: #343a40;            // Cinza quase preto para o texto principal
-$light: #f8f9fa;           // Cinza muito claro para fundos suaves
-$body-color: #343a40;      // Cor do texto do corpo
-$headings-color: #212529;  // Cinza escuro um pouco mais intenso para títulos
+$primary: #ffa500; // Laranja vibrante para o logo e elementos de destaque
+$secondary: #6c757d; // Cinza escuro para elementos secundários
+$dark: #343a40; // Cinza quase preto para o texto principal
+$light: #f8f9fa; // Cinza muito claro para fundos suaves
+$body-color: #343a40; // Cor do texto do corpo
+$headings-color: #212529; // Cinza escuro um pouco mais intenso para títulos
 
 // Navbar
 $navbar-nav-link-padding-x: 0.8rem;
@@ -75,7 +78,6 @@ $input-btn-padding-x: 1rem;
 $input-border-radius: $input-radius;
 $input-border-radius-sm: $input-radius;
 $input-border-radius-lg: $input-radius;
-
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

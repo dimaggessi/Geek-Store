@@ -1,0 +1,72 @@
+<span>Dentro de product component html</span>
+
+<ng-container *ngIf="data$ | async as response">
+  <div class="container d-flex justify-content-center">
+    <div class="row d-flex w-100 justify-content-start mt-5">
+      <ng-container *ngFor="let product of response.data?.data">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card shadow rounded-5 border-0 me-2">
+            <div class="image-container rounded-top-5 border-0">
+              <img src="{{ product.picture }}" class="rounded float-start" />
+            </div>
+            <div class="card-body pt-0 px-0">
+              <span class="text-muted ms-1 fs-5">{{ product.name }}</span>
+              <div class="d-flex flex-row justify-content-between mb-0">
+                <span class="text-muted ms-2 mt-2">Valor</span>
+                <h2 class="mt-3 me-2 text-muted">R&dollar;{{ product.price }}</h2>
+              </div>
+              <hr class="mx-3 mt-0" />
+              <div class="d-flex flex-row justify-content-between p-3 bg-light">
+                <div class="d-flex flex-column">
+                  <small class="text-muted mb-1">CATEGORIA</small>
+                  <div class="d-flex flex-row">
+                    <div class="d-flex flex-column ms-1">
+                      <small>{{ product.type }}</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <small class="text-muted mb-2 mx-auto">MARCA</small>
+                  <div class="d-flex flex-row">
+                    <h6>{{ product.brand }}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row justify-content-between mt-2">
+                <span class="text-muted ms-2">Quantidade:</span>
+                <h4
+                  class="me-2"
+                  [ngClass]="{
+                    'text-danger': product.quantity < 300,
+                    'text-success': product.quantity > 600,
+                    'text-warning': product.quantity >= 300 && product.quantity <= 600
+                  }"
+                >
+                  <i
+                    class="fa me-2"
+                    [ngClass]="{
+                      'fa-circle-exclamation': product.quantity < 300,
+                      'fa-circle-check': product.quantity > 600,
+                      'fa-circle-info': product.quantity >= 300 && product.quantity <= 600
+                    }"
+                  ></i>
+                  {{ product.quantity }} unidades
+                </h4>
+              </div>
+
+              <div class="d-flex flex-row justify-content-center mx-3 pt-0 mb-0">
+                <button type="button" class="btn btn-sm btn-outline-success w-100">
+                  <small>ADICIONAR</small><i class="fa fa-cart-shopping ms-2"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- <div *ngFor="let product of response.data?.data">
+    <pre>{{ product | json }}</pre>
+  </div> -->
+</ng-container>

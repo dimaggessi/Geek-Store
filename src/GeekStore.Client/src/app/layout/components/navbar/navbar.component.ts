@@ -1,12 +1,12 @@
-import {AuthStateInterface} from './../../../features/auth/types/authState.interface';
+import {AuthStateInterface} from '@features/auth/types/authState.interface';
 import {combineLatest, Observable, take} from 'rxjs';
 import {CommonModule} from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgbCollapseModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
 import {selectUser} from '@features/auth/store/auth.selectors';
-import {UserInterface} from '@shared/types/user.interface';
+import {UserInterface} from '@shared/models/user.interface';
 import {authActions} from '@features/auth/store/auth.actions';
 
 @Component({
@@ -15,6 +15,7 @@ import {authActions} from '@features/auth/store/auth.actions';
   imports: [NgbCollapseModule, CommonModule, RouterLink, NgbTooltipModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class NavbarComponent implements OnInit {
   isCollapsed = false;

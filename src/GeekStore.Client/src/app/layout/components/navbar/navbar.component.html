@@ -1,9 +1,7 @@
 <ng-container *ngIf="data$ | async as data">
   <!-- <pre>{{ data | json }}</pre> -->
   <section>
-    <nav
-      class="navbar navbar-expand-lg fixed-top position-relative z-3 navbar-light"
-    >
+    <nav class="navbar navbar-expand-lg fixed-top position-relative z-3 navbar-light bg-white">
       <div class="container d-flex flex-nowrap">
         <div class="logo d-flex">
           <a href="" class="navbar-brand">
@@ -17,7 +15,7 @@
               <a routerLink="/" class="nav-link bar-hover">Início</a>
             </li>
             <li class="nav-item me-3">
-              <a href="" class="nav-link bar-hover">Loja</a>
+              <a routerLink="/shop" class="nav-link bar-hover">Loja</a>
             </li>
             <li class="nav-item me-3">
               <a href="" class="nav-link bar-hover">Categorias</a>
@@ -27,20 +25,14 @@
             </li>
           </ul>
         </div>
-        <div
-          class="search form-group px-4 left-inner-addon d-none d-md-block w-75"
-        >
+        <div class="search form-group px-4 left-inner-addon d-none d-md-block w-75">
           <span class="fa-stack">
             <a href="#">
               <i class="fas fa-circle fa-stack-2x"></i>
               <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
             </a>
           </span>
-          <input
-            type="text"
-            class="form-control form-control-sm pt-2"
-            placeholder="Buscar.."
-          />
+          <input type="text" class="form-control form-control-sm pt-2" placeholder="Buscar.." />
         </div>
         <div class="dark-theme ms-auto">
           <input type="checkbox" class="checkbox" id="checkbox" />
@@ -50,11 +42,7 @@
             <span class="ball"></span>
           </label>
         </div>
-        <div
-          class="shopping-cart px-2"
-          placement="bottom"
-          ngbTooltip="Carrinho"
-        >
+        <div class="shopping-cart px-2" placement="bottom" ngbTooltip="Carrinho">
           <span class="fa-stack">
             <a href="#">
               <i class="fas fa-circle fa-stack-2x"></i>
@@ -67,9 +55,7 @@
             <span class="fa-stack">
               <a [routerLink]="['/profile']">
                 <i class="fas fa-circle fa-stack-2x"></i>
-                <i
-                  class="fa-solid fa-regular fa-user fa-stack-1x text-white"
-                ></i>
+                <i class="fa-solid fa-regular fa-user fa-stack-1x text-white"></i>
               </a>
             </span>
           </div>
@@ -77,18 +63,14 @@
             <span class="fa-stack">
               <a (click)="logout()">
                 <i class="fas fa-circle fa-stack-2x"></i>
-                <i
-                  class="fa-solid fa-regular fa-sign-out fa-stack-1x text-white"
-                ></i>
+                <i class="fa-solid fa-regular fa-sign-out fa-stack-1x text-white"></i>
               </a>
             </span>
           </div>
         </ng-container>
 
         <ng-container *ngIf="data.user === null || data.user === undefined">
-          <Button routerLink="/login" class="btn btn-sm btn-outline-primary">
-            Entrar
-          </Button>
+          <Button routerLink="/login" class="btn btn-sm btn-outline-primary"> Entrar </Button>
         </ng-container>
 
         <button

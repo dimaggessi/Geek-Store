@@ -1,5 +1,5 @@
-import {ErrorResponseInterface} from '@shared/types/errors.interface';
-import {UserInterface} from '@shared/types/user.interface';
+import {ErrorResponseInterface} from '@shared/models/errors.interface';
+import {UserInterface} from '@shared/models/user.interface';
 
 export interface AuthStateInterface {
   isLoggedIn: boolean;
