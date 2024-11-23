@@ -23,7 +23,10 @@ namespace GeekStore.API.Controllers
             var result = await _mediator.Send(request);
 
             return result.Map<IActionResult>(
-                onSuccess: products => Ok(products),
+                onSuccess: response => Ok(new
+                    {
+                        Response = response
+                    }),
                 onFailure: error =>
                 {
                     var errorResponse = new
@@ -40,6 +43,7 @@ namespace GeekStore.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProductById([FromRoute] GetProductByIdQuery request)
         {
+
             var result = await _mediator.Send(request);
 
             return result.Map<IActionResult>(
@@ -78,12 +82,10 @@ namespace GeekStore.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateProduct(int id,
+        public async Task<IActionResult> UpdateProduct([FromRoute] int id,
             [FromBody] UpdateProductCommand request)
         {
-            if (request.Id != id)
-                return BadRequest(
-                    ResourceErrorMessages.PRODUCT_ID_AND_URL_MISMATCH);
+            request.Id = id;
 
             var result = await _mediator.Send(request);
 

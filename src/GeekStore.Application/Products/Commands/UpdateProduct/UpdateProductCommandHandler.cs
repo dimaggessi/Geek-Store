@@ -24,17 +24,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
                 ResourceErrorMessages.PRODUCT_NOT_FOUND));
         }
 
-        product.Name = request.Name!;
-        product.Description = request.Description!;
-        product.Picture = request.Picture!;
-        product.Type = request.Type!;
-        product.Brand = request.Brand!;
-        product.Quantity = request.Quantity;
-        product.Price = request.Price;
-        product.Width = request.Width;
-        product.Height = request.Height;
-        product.Length = request.Length;
-        product.Weight = request.Weight;
+        UpdateProductFields(product, request);
 
         _unitOfWork.GetRepository<Product>().Update(product);
 
@@ -45,5 +35,18 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
             Result.Failure<Product>(new Error(
                 ResourceErrorMessages.DEFAULT_ERROR, 
                 ResourceErrorMessages.ERROR_UPDATE_PRODUCT));
+    }
+
+    private static void UpdateProductFields(Product product, UpdateProductCommand request)
+    {
+        product.Name = request.Name ?? product.Name;
+        product.Description = request.Description ?? product.Description;
+        product.Picture = request.Picture ?? product.Picture;
+        product.Type = request.Type ?? product.Type;
+        product.Brand = request.Brand ?? product.Brand;
+        product.Quantity = (request.Quantity.HasValue && request.Quantity.Value >= 0) ? 
+            request.Quantity.Value : product.Quantity;
+        product.Price = (request.Price.HasValue  && request.Price.Value >= 0m) ? 
+            request.Price.Value : product.Price;
     }
 }
