@@ -23,8 +23,9 @@ public class GetProductsQueryHandler
 
         if (products is null || products.Count <= 0)
         {
-            return Result.Failure<PaginatedResult<IReadOnlyList<Product>>>(
-                new Error("Error", "No products found."));
+            return Result.Failure<PaginatedResult<IReadOnlyList<Product>>>(new Error(
+                    ResourceErrorMessages.DEFAULT_ERROR, 
+                    ResourceErrorMessages.ERROR_EMPTY_PRODUCTS));
         }
 
         var response = new PaginatedResult<IReadOnlyList<Product>>

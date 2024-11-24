@@ -6,6 +6,7 @@ namespace GeekStore.Domain.Specifications
 {
     public abstract class Specification<T> : ISpecification<T> where T : BaseEntity
     {
+        protected Specification() : this(null) { }
         protected Specification(Expression<Func<T, bool>>? criteria) =>
             Criteria = criteria;
 
@@ -23,6 +24,7 @@ namespace GeekStore.Domain.Specifications
         public Expression<Func<T, object>>? OrderByExpression { get; private set; }
         // specify orderbydescending statement
         public Expression<Func<T, object>>? OrderByDescendingExpression { get; private set; }
+        // specify select statement
 
         protected void AddInclude(Expression<Func<T, object>> includeExpression) => 
             IncludeExpressions.Add(includeExpression);
@@ -33,11 +35,27 @@ namespace GeekStore.Domain.Specifications
         protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescendingExpression) =>
             OrderByDescendingExpression = orderByDescendingExpression;
 
+        protected void ApplyDistinct()
+        {
+            IsDistinct = true;
+        }
+
         protected void AddPagination(int skip, int take)
         {
             Skip = skip;
             Take = take;
             IsPaginationEnabled = true;
         }
+    }
+
+    public abstract class Specification<T, TResult>(Expression<Func<T, bool>>? criteria) : Specification<T>(criteria), 
+        ISpecification<T, TResult> where T: BaseEntity
+    {
+        protected Specification() : this(null) { }
+
+        public Expression<Func<T, TResult>>? SelectExpression { get; private set; }
+
+        protected void AddSelect(Expression<Func<T, TResult>> selectExpression) =>
+            SelectExpression = selectExpression;
     }
 }

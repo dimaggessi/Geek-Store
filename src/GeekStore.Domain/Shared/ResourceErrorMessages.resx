@@ -417,4 +417,13 @@
   <data name="ERROR_INVALID_LOGIN" xml:space="preserve">
     <value>Invalid email or password.</value>
   </data>
+  <data name="ERROR_EMPTY_BRANDS" xml:space="preserve">
+    <value>No brands were found.</value>
+  </data>
+  <data name="ERROR_EMPTY_TYPES" xml:space="preserve">
+    <value>No types were found.</value>
+  </data>
+  <data name="ERROR_EMPTY_PRODUCTS" xml:space="preserve">
+    <value>No products were found.</value>
+  </data>
 </root>

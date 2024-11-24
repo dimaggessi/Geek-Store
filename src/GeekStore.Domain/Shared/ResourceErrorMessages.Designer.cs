@@ -556,6 +556,33 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No brands were found..
+        /// </summary>
+        public static string ERROR_EMPTY_BRANDS {
+            get {
+                return ResourceManager.GetString("ERROR_EMPTY_BRANDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No products were found..
+        /// </summary>
+        public static string ERROR_EMPTY_PRODUCTS {
+            get {
+                return ResourceManager.GetString("ERROR_EMPTY_PRODUCTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No types were found..
+        /// </summary>
+        public static string ERROR_EMPTY_TYPES {
+            get {
+                return ResourceManager.GetString("ERROR_EMPTY_TYPES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get product item from the database..
         /// </summary>
         public static string ERROR_GET_PRODUCT {

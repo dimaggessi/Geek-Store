@@ -15,4 +15,9 @@ namespace GeekStore.Domain.Interfaces
         Expression<Func<T, object>>? OrderByExpression { get; }
         Expression<Func<T, object>>? OrderByDescendingExpression { get; }
     }
+
+    public interface ISpecification<T, TResult> : ISpecification<T> where T : BaseEntity
+    {
+        Expression<Func<T, TResult>>? SelectExpression { get; }
+    }
 }

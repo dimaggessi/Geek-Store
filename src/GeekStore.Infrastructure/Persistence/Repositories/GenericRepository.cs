@@ -28,10 +28,21 @@ namespace GeekStore.Infrastructure.Persistence.Repositories
             return await ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
         }
 
+        public async Task<TResult?> GetEntityWithSpecificationAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
+        }
+
         public async Task<IReadOnlyList<T>> GetAllWithSpecificationAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
         {
             return await ApplySpecification(specification).ToListAsync(cancellationToken);
         }
+
+        public async Task<IReadOnlyList<TResult>> GetAllWithSpecificationAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            return await ApplySpecification(specification).ToListAsync(cancellationToken);
+        }
+
 
         public void Add(T entity)
         {
@@ -63,6 +74,12 @@ namespace GeekStore.Infrastructure.Persistence.Repositories
         {
             IQueryable<T> query = _context.Set<T>().AsQueryable();
             return SpecificationEvaluator<T>.GetQuery(query, specification);
+        }
+
+        private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> specification)
+        {
+            IQueryable<T> query = _context.Set<T>().AsQueryable();
+            return SpecificationEvaluator<T>.GetQuery<T, TResult>(query, specification);
         }
     }
 }

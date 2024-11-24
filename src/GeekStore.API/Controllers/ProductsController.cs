@@ -1,9 +1,11 @@
+using GeekStore.API.Extensions;
+using GeekStore.Application.Brands.Queries.GetBrands;
 using GeekStore.Application.Products.Commands.CreateProduct;
 using GeekStore.Application.Products.Commands.DeleteProduct;
 using GeekStore.Application.Products.Commands.UpdateProduct;
 using GeekStore.Application.Products.Queries.GetProductById;
 using GeekStore.Application.Products.Queries.GetProducts;
-using GeekStore.Domain.Shared;
+using GeekStore.Domain.Specifications.SpecParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,8 +20,9 @@ namespace GeekStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] GetProductsQuery request)
+        public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams specParams)
         {
+            var request = specParams.ToProductsQuery();
             var result = await _mediator.Send(request);
 
             return result.Map<IActionResult>(
@@ -60,7 +63,57 @@ namespace GeekStore.API.Controllers
                 }
             );
         }
-        
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetBrands()
+        {
+            var request = new GetBrandsQuery();
+
+            var result = await _mediator.Send(request);
+
+            return result.Map<IActionResult>(
+                onSuccess: brands => Ok(new
+                {
+                    Brands = brands
+                }),
+                onFailure: error =>
+                {
+                    var errorResponse = new
+                    {
+                        Error = error,
+                        ValidationErrors = result.ValidationErrors
+                    };
+
+                    return BadRequest(errorResponse);
+                }
+            );
+        }
+
+        [HttpGet("types")]
+        public async Task<IActionResult> GetTypes()
+        {
+            var request = new GetTypesQuery();
+
+            var result = await _mediator.Send(request);
+
+            return result.Map<IActionResult>(
+                onSuccess: types => Ok(new
+                {
+                    Types = types
+                }),
+                onFailure: error =>
+                {
+                    var errorResponse = new
+                    {
+                        Error = error,
+                        ValidationErrors = result.ValidationErrors
+                    };
+
+                    return BadRequest(errorResponse);
+                }
+            );
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand request)
         {

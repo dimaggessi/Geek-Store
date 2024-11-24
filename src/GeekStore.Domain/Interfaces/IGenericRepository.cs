@@ -8,8 +8,13 @@ namespace GeekStore.Domain.Interfaces
         Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<T?> GetEntityWithSpecificationAsync(ISpecification<T> specification,
             CancellationToken cancellationToken = default);
+        Task<TResult?> GetEntityWithSpecificationAsync<TResult>(ISpecification<T, TResult> specification,
+            CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> GetAllWithSpecificationAsync(ISpecification<T> specification,
             CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<TResult>> GetAllWithSpecificationAsync<TResult>(ISpecification<T, TResult> specification,
+            CancellationToken cancellationToken = default);
+
         void Add(T entity);
         void Update(T entity);
         void Remove(T entity);
