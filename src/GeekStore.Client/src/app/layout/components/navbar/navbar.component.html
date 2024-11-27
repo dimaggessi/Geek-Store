@@ -10,24 +10,21 @@
           <h2 class="text-primary mt-3 me-4">GeekStore</h2>
         </div>
         <div class="navbar-collapse collapse d-none d-lg-block">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-3">
             <li class="nav-item me-3">
               <a routerLink="/" class="nav-link bar-hover">Início</a>
             </li>
             <li class="nav-item me-3">
-              <a routerLink="/shop" class="nav-link bar-hover">Loja</a>
+              <a routerLink="/loja" class="nav-link bar-hover">Loja</a>
             </li>
             <li class="nav-item me-3">
-              <a href="" class="nav-link bar-hover">Categorias</a>
-            </li>
-            <li class="nav-item me-3">
-              <a href="" class="nav-link bar-hover">Marcas</a>
+              <a href="" class="nav-link bar-hover">Sobre</a>
             </li>
           </ul>
         </div>
-        <div class="search form-group px-4 left-inner-addon d-none d-md-block w-75">
+        <div class="search form-group px-4 left-inner-addon d-none d-lg-block w-25 me-5">
           <span class="fa-stack">
-            <a href="#">
+            <a href="" routerLink="/loja">
               <i class="fas fa-circle fa-stack-2x"></i>
               <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
             </a>
@@ -53,7 +50,7 @@
         <ng-container *ngIf="data.user">
           <div class="account-user" placement="bottom" ngbTooltip="Perfil">
             <span class="fa-stack">
-              <a [routerLink]="['/profile']">
+              <a [routerLink]="['/perfil']">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fa-solid fa-regular fa-user fa-stack-1x text-white"></i>
               </a>
@@ -70,7 +67,7 @@
         </ng-container>
 
         <ng-container *ngIf="data.user === null || data.user === undefined">
-          <Button routerLink="/login" class="btn btn-sm btn-outline-primary"> Entrar </Button>
+          <Button routerLink="/entrar" class="btn btn-sm btn-outline-primary"> Entrar </Button>
         </ng-container>
 
         <button
@@ -91,16 +88,13 @@
     >
       <ul class="navbar-nav ms-auto">
         <li class="nav-item me-3">
-          <a href="" class="nav-link second-nav">Início</a>
+          <a routerLink="/" class="nav-link second-nav">Início</a>
         </li>
         <li class="nav-item me-3">
-          <a href="" class="nav-link second-nav">Loja</a>
+          <a routerLink="/loja" class="nav-link second-nav">Loja</a>
         </li>
         <li class="nav-item me-3">
-          <a href="" class="nav-link second-nav">Categorias</a>
-        </li>
-        <li class="nav-item me-3">
-          <a href="" class="nav-link second-nav">Marcas</a>
+          <a routerLink="/sobre" class="nav-link second-nav">Sobre</a>
         </li>
       </ul>
     </div>

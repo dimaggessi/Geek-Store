@@ -20,9 +20,8 @@ namespace GeekStore.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams specParams)
+        public async Task<IActionResult> GetProducts([FromQuery] GetProductsQuery request)
         {
-            var request = specParams.ToProductsQuery();
             var result = await _mediator.Send(request);
 
             return result.Map<IActionResult>(

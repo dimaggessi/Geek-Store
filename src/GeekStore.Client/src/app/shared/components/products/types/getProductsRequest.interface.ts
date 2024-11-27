@@ -5,4 +5,6 @@ export interface GetProductsRequestInterface {
   minPrice?: number;
   pageIndex?: number;
   pageSize?: number;
+  brands?: string[];
+  types?: string[];
 }

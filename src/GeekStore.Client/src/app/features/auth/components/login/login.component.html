@@ -1,21 +1,15 @@
 <ng-container *ngIf="data$ | async as data">
   <section>
-    <div
-      class="container d-flex align-items-center justify-content-center my-4"
-    >
+    <div class="container d-flex align-items-center justify-content-center my-4">
       <div class="row w-100 overflow-hidden text-center">
-        <div
-          class="card col-12 col-md-8 col-lg-6 bg-light shadow-lg p-4 h-100 mt-5 rounded-4"
-        >
+        <div class="card col-12 col-md-8 col-lg-6 bg-light shadow-lg p-4 h-100 mt-5 rounded-4">
           <h2 class="text-white text-center">Bem vindo!</h2>
           <span class="fa-stack mx-auto my-2">
             <i class="fas fa-circle fa-stack-2x text-white"></i>
             <i class="fa-solid fa-user fa-stack-1x"></i>
           </span>
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <fieldset
-              class="form-group rounded my-3 mx-auto px-2 bg-dark col-md-8"
-            >
+            <fieldset class="form-group rounded my-3 mx-auto px-2 bg-dark col-md-8">
               <input
                 type="email"
                 class="form-control form-control-sm no-border-bottom"
@@ -26,9 +20,7 @@
                 formControlName="email"
               />
             </fieldset>
-            <fieldset
-              class="form-group rounded my-3 mx-auto px-2 bg-dark col-md-8"
-            >
+            <fieldset class="form-group rounded my-3 mx-auto px-2 bg-dark col-md-8">
               <input
                 type="password"
                 class="form-control form-control-sm no-border-bottom"
@@ -53,7 +45,7 @@
               Informe um e-mail válido: email&#64;dominio
             </span>
             <a
-              routerLink="/register"
+              routerLink="/registro"
               class="d-block mx-auto mt-5 py-2 text-dark text-muted text-decoration-none"
             >
               <span>Clique aqui para se cadastrar</span>

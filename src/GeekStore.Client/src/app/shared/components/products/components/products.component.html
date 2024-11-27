@@ -1,9 +1,7 @@
-<span>Dentro de product component html</span>
-
 <ng-container *ngIf="data$ | async as response">
   <div class="container d-flex justify-content-center">
-    <div class="row d-flex w-100 justify-content-start mt-5">
-      <ng-container *ngFor="let product of response.data?.data">
+    <div class="row d-flex w-100 justify-content-start mt-4">
+      <ng-container *ngFor="let product of response.products?.data">
         <div class="col-12 col-md-6 col-lg-4 mb-4">
           <div class="card shadow rounded-5 border-0 me-2">
             <div class="image-container rounded-top-5 border-0">
@@ -13,7 +11,7 @@
               <span class="text-muted ms-1 fs-5">{{ product.name }}</span>
               <div class="d-flex flex-row justify-content-between mb-0">
                 <span class="text-muted ms-2 mt-2">Valor</span>
-                <h2 class="mt-3 me-2 text-muted">R&dollar;{{ product.price }}</h2>
+                <h2 class="mt-3 me-2 text-muted">R&dollar;&nbsp;{{ product.price }}</h2>
               </div>
               <hr class="mx-3 mt-0" />
               <div class="d-flex flex-row justify-content-between p-3 bg-light">

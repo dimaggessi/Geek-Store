@@ -1,1 +1,118 @@
-<app-products></app-products>
+<ng-container *ngIf="data$ | async as data">
+  <div class="container mt-4">
+    <div class="row me-2">
+      <div class="menu d-flex">
+        <div class="filters me-2 mx-auto">
+          <div ngbDropdown>
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <i class="fa-solid fa-filter me-2"></i>
+              <span class="d-none d-md-inline">Filtrar</span>
+            </button>
+            <div
+              ngbDropdownMenu
+              class="p-3"
+              aria-labelledby="dropdownBasic1"
+              style="min-width: 300px"
+            >
+              <div class="row">
+                <div class="col-6">
+                  <h6 class="text-primary">Marcas</h6>
+                </div>
+                <div class="col-6">
+                  <h6 class="text-primary">Categorias</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div *ngFor="let brand of data.brands?.brands">
+                    <label class="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        class="me-2"
+                        (click)="onBrandSelection($event, brand)"
+                      />
+                      {{ brand }}
+                    </label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div *ngFor="let type of data.types?.types">
+                    <label class="d-flex align-items-center">
+                      <input type="checkbox" class="me-2" (click)="onTypeSelection($event, type)" />
+                      {{ type }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end mt-4">
+                <button class="btn btn-sm btn-outline-secondary" (click)="applyFilters()">
+                  Aplicar Filtros
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order">
+          <div ngbDropdown>
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-sm"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <i class="fa-solid fa-sort me-2"></i>
+              <span class="d-none d-md-inline">Ordenar</span>
+            </button>
+            <div
+              ngbDropdownMenu
+              class="p-3"
+              aria-labelledby="dropdownBasic1"
+              style="min-width: 200px"
+            >
+              <div class="row">
+                <div>
+                  <h6 class="text-primary">Ordenar por</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label class="d-flex align-items-center">
+                    <input
+                      type="radio"
+                      name="sort"
+                      [(ngModel)]="sortBy"
+                      value="priceDesc"
+                      class="me-2"
+                    />
+                    Maior Valor
+                  </label>
+                  <label class="d-flex align-items-center">
+                    <input
+                      type="radio"
+                      name="sort"
+                      class="me-2"
+                      [(ngModel)]="sortBy"
+                      value="priceAsc"
+                    />
+                    Menor Valor
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<app-products
+  [brandsFiltered]="appliedBrands"
+  [typesFiltered]="appliedTypes"
+  [sortBy]="sortBy"
+></app-products>

@@ -1,12 +1,14 @@
 import {createFeature, createReducer, on} from '@ngrx/store';
 import {ProductStateInterface} from '../types/productState.interface';
-import {productActions} from './products.actions';
+import {brandActions, productActions, typesActions} from './products.actions';
 
 const initialState: ProductStateInterface = {
   isSubmitting: false,
   isLoading: false,
-  data: null,
+  products: null,
   errors: null,
+  brands: null,
+  types: null,
 };
 
 const productFeature = createFeature({
@@ -18,12 +20,38 @@ const productFeature = createFeature({
       ...state,
       isSubmitting: false,
       errors: null,
-      data: action.result,
+      products: action.result,
     })),
     on(productActions.getProductsListFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
-      data: null,
+      products: null,
+      errors: action.errors,
+    })),
+    on(brandActions.getBrandsList, (state) => ({...state, isSubmitting: true, errors: null})),
+    on(brandActions.getBrandsSuccess, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      errors: null,
+      brands: action.result,
+    })),
+    on(brandActions.getBrandsFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      brands: null,
+      errors: action.errors,
+    })),
+    on(typesActions.getTypesList, (state) => ({...state, isSubmitting: true, errors: null})),
+    on(typesActions.getTypesSuccess, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      errors: null,
+      types: action.result,
+    })),
+    on(typesActions.getTypesFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      types: null,
       errors: action.errors,
     }))
   ),
