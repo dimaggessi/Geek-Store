@@ -2,6 +2,20 @@
   <div class="container mt-4">
     <div class="row me-2">
       <div class="menu d-flex">
+        <div class="search form-group px-4 left-inner-addon w-50">
+          <span class="fa-stack">
+            <a href="" (click)="onSearch($event)">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
+            </a>
+          </span>
+          <input
+            type="text"
+            class="input-search form-control form-control-sm pt-2"
+            placeholder="Buscar.."
+            (keydown.enter)="onSearch($event)"
+          />
+        </div>
         <div class="filters me-2 mx-auto">
           <div ngbDropdown>
             <button
@@ -115,4 +129,5 @@
   [brandsFiltered]="appliedBrands"
   [typesFiltered]="appliedTypes"
   [sortBy]="sortBy"
+  [search]="search"
 ></app-products>

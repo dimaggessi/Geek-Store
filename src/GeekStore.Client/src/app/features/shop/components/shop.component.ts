@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
 import {ProductComponent} from '@shared/components/products/components/products.component';
@@ -8,7 +9,7 @@ import {selectBrands, selectTypes} from '@shared/components/products/store/produ
 import {ProductStateInterface} from '@shared/components/products/types/productState.interface';
 import {BrandsInterface} from '@shared/models/brands.interface';
 import {TypesInterface} from '@shared/models/types.interface';
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, debounceTime, distinctUntilChanged, Observable, Subject} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -18,13 +19,16 @@ import {combineLatest, Observable} from 'rxjs';
   imports: [CommonModule, ProductComponent, NgbDropdownModule, FormsModule],
 })
 export class ShopComponent implements OnInit {
+  router = inject(Router);
   store = inject(Store<{product: ProductStateInterface}>);
   data$!: Observable<{brands: BrandsInterface | null; types: TypesInterface | null}>;
+  searchSubject: Subject<string> = new Subject<string>();
   selectedBrands: string[] = [];
   selectedTypes: string[] = [];
   appliedBrands: string[] = [];
   appliedTypes: string[] = [];
   sortBy: string = '';
+  search: string = '';
 
   ngOnInit(): void {
     this.data$ = combineLatest({
@@ -58,5 +62,16 @@ export class ShopComponent implements OnInit {
 
   applySort(): string {
     return this.sortBy;
+  }
+
+  onSearch(event: Event): void {
+    event.preventDefault();
+    const inputElement = document.querySelector('.input-search') as HTMLInputElement;
+
+    if (inputElement) {
+      this.search = inputElement.value;
+    } else {
+      this.search = '';
+    }
   }
 }

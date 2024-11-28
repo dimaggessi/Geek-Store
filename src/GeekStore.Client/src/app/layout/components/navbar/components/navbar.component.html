@@ -1,35 +1,39 @@
 <ng-container *ngIf="data$ | async as data">
-  <!-- <pre>{{ data | json }}</pre> -->
   <section>
     <nav class="navbar navbar-expand-lg fixed-top position-relative z-3 navbar-light bg-white">
       <div class="container d-flex flex-nowrap">
-        <div class="logo d-flex">
+        <div class="menu-logo d-flex">
           <a href="" class="navbar-brand">
             <img src="images/geek-store-logo.png" alt="Logo Geek Store" />
           </a>
-          <h2 class="text-primary mt-3 me-4">GeekStore</h2>
+          <h2 class="text-primary mt-3">GeekStore</h2>
+          <div class="navbar-collapse collapse d-none d-lg-block">
+            <ul class="navbar-nav ms-5" style="margin-top: -3px">
+              <li class="nav-item me-3">
+                <a routerLink="/" class="nav-link bar-hover">Início</a>
+              </li>
+              <li class="nav-item me-3">
+                <a routerLink="/loja" class="nav-link bar-hover">Loja</a>
+              </li>
+              <li class="nav-item me-3">
+                <a href="" class="nav-link bar-hover">Sobre</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="navbar-collapse collapse d-none d-lg-block">
-          <ul class="navbar-nav ms-3">
-            <li class="nav-item me-3">
-              <a routerLink="/" class="nav-link bar-hover">Início</a>
-            </li>
-            <li class="nav-item me-3">
-              <a routerLink="/loja" class="nav-link bar-hover">Loja</a>
-            </li>
-            <li class="nav-item me-3">
-              <a href="" class="nav-link bar-hover">Sobre</a>
-            </li>
-          </ul>
-        </div>
-        <div class="search form-group px-4 left-inner-addon d-none d-lg-block w-25 me-5">
+        <div class="search form-group px-4 left-inner-addon d-none d-lg-block w-75 me-3">
           <span class="fa-stack">
-            <a href="" routerLink="/loja">
+            <a href="">
               <i class="fas fa-circle fa-stack-2x"></i>
               <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
             </a>
           </span>
-          <input type="text" class="form-control form-control-sm pt-2" placeholder="Buscar.." />
+          <input
+            type="text"
+            class="form-control form-control-sm pt-2"
+            placeholder="Buscar.."
+            [(ngModel)]="searchTerm"
+          />
         </div>
         <div class="dark-theme ms-auto">
           <input type="checkbox" class="checkbox" id="checkbox" />

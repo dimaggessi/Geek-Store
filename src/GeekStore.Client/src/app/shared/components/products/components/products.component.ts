@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input() brandsFiltered: string[] = [];
   @Input() typesFiltered: string[] = [];
   @Input() sortBy: string = '';
+  @Input() search: string = '';
   request: GetProductsRequestInterface = {
     pageSize: 20,
   };
@@ -39,6 +40,7 @@ export class ProductComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.request = {
       ...this.request,
+      search: this.search ? this.search : '',
       sort: this.sortBy,
       brands: [...this.brandsFiltered],
       types: [...this.typesFiltered],
