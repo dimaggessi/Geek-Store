@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
 import {ProductComponent} from '@shared/components/products/components/products.component';
 import {selectBrands, selectTypes} from '@shared/components/products/store/products.selectors';
@@ -16,7 +16,7 @@ import {combineLatest, debounceTime, distinctUntilChanged, Observable, Subject} 
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
-  imports: [CommonModule, ProductComponent, NgbDropdownModule, FormsModule],
+  imports: [CommonModule, ProductComponent, NgbDropdownModule, FormsModule, NgbPagination],
 })
 export class ShopComponent implements OnInit {
   router = inject(Router);
@@ -29,6 +29,8 @@ export class ShopComponent implements OnInit {
   appliedTypes: string[] = [];
   sortBy: string = '';
   search: string = '';
+  currentPage: number = 1;
+  totalCount: number = 0;
 
   ngOnInit(): void {
     this.data$ = combineLatest({
@@ -39,7 +41,7 @@ export class ShopComponent implements OnInit {
 
   onBrandSelection(event: Event, brand: string): void {
     const checkbox = event.target as HTMLInputElement;
-    if (checkbox.checked) {
+    if (checkbox && checkbox.checked) {
       this.selectedBrands.push(brand);
     } else {
       this.selectedBrands = this.selectedBrands.filter((value) => value !== brand);
@@ -48,7 +50,7 @@ export class ShopComponent implements OnInit {
 
   onTypeSelection(event: Event, type: string): void {
     const checkbox = event.target as HTMLInputElement;
-    if (checkbox.checked) {
+    if (checkbox && checkbox.checked) {
       this.selectedTypes.push(type);
     } else {
       this.selectedTypes = this.selectedTypes.filter((value) => value !== type);
@@ -73,5 +75,10 @@ export class ShopComponent implements OnInit {
     } else {
       this.search = '';
     }
+  }
+
+  onTotalCountChange(value: number) {
+    this.totalCount = value;
+    console.log('Total Count Atualizado', this.totalCount);
   }
 }

@@ -7,6 +7,7 @@ import {TypesInterface} from '@shared/models/types.interface';
 export interface ProductStateInterface {
   isSubmitting: boolean;
   isLoading: boolean;
+  product: Product | null;
   products: Pagination<Product[]> | null;
   errors: ErrorResponseInterface | null;
   brands: BrandsInterface | null;

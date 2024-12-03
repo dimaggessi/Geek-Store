@@ -1,10 +1,12 @@
 import {createFeature, createReducer, on} from '@ngrx/store';
 import {ProductStateInterface} from '../types/productState.interface';
 import {brandActions, productActions, typesActions} from './products.actions';
+import {getProductById} from './products.effects';
 
 const initialState: ProductStateInterface = {
   isSubmitting: false,
   isLoading: false,
+  product: null,
   products: null,
   errors: null,
   brands: null,
@@ -27,6 +29,19 @@ const productFeature = createFeature({
       isSubmitting: false,
       products: null,
       errors: action.errors,
+    })),
+    on(productActions.getProductById, (state) => ({...state, isSubmitting: true, errors: null})),
+    on(productActions.getProductByIdSuccess, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      errors: null,
+      product: action.product,
+    })),
+    on(productActions.getProductByIdFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      product: null,
+      erros: action.errors,
     })),
     on(brandActions.getBrandsList, (state) => ({...state, isSubmitting: true, errors: null})),
     on(brandActions.getBrandsSuccess, (state, action) => ({

@@ -3,39 +3,46 @@
     <nav class="navbar navbar-expand-lg fixed-top position-relative z-3 navbar-light bg-white">
       <div class="container d-flex flex-nowrap">
         <div class="menu-logo d-flex">
-          <a href="" class="navbar-brand">
+          <a href="/" class="navbar-brand">
             <img src="images/geek-store-logo.png" alt="Logo Geek Store" />
           </a>
-          <h2 class="text-primary mt-3">GeekStore</h2>
+          <a href="/" style="text-decoration: none" class="underline-none"
+            ><h2 class="text-primary mt-3">GeekStore</h2></a
+          >
+
           <div class="navbar-collapse collapse d-none d-lg-block">
             <ul class="navbar-nav ms-5" style="margin-top: -3px">
               <li class="nav-item me-3">
-                <a routerLink="/" class="nav-link bar-hover">Início</a>
+                <a
+                  routerLink="/"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="nav-link bar-hover"
+                  >Início</a
+                >
               </li>
               <li class="nav-item me-3">
-                <a routerLink="/loja" class="nav-link bar-hover">Loja</a>
+                <a
+                  routerLink="/loja"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="nav-link bar-hover"
+                  >Loja</a
+                >
               </li>
               <li class="nav-item me-3">
-                <a href="" class="nav-link bar-hover">Sobre</a>
+                <a
+                  href=""
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}"
+                  class="nav-link bar-hover"
+                  >Sobre</a
+                >
               </li>
             </ul>
           </div>
         </div>
-        <div class="search form-group px-4 left-inner-addon d-none d-lg-block w-75 me-3">
-          <span class="fa-stack">
-            <a href="">
-              <i class="fas fa-circle fa-stack-2x"></i>
-              <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
-            </a>
-          </span>
-          <input
-            type="text"
-            class="form-control form-control-sm pt-2"
-            placeholder="Buscar.."
-            [(ngModel)]="searchTerm"
-          />
-        </div>
-        <div class="dark-theme ms-auto">
+        <div class="dark-theme ms-auto d-none d-md-block">
           <input type="checkbox" class="checkbox" id="checkbox" />
           <label for="checkbox" class="checkbox-label">
             <i class="fas fa-moon"></i>
@@ -90,14 +97,14 @@
       [ngClass]="{'slide-menu': true, show: isCollapsed}"
       class="bg-primary text-center text-light d-lg-none z-0"
     >
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item me-3">
+      <ul class="navbar-nav ms-auto mt-1">
+        <li class="nav-item">
           <a routerLink="/" class="nav-link second-nav">Início</a>
         </li>
-        <li class="nav-item me-3">
+        <li class="nav-item">
           <a routerLink="/loja" class="nav-link second-nav">Loja</a>
         </li>
-        <li class="nav-item me-3">
+        <li class="nav-item">
           <a routerLink="/sobre" class="nav-link second-nav">Sobre</a>
         </li>
       </ul>

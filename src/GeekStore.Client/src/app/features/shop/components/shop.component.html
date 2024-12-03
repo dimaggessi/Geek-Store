@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row me-2">
       <div class="menu d-flex">
-        <div class="search form-group px-4 left-inner-addon w-50">
+        <div class="search form-group px-4 left-inner-addon w-50 mt-1">
           <span class="fa-stack">
             <a href="" (click)="onSearch($event)">
               <i class="fas fa-circle fa-stack-2x"></i>
@@ -11,7 +11,7 @@
           </span>
           <input
             type="text"
-            class="input-search form-control form-control-sm pt-2"
+            class="input-search form-control form-control-sm shadow-none pt-2"
             placeholder="Buscar.."
             (keydown.enter)="onSearch($event)"
           />
@@ -33,33 +33,41 @@
               aria-labelledby="dropdownBasic1"
               style="min-width: 300px"
             >
-              <div class="row">
-                <div class="col-6">
-                  <h6 class="text-primary">Marcas</h6>
-                </div>
-                <div class="col-6">
-                  <h6 class="text-primary">Categorias</h6>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <div *ngFor="let brand of data.brands?.brands">
-                    <label class="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        class="me-2"
-                        (click)="onBrandSelection($event, brand)"
-                      />
-                      {{ brand }}
-                    </label>
+              <div class="container d-flex">
+                <div class="row mt-4">
+                  <div class="col-12 col-md-6">
+                    <h6 class="text-primary">Marcas</h6>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div *ngFor="let brand of data.brands?.brands">
+                        <label class="d-flex align-items-center">
+                          <input
+                            type="checkbox"
+                            class="me-2"
+                            (click)="onBrandSelection($event, brand)"
+                          />
+                          {{ brand }}
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-6">
-                  <div *ngFor="let type of data.types?.types">
-                    <label class="d-flex align-items-center">
-                      <input type="checkbox" class="me-2" (click)="onTypeSelection($event, type)" />
-                      {{ type }}
-                    </label>
+                <div class="row d-block mt-4">
+                  <div class="col-12 col-md-6">
+                    <h6 class="text-primary">Categorias</h6>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div *ngFor="let type of data.types?.types">
+                      <label class="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          class="me-2"
+                          (click)="onTypeSelection($event, type)"
+                        />
+                        {{ type }}
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -71,7 +79,7 @@
             </div>
           </div>
         </div>
-        <div class="order">
+        <div class="order me-2">
           <div ngbDropdown>
             <button
               type="button"
@@ -126,8 +134,22 @@
 </ng-container>
 
 <app-products
+  (totalCountChange)="onTotalCountChange($event)"
   [brandsFiltered]="appliedBrands"
   [typesFiltered]="appliedTypes"
   [sortBy]="sortBy"
   [search]="search"
+  [pageIndex]="currentPage"
 ></app-products>
+
+<div class="container">
+  <div class="row">
+    <div class="pagination d-flex justify-content-center mt-2">
+      <ngb-pagination
+        [collectionSize]="totalCount"
+        [(page)]="currentPage"
+        aria-label="pagination"
+      />
+    </div>
+  </div>
+</div>

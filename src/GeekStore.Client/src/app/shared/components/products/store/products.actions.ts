@@ -12,6 +12,10 @@ export const productActions = createActionGroup({
     'Get Products List': props<{request: GetProductsRequestInterface}>(),
     'Get Products List Success': props<{result: Pagination<Product[]>}>(),
     'Get Products List Failure': props<{errors: ErrorResponseInterface}>(),
+
+    'Get Product By Id': props<{id: number}>(),
+    'Get Product By Id Success': props<{product: Product}>(),
+    'Get Product By Id Failure': props<{errors: ErrorResponseInterface}>(),
   },
 });
 

@@ -28,6 +28,25 @@ export const getProductsEffect = createEffect(
   {functional: true}
 );
 
+export const getProductById = createEffect(
+  (action$ = inject(Actions), productService = inject(ProductService)) => {
+    return action$.pipe(
+      ofType(productActions.getProductById),
+      switchMap(({id}) => {
+        return productService.getProduct(id).pipe(
+          map((product: Product) => {
+            return productActions.getProductByIdSuccess({product: product});
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(productActions.getProductByIdFailure({errors: errorResponse.error}));
+          })
+        );
+      })
+    );
+  },
+  {functional: true}
+);
+
 export const getBrandsEffect = createEffect(
   (action$ = inject(Actions), productService = inject(ProductService)) => {
     return action$.pipe(

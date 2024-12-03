@@ -48,4 +48,10 @@ export class ProductService {
 
     return this.http.get<TypesInterface>(url);
   }
+
+  getProduct(id: number): Observable<Product> {
+    const url = environment.apiUrl + '/products/';
+
+    return this.http.get<Product>(url + id);
+  }
 }

@@ -17,6 +17,8 @@ export const selectProductsPaginated = createSelector(
   (state) => state.products
 );
 
+export const selectProductById = createSelector(selectProductFeature, (state) => state.product);
+
 export const selectBrands = createSelector(selectProductFeature, (state) => state.brands);
 
 export const selectTypes = createSelector(selectProductFeature, (state) => state.types);

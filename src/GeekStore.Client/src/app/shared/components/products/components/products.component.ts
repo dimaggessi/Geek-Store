@@ -1,6 +1,6 @@
 import {GetProductsRequestInterface} from '@shared/components/products/types/getProductsRequest.interface';
 import {CommonModule} from '@angular/common';
-import {Component, inject, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ProductService} from '../services/product.service';
 import {Store} from '@ngrx/store';
 import {ProductStateInterface} from '../types/productState.interface';
@@ -11,18 +11,20 @@ import {
   selectBrands,
   selectIsLoading,
   selectIsSubmitting,
+  selectProductById,
   selectProductsPaginated,
   selectTypes,
 } from '../store/products.selectors';
 import {Pagination} from '@shared/models/pagination.interface';
 import {Product} from '@shared/models/product.interface';
+import {RouterModule} from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class ProductComponent implements OnInit, OnChanges {
   store = inject(Store<{product: ProductStateInterface}>);
@@ -32,9 +34,10 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input() typesFiltered: string[] = [];
   @Input() sortBy: string = '';
   @Input() search: string = '';
-  request: GetProductsRequestInterface = {
-    pageSize: 20,
-  };
+  @Input() pageIndex?: number = 1;
+  @Input() pageSize?: number = 9;
+  @Output() totalCountChange = new EventEmitter<number>();
+  request: GetProductsRequestInterface = {};
   result!: Pagination<Product[]>;
 
   ngOnChanges(): void {
@@ -42,9 +45,13 @@ export class ProductComponent implements OnInit, OnChanges {
       ...this.request,
       search: this.search ? this.search : '',
       sort: this.sortBy,
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
       brands: [...this.brandsFiltered],
       types: [...this.typesFiltered],
     };
+
+    console.log('pageIndex', this.pageIndex);
 
     this.store.dispatch(productActions.getProductsList({request: this.request}));
   }
@@ -56,10 +63,17 @@ export class ProductComponent implements OnInit, OnChanges {
     this.data$ = combineLatest({
       isSubmitting: this.store.select(selectIsSubmitting),
       isLoading: this.store.select(selectIsLoading),
+      product: this.store.select(selectProductById),
       products: this.store.select(selectProductsPaginated),
       errors: this.store.select(selectApiErrors),
       brands: this.store.select(selectBrands),
       types: this.store.select(selectTypes),
+    });
+
+    this.data$.subscribe((response) => {
+      if (response.products) {
+        this.totalCountChange.emit(response.products.totalCount);
+      }
     });
   }
 }

@@ -13,4 +13,8 @@ export const routes: Routes = [
     path: 'loja',
     loadChildren: () => import('@features/shop/shop.routes').then((r) => r.shopRoute),
   },
+  {
+    path: 'loja/:id',
+    loadChildren: () => import('@features/shop/shop.routes').then((r) => r.shopDetailsRoute),
+  },
 ];

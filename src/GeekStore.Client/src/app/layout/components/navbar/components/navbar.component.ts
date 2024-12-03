@@ -2,7 +2,7 @@ import {AuthStateInterface} from '@features/auth/types/authState.interface';
 import {combineLatest, Observable, take} from 'rxjs';
 import {CommonModule} from '@angular/common';
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterModule} from '@angular/router';
 import {NgbCollapseModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
 import {selectUser} from '@features/auth/store/auth.selectors';
@@ -13,7 +13,14 @@ import {FormsModule} from '@angular/forms';
 @Component({
   standalone: true,
   selector: 'app-navbar',
-  imports: [NgbCollapseModule, CommonModule, RouterLink, NgbTooltipModule, FormsModule],
+  imports: [
+    NgbCollapseModule,
+    CommonModule,
+    RouterLink,
+    NgbTooltipModule,
+    FormsModule,
+    RouterModule,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   encapsulation: ViewEncapsulation.None,
