@@ -64,10 +64,22 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngIf="response.products == null && search === ''">
+        <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
+          <div class="text-center text-muted mt-6">
+            Não foi possível carregar os produtos da base de dados.<br />
+            <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="response.products == null && search !== ''">
+        <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
+          <div class="text-center text-muted mt-6">
+            Nenhum produto foi encontrado com o termo de busca <b>"{{ search }}"</b><br />
+            <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
-
-  <!-- <div *ngFor="let product of response.data?.data">
-    <pre>{{ product | json }}</pre>
-  </div> -->
 </ng-container>

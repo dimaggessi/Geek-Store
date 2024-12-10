@@ -3,18 +3,19 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideState, provideStore} from '@ngrx/store';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
-import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {authFeatureKey, authReducer} from '@features/auth/store/auth.reducer';
 import {provideEffects} from '@ngrx/effects';
 import * as authEffects from '@features/auth/store/auth.effects';
 import * as productEffects from '@shared/components/products/store/products.effects';
-import {AuthInterceptor} from '@core/interceptors/auth.interceptor';
+import {authInterceptorFn} from '@core/interceptors/auth.interceptor';
 import {provideRouterStore, routerReducer} from '@ngrx/router-store';
 import {metaReducers, rehydrateState} from '@features/auth/store/auth.meta-reducer';
 import {
   productFeatureKey,
   productReducer,
 } from '@shared/components/products/store/products.reducer';
+import {errorInterceptorFn} from '@core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,12 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideState(productFeatureKey, productReducer),
     provideRouterStore(),
     provideEffects(authEffects, productEffects),
-    provideHttpClient(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
+    provideHttpClient(withInterceptors([errorInterceptorFn, authInterceptorFn])),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

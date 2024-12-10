@@ -1,0 +1,15 @@
+<div class="custom-toast">
+  <ng-container *ngFor="let toast of toastService.toasts">
+    <ngb-toast [ngClass]="toast.classname" [attr.delay]="toast.delay || 5000" class="mt-2 mx-auto">
+      <i
+        class="fas"
+        [ngClass]="{
+          'fa-exclamation-circle': toast.type === 'error',
+          'fa-check-circle': toast.type === 'success',
+          'fa-info-circle': toast.type === 'info'
+        }"
+      ></i>
+      {{ toast.message }}
+    </ngb-toast>
+  </ng-container>
+</div>

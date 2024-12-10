@@ -37,7 +37,7 @@ namespace GeekStore.API.Controllers
                         ValidationErrors = result.ValidationErrors
                     };
 
-                    return BadRequest(errorResponse);
+                    return NotFound(errorResponse);
                 }
             );
         }
@@ -58,7 +58,7 @@ namespace GeekStore.API.Controllers
                         ValidationErrors = result.ValidationErrors
                     };
 
-                    return BadRequest(errorResponse);
+                    return NotFound(errorResponse);
                 }
             );
         }
@@ -83,7 +83,7 @@ namespace GeekStore.API.Controllers
                         ValidationErrors = result.ValidationErrors
                     };
 
-                    return BadRequest(errorResponse);
+                    return NotFound(errorResponse);
                 }
             );
         }
@@ -108,7 +108,7 @@ namespace GeekStore.API.Controllers
                         ValidationErrors = result.ValidationErrors
                     };
 
-                    return BadRequest(errorResponse);
+                    return NotFound(errorResponse);
                 }
             );
         }

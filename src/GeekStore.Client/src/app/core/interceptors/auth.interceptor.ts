@@ -1,26 +1,14 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {HttpEvent, HttpInterceptorFn} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const userLang = navigator.language.split(',')[0];
+export const authInterceptorFn: HttpInterceptorFn = (req, next): Observable<HttpEvent<any>> => {
+  const userLang = navigator.language.split(',')[0];
 
-    const modifiedReq = req.clone({
-      setHeaders: {
-        'Accept-Language': userLang,
-      },
-    });
+  const modifiedReq = req.clone({
+    setHeaders: {
+      'Accept-Language': userLang,
+    },
+  });
 
-    return next.handle(modifiedReq);
-  }
-}
+  return next(modifiedReq);
+};

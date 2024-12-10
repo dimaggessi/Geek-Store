@@ -8,7 +8,10 @@ namespace GeekStore.Domain.Specifications
         public ProductSpecification(ProductSpecParams specParams) : base(product =>
             (!specParams.MinPrice.HasValue || product.Price >= specParams.MinPrice.Value) &&
             (!specParams.MaxPrice.HasValue || product.Price <= specParams.MaxPrice.Value) &&
-            (string.IsNullOrEmpty(specParams.Search) || product.Name.ToLower().Contains(specParams.Search)) &&
+            (string.IsNullOrEmpty(specParams.Search) || 
+                product.Name.ToLower().Contains(specParams.Search)) || 
+                product.Brand.ToLower().Contains(specParams.Search) ||
+                product.Type.ToLower().Contains(specParams.Search) &&
             (specParams.Brands.Count == 0) || specParams.Brands.Contains(product.Brand) &&
             (specParams.Types.Count == 0 || specParams.Types.Contains(product.Type)))
             {

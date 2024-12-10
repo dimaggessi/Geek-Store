@@ -22,3 +22,18 @@ export const selectProductById = createSelector(selectProductFeature, (state) =>
 export const selectBrands = createSelector(selectProductFeature, (state) => state.brands);
 
 export const selectTypes = createSelector(selectProductFeature, (state) => state.types);
+
+export const selectProductsAreLoaded = createSelector(
+  selectProductFeature,
+  (state) => !!state.products?.data?.length
+);
+
+export const selectBrandsAreLoaded = createSelector(
+  selectProductFeature,
+  (state) => !!state.brands?.brands.length
+);
+
+export const selectTypesAreLodaded = createSelector(
+  selectProductFeature,
+  (state) => !!state.types?.types.length
+);

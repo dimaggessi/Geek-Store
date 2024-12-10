@@ -9,11 +9,14 @@ import {combineLatest, Observable} from 'rxjs';
 import {
   selectApiErrors,
   selectBrands,
+  selectBrandsAreLoaded,
   selectIsLoading,
   selectIsSubmitting,
   selectProductById,
+  selectProductsAreLoaded,
   selectProductsPaginated,
   selectTypes,
+  selectTypesAreLodaded,
 } from '../store/products.selectors';
 import {Pagination} from '@shared/models/pagination.interface';
 import {Product} from '@shared/models/product.interface';
@@ -51,15 +54,21 @@ export class ProductComponent implements OnInit, OnChanges {
       types: [...this.typesFiltered],
     };
 
-    console.log('pageIndex', this.pageIndex);
-
     this.store.dispatch(productActions.getProductsList({request: this.request}));
+
+    this.store.select(selectBrandsAreLoaded).subscribe((areBrandsLodaded) => {
+      if (!areBrandsLodaded) {
+        this.store.dispatch(brandActions.getBrandsList());
+      }
+    });
+    this.store.select(selectTypesAreLodaded).subscribe((areTypesLoaded) => {
+      if (!areTypesLoaded) {
+        this.store.dispatch(typesActions.getTypesList());
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.store.dispatch(brandActions.getBrandsList());
-    this.store.dispatch(typesActions.getTypesList());
-
     this.data$ = combineLatest({
       isSubmitting: this.store.select(selectIsSubmitting),
       isLoading: this.store.select(selectIsLoading),
@@ -75,5 +84,10 @@ export class ProductComponent implements OnInit, OnChanges {
         this.totalCountChange.emit(response.products.totalCount);
       }
     });
+  }
+
+  reload(): void {
+    this.search = '';
+    this.ngOnChanges();
   }
 }

@@ -1,22 +1,14 @@
 import {CommonModule} from '@angular/common';
 import {Component, inject, OnInit, AfterViewInit} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {authActions} from '@features/auth/store/auth.actions';
-import {
-  selectApiErrors,
-  selectIsSubmitting,
-} from '@features/auth/store/auth.selectors';
+import {selectApiErrors, selectIsSubmitting} from '@features/auth/store/auth.selectors';
 import {AuthStateInterface} from '@features/auth/types/authState.interface';
 import {LoginRequestInterface} from '@features/auth/types/loginRequest.interface';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
-import {ErrorModalComponent} from '@shared/components/error/error-modal.component';
+import {ErrorModalComponent} from '@shared/components/error-modal/error-modal.component';
 import {
   ErrorInterface,
   ErrorResponseInterface,
@@ -40,9 +32,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     isSubmitting: boolean;
     errors: ErrorResponseInterface | null;
   }>;
-  private errorsSubject = new BehaviorSubject<ErrorResponseInterface | null>(
-    null
-  );
+  private errorsSubject = new BehaviorSubject<ErrorResponseInterface | null>(null);
 
   ngAfterViewInit(): void {
     this.errorsSubject.pipe(debounceTime(300)).subscribe((errors) => {
@@ -85,10 +75,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.store.dispatch(authActions.login({request}));
   }
 
-  openErrorModal(
-    error: ErrorInterface,
-    validationErrors: ValidationErrorInterface[]
-  ): void {
+  openErrorModal(error: ErrorInterface, validationErrors: ValidationErrorInterface[]): void {
     if (!this.modalService.hasOpenModals()) {
       const modalRef = this.modalService.open(ErrorModalComponent, {
         centered: true,
@@ -100,15 +87,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   get getEmail(): string {
     const control = this.f.email;
-    return control?.touched && control?.invalid
-      ? 'É necessário informar o email.'
-      : 'Email';
+    return control?.touched && control?.invalid ? 'É necessário informar o email.' : 'Email';
   }
 
   get getPassword(): string {
     const control = this.f.password;
-    return control?.touched && control?.invalid
-      ? 'É necessário informar a senha.'
-      : 'Senha';
+    return control?.touched && control?.invalid ? 'É necessário informar a senha.' : 'Senha';
   }
 }
