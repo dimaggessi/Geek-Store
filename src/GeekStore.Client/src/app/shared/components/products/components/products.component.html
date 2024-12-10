@@ -64,19 +64,31 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="response.products == null && search === ''">
-        <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
-          <div class="text-center text-muted mt-6">
-            Não foi possível carregar os produtos da base de dados.<br />
-            <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+      <ng-container *ngIf="!response.isLoading">
+        <ng-container *ngIf="response.products?.data == null && search === ''">
+          <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
+            <div class="text-center text-muted mt-6">
+              Não foi possível carregar os produtos da base de dados.<br />
+              <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+            </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="response.products == null && search !== ''">
+          <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
+            <div class="text-center text-muted mt-6">
+              Nenhum produto foi encontrado com o termo de busca <b>"{{ search }}"</b><br />
+              <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+            </div>
+          </div>
+        </ng-container>
       </ng-container>
-      <ng-container *ngIf="response.products == null && search !== ''">
-        <div class="d-flex justify-content-center" style="height: calc(100vh - 300px)">
-          <div class="text-center text-muted mt-6">
-            Nenhum produto foi encontrado com o termo de busca <b>"{{ search }}"</b><br />
-            <a routerLink="/loja" (click)="reload()"><i class="fa-solid fa-backward ms-0"></i></a>
+      <ng-container *ngIf="response.isSubmitting">
+        <div
+          class="d-flex justify-content-center align-items-center"
+          style="height: calc(100vh - 300px)"
+        >
+          <div class="spinner-border text-warning" style="width: 4rem; height: 4rem" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </ng-container>

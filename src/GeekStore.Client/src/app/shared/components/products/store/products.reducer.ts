@@ -5,7 +5,7 @@ import {getProductById} from './products.effects';
 
 const initialState: ProductStateInterface = {
   isSubmitting: false,
-  isLoading: false,
+  isLoading: true,
   product: null,
   products: null,
   errors: null,
@@ -20,12 +20,14 @@ const productFeature = createFeature({
     on(productActions.getProductsList, (state) => ({...state, isSubmitting: true, errors: null})),
     on(productActions.getProductsListSuccess, (state, action) => ({
       ...state,
+      isLoading: false,
       isSubmitting: false,
       errors: null,
       products: action.result,
     })),
     on(productActions.getProductsListFailure, (state, action) => ({
       ...state,
+      isLoading: false,
       isSubmitting: false,
       products: null,
       errors: action.errors,
@@ -33,12 +35,14 @@ const productFeature = createFeature({
     on(productActions.getProductById, (state) => ({...state, isSubmitting: true, errors: null})),
     on(productActions.getProductByIdSuccess, (state, action) => ({
       ...state,
+      isLoading: false,
       isSubmitting: false,
       errors: null,
       product: action.product,
     })),
     on(productActions.getProductByIdFailure, (state, action) => ({
       ...state,
+      isLoading: false,
       isSubmitting: false,
       product: null,
       erros: action.errors,

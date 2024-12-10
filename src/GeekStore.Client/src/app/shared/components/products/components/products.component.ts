@@ -13,7 +13,6 @@ import {
   selectIsLoading,
   selectIsSubmitting,
   selectProductById,
-  selectProductsAreLoaded,
   selectProductsPaginated,
   selectTypes,
   selectTypesAreLodaded,

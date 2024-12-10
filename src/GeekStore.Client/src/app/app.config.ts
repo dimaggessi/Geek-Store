@@ -16,6 +16,7 @@ import {
   productReducer,
 } from '@shared/components/products/store/products.reducer';
 import {errorInterceptorFn} from '@core/interceptors/error.interceptor';
+import {loadingInterceptor} from '@core/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,7 +33,9 @@ export const appConfig: ApplicationConfig = {
     provideState(productFeatureKey, productReducer),
     provideRouterStore(),
     provideEffects(authEffects, productEffects),
-    provideHttpClient(withInterceptors([errorInterceptorFn, authInterceptorFn])),
+    provideHttpClient(
+      withInterceptors([errorInterceptorFn, authInterceptorFn, loadingInterceptor])
+    ),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
