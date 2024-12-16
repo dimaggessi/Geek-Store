@@ -5,7 +5,7 @@ import {GetProductsRequestInterface} from '@shared/components/products/types/get
 import {GetProductsResponseInterface} from '@shared/components/products/types/getProductsResponse.interface';
 import {BrandsInterface} from '@shared/models/brands.interface';
 import {Pagination} from '@shared/models/pagination.interface';
-import {Product} from '@shared/models/product.interface';
+import {ProductInterface} from '@shared/models/product.interface';
 import {TypesInterface} from '@shared/models/types.interface';
 import {map, Observable} from 'rxjs';
 
@@ -15,7 +15,7 @@ import {map, Observable} from 'rxjs';
 export class ProductService {
   private http = inject(HttpClient);
 
-  getProducts(request: GetProductsRequestInterface): Observable<Pagination<Product[]>> {
+  getProducts(request: GetProductsRequestInterface): Observable<Pagination<ProductInterface[]>> {
     const url = environment.apiUrl + '/products';
 
     let params = new HttpParams();
@@ -49,9 +49,9 @@ export class ProductService {
     return this.http.get<TypesInterface>(url);
   }
 
-  getProduct(id: number): Observable<Product> {
+  getProduct(id: number): Observable<ProductInterface> {
     const url = environment.apiUrl + '/products/';
 
-    return this.http.get<Product>(url + id);
+    return this.http.get<ProductInterface>(url + id);
   }
 }

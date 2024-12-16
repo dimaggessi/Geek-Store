@@ -1,0 +1,7 @@
+::ng-deep app-cart-item > .cart-item {
+  border-bottom: 1px solid #ddd;
+}
+
+::ng-deep app-cart-item:last-of-type > .cart-item {
+  border-bottom: none;
+}

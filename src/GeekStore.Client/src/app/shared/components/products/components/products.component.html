@@ -14,7 +14,7 @@
               <span class="text-muted ms-1 fs-5">{{ product.name }}</span>
               <div class="d-flex flex-row justify-content-between mb-0">
                 <span class="text-muted ms-2 mt-2">Valor</span>
-                <h2 class="mt-3 me-2 text-muted">R&dollar;&nbsp;{{ product.price }}</h2>
+                <h2 class="mt-3 me-2 text-muted">{{ product.price | currency : 'BRL' }}</h2>
               </div>
               <hr class="mx-3 mt-0" />
               <div class="d-flex flex-row justify-content-between p-3 bg-light">
@@ -56,7 +56,11 @@
               </div>
 
               <div class="d-flex flex-row justify-content-center mx-3 pt-0 mb-0">
-                <button type="button" class="btn btn-sm btn-outline-success w-100">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-success w-100"
+                  (click)="cartService.addItem(product)"
+                >
                   <small>ADICIONAR</small><i class="fa fa-cart-shopping ms-2"></i>
                 </button>
               </div>

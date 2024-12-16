@@ -50,12 +50,19 @@
             <span class="ball"></span>
           </label>
         </div>
-        <div class="shopping-cart px-2" placement="bottom" ngbTooltip="Carrinho">
+        <div class="shopping-cart position-relative px-3" placement="bottom" ngbTooltip="Carrinho">
           <span class="fa-stack">
-            <a href="#">
+            <a routerLink="/carrinho">
               <i class="fas fa-circle fa-stack-2x"></i>
               <i class="fa-solid fa-cart-shopping fa-stack-1x text-white"></i>
             </a>
+          </span>
+          <span
+            class="badge position-absolute top-0 start-25 translate-middle rounded-pill bg-danger"
+            style="font-size: 0.75rem"
+            *ngIf="cartService.itemCount() > 0"
+          >
+            {{ cartService.itemCount() }}
           </span>
         </div>
         <ng-container *ngIf="data.user">
@@ -78,7 +85,17 @@
         </ng-container>
 
         <ng-container *ngIf="data.user === null || data.user === undefined">
-          <Button routerLink="/entrar" class="btn btn-sm btn-outline-primary"> Entrar </Button>
+          <Button routerLink="/entrar" class="btn btn-sm btn-outline-primary d-none d-sm-block">
+            Entrar
+          </Button>
+          <div class="account-user d-sm-none" placement="bottom" ngbTooltip="Entrar">
+            <span class="fa-stack">
+              <a routerLink="/entrar">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fa-solid fa-regular fa-user fa-stack-1x text-white"></i>
+              </a>
+            </span>
+          </div>
         </ng-container>
 
         <button

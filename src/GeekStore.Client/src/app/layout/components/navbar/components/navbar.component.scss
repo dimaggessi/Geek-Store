@@ -102,3 +102,9 @@ nav.fixed-top {
 .second-nav:hover {
   color: $secondary;
 }
+
+@media (max-width: 576px) {
+  .badge {
+    transform: translate(0, -50) !important;
+  }
+}

@@ -4,7 +4,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {brandActions, productActions, typesActions} from './products.actions';
 import {catchError, map, of, switchMap} from 'rxjs';
 import {Pagination} from '@shared/models/pagination.interface';
-import {Product} from '@shared/models/product.interface';
+import {ProductInterface} from '@shared/models/product.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 import {BrandsInterface} from '@shared/models/brands.interface';
 import {TypesInterface} from '@shared/models/types.interface';
@@ -15,7 +15,7 @@ export const getProductsEffect = createEffect(
       ofType(productActions.getProductsList),
       switchMap(({request}) => {
         return productService.getProducts(request).pipe(
-          map((pagination: Pagination<Product[]>) => {
+          map((pagination: Pagination<ProductInterface[]>) => {
             return productActions.getProductsListSuccess({result: pagination});
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -34,7 +34,7 @@ export const getProductById = createEffect(
       ofType(productActions.getProductById),
       switchMap(({id}) => {
         return productService.getProduct(id).pipe(
-          map((product: Product) => {
+          map((product: ProductInterface) => {
             return productActions.getProductByIdSuccess({product: product});
           }),
           catchError((errorResponse: HttpErrorResponse) => {

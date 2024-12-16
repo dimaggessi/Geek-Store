@@ -9,6 +9,7 @@ import {selectUser} from '@features/auth/store/auth.selectors';
 import {UserInterface} from '@shared/models/user.interface';
 import {authActions} from '@features/auth/store/auth.actions';
 import {FormsModule} from '@angular/forms';
+import {CartService} from '@core/services/cart.service';
 
 @Component({
   standalone: true,
@@ -28,6 +29,7 @@ import {FormsModule} from '@angular/forms';
 export class NavbarComponent implements OnInit {
   store = inject(Store<{auth: AuthStateInterface}>);
   router = inject(Router);
+  cartService = inject(CartService);
   data$!: Observable<{user: UserInterface | null | undefined}>;
   searchTerm: string = '';
   isCollapsed = false;

@@ -18,8 +18,9 @@ import {
   selectTypesAreLodaded,
 } from '../store/products.selectors';
 import {Pagination} from '@shared/models/pagination.interface';
-import {Product} from '@shared/models/product.interface';
+import {ProductInterface} from '@shared/models/product.interface';
 import {RouterModule} from '@angular/router';
+import {CartService} from '@core/services/cart.service';
 
 @Component({
   standalone: true,
@@ -31,6 +32,7 @@ import {RouterModule} from '@angular/router';
 export class ProductComponent implements OnInit, OnChanges {
   store = inject(Store<{product: ProductStateInterface}>);
   productService = inject(ProductService);
+  cartService = inject(CartService);
   data$!: Observable<ProductStateInterface>;
   @Input() brandsFiltered: string[] = [];
   @Input() typesFiltered: string[] = [];
@@ -40,7 +42,7 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input() pageSize?: number = 9;
   @Output() totalCountChange = new EventEmitter<number>();
   request: GetProductsRequestInterface = {};
-  result!: Pagination<Product[]>;
+  result!: Pagination<ProductInterface[]>;
 
   ngOnChanges(): void {
     this.request = {

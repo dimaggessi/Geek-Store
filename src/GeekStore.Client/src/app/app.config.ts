@@ -1,4 +1,11 @@
-import {ApplicationConfig, isDevMode, provideZoneChangeDetection} from '@angular/core';
+import {InitializerService} from './core/services/initializer.service';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  isDevMode,
+  LOCALE_ID,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideState, provideStore} from '@ngrx/store';
@@ -18,6 +25,15 @@ import {
 import {errorInterceptorFn} from '@core/interceptors/error.interceptor';
 import {loadingInterceptor} from '@core/interceptors/loading.interceptor';
 
+function initialize(initializerService: InitializerService) {
+  return () => {
+    initializerService.init().subscribe({
+      next: (cart) => console.log('Carrinho carregado:', cart),
+      error: (err) => console.warn('Erro ao carregar carrinho:', err),
+    });
+  };
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
@@ -36,6 +52,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([errorInterceptorFn, authInterceptorFn, loadingInterceptor])
     ),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initialize,
+      multi: true,
+      deps: [InitializerService],
+    },
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

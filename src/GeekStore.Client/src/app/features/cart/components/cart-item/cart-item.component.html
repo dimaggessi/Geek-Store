@@ -1,0 +1,48 @@
+<div class="cart-item row align-items-center py-3">
+  <div class="col-6 d-flex p-0">
+    <div class="row align-items-center">
+      <div class="image col-5">
+        <a [routerLink]="['/loja/', item().productId]"
+          ><img [src]="item().picture" alt="" class="img-fluid rounded-3"
+        /></a>
+      </div>
+      <div class="details col-5">
+        <div class="row">
+          <a
+            [routerLink]="['/loja/', item().productId]"
+            class="p-0"
+            style="text-decoration: none"
+            >{{ item().productName }}</a
+          >
+        </div>
+        <div class="row text-muted">{{ item().type }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="quantity col-2">
+    <div class="input-group d-flex align-items-center justify-content-center">
+      <a (click)="incrementQuantity()" class="text-secondary"><i class="fa-solid fa-plus"></i></a>
+      <input
+        type="number"
+        class="form-control input-sm text-center shadow-none ms-2 me-2"
+        min="1"
+        [value]="item().quantity"
+        [max]="item().maxQuantity"
+        step="1"
+        readonly
+        style="min-width: 60px"
+      />
+      <a (click)="decrementQuantity()" class="text-secondary"><i class="fa-solid fa-minus"></i></a>
+    </div>
+  </div>
+  <div class="price col-3">
+    <div class="row justify-content-center">
+      {{ item().price * item().quantity | currency : 'BRL' : 'symbol' }}
+    </div>
+  </div>
+  <div class="remove col-1 text-end">
+    <div class="row">
+      <a (click)="removeItem()" class="text-muted"><i class="fa-regular fa-circle-xmark"></i></a>
+    </div>
+  </div>
+</div>

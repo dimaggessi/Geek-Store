@@ -1,0 +1,32 @@
+<section>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="card d-flex flex-row border-0 shadow">
+        <div class="row">
+          <div class="cart col-lg-8 p-4">
+            <div class="title">
+              <div class="row align-items-center">
+                <div class="col-10">
+                  <h3 class="p-2 text-muted">Carrinho de compras</h3>
+                </div>
+                <div class="col-2 text-muted text-right align-items-center">
+                  <div class="row">{{ cartService.itemCount() }} itens</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              @if (cartService.cart() === null) {
+              <div><h6>Seu carrinho está vazio.</h6></div>
+              } @for (item of cartService.cart()?.items; track item.productId ) {
+              <app-cart-item [item]="item"></app-cart-item>
+              }
+            </div>
+          </div>
+          <div class="summary col-lg-4 p-5 bg-light">
+            <app-summary></app-summary>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

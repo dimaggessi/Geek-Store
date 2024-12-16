@@ -5,21 +5,28 @@ import {combineLatest, Observable} from 'rxjs';
 import {selectProductById} from '../../store/products.selectors';
 import {ActivatedRoute, RouterModule} from '@angular/router';
 import {productActions} from '../../store/products.actions';
-import {Product} from '@shared/models/product.interface';
-import {CommonModule} from '@angular/common';
+import {ProductInterface} from '@shared/models/product.interface';
+import {CommonModule, Location} from '@angular/common';
+import {CartService} from '@core/services/cart.service';
+import {FormsModule} from '@angular/forms';
+import {ToastService} from '@core/services/toast.service';
 
 @Component({
   standalone: true,
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
 })
 export class ProductDetailsComponent implements OnInit {
   store = inject(Store<{product: ProductStateInterface}>);
+  cartService = inject(CartService);
   activatedRoute = inject(ActivatedRoute);
-  data$!: Observable<{product: Product | null}>;
+  toastService = inject(ToastService);
+  location = inject(Location);
+  data$!: Observable<{product: ProductInterface | null}>;
   id: string | null = this.activatedRoute.snapshot.paramMap.get('id');
+  quantity: number = 1;
 
   ngOnInit(): void {
     if (this.id) {
@@ -29,5 +36,18 @@ export class ProductDetailsComponent implements OnInit {
     this.data$ = combineLatest({
       product: this.store.select(selectProductById),
     });
+  }
+
+  addItem(product: ProductInterface, quantity: number): void {
+    this.cartService.addItem(product, quantity);
+    this.toastService.show({
+      message: 'Produto adicionado ao carrinho!',
+      type: 'success',
+      classname: 'bg-success text-white text-center',
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

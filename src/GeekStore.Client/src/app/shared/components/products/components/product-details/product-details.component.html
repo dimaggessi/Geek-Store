@@ -2,7 +2,9 @@
   <div *ngIf="data.product">
     <div class="container mt-4">
       <div class="row d-flex flex-row align-items-center justify-content-center mx-auto">
-        <a routerLink="/loja"><i class="fa-solid fa-backward ms-0 mb-3"></i></a>
+        <a (click)="goBack()" class="text-primary"
+          ><i class="fa-solid fa-backward ms-0 mb-3"></i
+        ></a>
         <div class="card flex-column flex-lg-row bg-light p-0">
           <div class="col-12 col-lg-6">
             <img
@@ -17,7 +19,7 @@
               <hr />
             </div>
             <div class="price">
-              <h2 class="mt-3 me-2 text-muted">R&dollar;&nbsp;{{ data.product.price }}</h2>
+              <h2 class="mt-3 me-2 text-muted">{{ data.product.price | currency : 'BRL' }}</h2>
               <h6
                 [ngClass]="{
                   'text-danger': data.product.quantity < 300,
@@ -59,6 +61,7 @@
             <div class="form-group mt-3 mb-3">
               <label class="text-muted mb-2">Quantidade</label>
               <input
+                [(ngModel)]="quantity"
                 type="number"
                 class="form-control input-sm text-center shadow-none"
                 value="1"
@@ -69,7 +72,11 @@
                 style="width: 85px"
               />
             </div>
-            <button type="button" class="btn btn-sm btn-outline-success mt-auto w-100">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-success mt-auto w-100"
+              (click)="addItem(data.product, this.quantity)"
+            >
               <small>ADICIONAR</small><i class="fa fa-cart-shopping ms-2"></i>
             </button>
           </div>

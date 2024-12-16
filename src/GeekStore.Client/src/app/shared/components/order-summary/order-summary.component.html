@@ -1,0 +1,51 @@
+<section class="mx-auto">
+  <div class="container">
+    <div class="row">
+      <div class="title">
+        <h4>Resumo do pedido</h4>
+        <hr />
+      </div>
+      <div class="description">
+        <dl class="d-flex align-items-center justify-content-between">
+          <dt>Subtotal</dt>
+          <dd>{{ cartService.totals()?.subtotal | currency : 'BRL' }}</dd>
+        </dl>
+        <dl class="d-flex align-items-center justify-content-between">
+          <dt>Frete</dt>
+          <dd>{{ cartService.totals()?.shipping }}</dd>
+        </dl>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Calcular Frete</label>
+          <select class="form-select shadow-none" id="inputGroupSelect01">
+            <option selected>Escolha...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <dl class="d-flex align-items-center justify-content-between">
+          <dt>Desconto</dt>
+          <dd>{{ cartService.totals()?.discount }}</dd>
+        </dl>
+        <div class="input-group mb-4">
+          <button class="input-group-text">Aplicar Cupom</button>
+          <input
+            type="text"
+            class="form-control shadow-none"
+            placeholder="Código..."
+            aria-label="Example text with button addon"
+            aria-describedby="button-addon1"
+          />
+        </div>
+        <hr />
+        <dl class="d-flex align-items-center justify-content-between">
+          <dt>Total</dt>
+          <dd>{{ cartService.totals()?.total | currency : 'BRL' }}</dd>
+        </dl>
+      </div>
+      <div class="checkout text-center">
+        <button class="btn btn-outline-success w-100">Finalizar Pedido</button>
+      </div>
+    </div>
+  </div>
+</section>
