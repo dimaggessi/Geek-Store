@@ -5,7 +5,7 @@ import {authActions} from './auth.actions';
 import {catchError, map, of, switchMap, tap} from 'rxjs';
 import {UserInterface} from '@shared/models/user.interface';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 // listening for 'register' action
 export const registerEffect = createEffect(
@@ -73,10 +73,17 @@ export const loginEffect = createEffect(
 
 // redirect after login success
 export const redirectAfterLoginEffect = createEffect(
-  (action$ = inject(Actions), router = inject(Router)) => {
+  (action$ = inject(Actions), router = inject(Router), activatedRoute = inject(ActivatedRoute)) => {
     return action$.pipe(
       ofType(authActions.loginSuccess),
-      tap(() => router.navigateByUrl('/'))
+      tap(() => {
+        const url = activatedRoute.snapshot.queryParams['returnUrl'];
+        if (url) {
+          router.navigateByUrl(url);
+        } else {
+          router.navigateByUrl('/loja');
+        }
+      })
     );
   },
   {functional: true, dispatch: false}

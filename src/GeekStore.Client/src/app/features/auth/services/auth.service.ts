@@ -47,13 +47,11 @@ export class AuthService {
   getUserInfo(): Observable<UserInterface> {
     const url = environment.apiUrl + '/auth/user-info';
 
-    return this.http
-      .get<AuthResponseInterface>(url, {withCredentials: true})
-      .pipe(
-        map((response) => {
-          return response.user;
-        })
-      );
+    return this.http.get<AuthResponseInterface>(url, {withCredentials: true}).pipe(
+      map((response) => {
+        return response.user;
+      })
+    );
   }
 
   isAuthenticated(): Observable<boolean> {

@@ -15,7 +15,7 @@ import {authFeatureKey, authReducer} from '@features/auth/store/auth.reducer';
 import {provideEffects} from '@ngrx/effects';
 import * as authEffects from '@features/auth/store/auth.effects';
 import * as productEffects from '@shared/components/products/store/products.effects';
-import {authInterceptorFn} from '@core/interceptors/auth.interceptor';
+import {languageInterceptorFn} from '@core/interceptors/language.interceptor';
 import {provideRouterStore, routerReducer} from '@ngrx/router-store';
 import {metaReducers, rehydrateState} from '@features/auth/store/auth.meta-reducer';
 import {
@@ -50,7 +50,7 @@ export const appConfig: ApplicationConfig = {
     provideRouterStore(),
     provideEffects(authEffects, productEffects),
     provideHttpClient(
-      withInterceptors([errorInterceptorFn, authInterceptorFn, loadingInterceptor])
+      withInterceptors([errorInterceptorFn, languageInterceptorFn, loadingInterceptor])
     ),
     {
       provide: APP_INITIALIZER,
