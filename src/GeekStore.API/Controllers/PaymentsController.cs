@@ -1,5 +1,9 @@
-﻿using GeekStore.Application.Payments.Commands;
+﻿using GeekStore.Application.Cart.CreateCart;
+using GeekStore.Application.Payments.Commands;
+using GeekStore.Domain.Entities;
+using GeekStore.Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeekStore.API.Controllers;
@@ -15,9 +19,24 @@ public class PaymentsController : ApiController
     [HttpPost("{cartId}")]
     public async Task<IActionResult> CreateOrUpdatePaymentIntent(string cartId)
     {
+        var requestCart = new GetOrCreateCart { Id = cartId };
+        var resultCart = await _mediator.Send(requestCart);
+        var cart = resultCart.Value;
+
+        if (cart is null)
+            return NotFound(new
+            {
+                Error = new Error(
+                    ResourceErrorMessages.DEFAULT_NOT_FOUND,
+                    ResourceErrorMessages.SHOPPING_CART_NULL)
+            });
+
         var request = new CreateOrUpdatePaymentIntentCommand
         {
-            CartId = cartId
+            CartId = cartId,
+            DeliveryMethodId = cart.DeliveryMethodId,
+            PostalCode = cart.PostalCode,
+
         };
 
         var result = await _mediator.Send(request);

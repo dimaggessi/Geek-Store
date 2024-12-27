@@ -3,13 +3,12 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {environment} from '@environments/environment';
 import {Cart, CartItemInterface} from '@shared/models/cart.interface';
 import {ProductInterface} from '@shared/models/product.interface';
-import {BehaviorSubject, debounceTime, distinctUntilChanged, map} from 'rxjs';
+import {map} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class CartService {
   private http = inject(HttpClient);
   cart = signal<Cart | null>(null);
-  private cartSubject = new BehaviorSubject<Cart | null>(this.cart());
 
   itemCount = computed(() => {
     return this.cart()?.items.reduce((sum, item) => sum + item.quantity, 0) ?? 0;

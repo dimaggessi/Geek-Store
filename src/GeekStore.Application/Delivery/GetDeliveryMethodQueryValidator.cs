@@ -2,9 +2,9 @@
 using GeekStore.Domain.Shared;
 
 namespace GeekStore.Application.Delivery;
-public class GetDeliveryMethodQuerieValidator : AbstractValidator<GetDeliveryMethodQuerie>
+public class GetDeliveryMethodQueryValidator : AbstractValidator<GetDeliveryMethodQuery>
 {
-    public GetDeliveryMethodQuerieValidator()
+    public GetDeliveryMethodQueryValidator()
     {
         RuleFor(d => d.PostalCode)
             .NotEmpty()

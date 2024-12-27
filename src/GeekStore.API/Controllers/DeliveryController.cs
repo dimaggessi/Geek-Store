@@ -14,7 +14,7 @@ public class DeliveryController : ApiController
 
     [HttpPost()]
     public async Task<IActionResult> GetDeliveryMethods(
-        [FromBody]GetDeliveryMethodQuerie request)
+        [FromBody]GetDeliveryMethodQuery request)
     {
 
         var result = await _mediator.Send(request);

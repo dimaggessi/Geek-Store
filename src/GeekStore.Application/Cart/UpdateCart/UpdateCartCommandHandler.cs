@@ -16,7 +16,9 @@ public class UpdateCartCommandHandler(IShoppingCartRepository cartRepository)
                 Id = request.Id!,
                 Items = request.Items!,
                 PostalCode = request.PostalCode,
-                DeliveryMethodId = request.DeliveryMethodId
+                DeliveryMethodId = request.DeliveryMethodId,
+                ClientSecret = request.ClientSecret,
+                PaymentIntentId = request.PaymentIntentId
             };
 
             var updated = await cartRepository.SetCartAsync(cart);

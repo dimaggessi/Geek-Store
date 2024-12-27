@@ -3,5 +3,5 @@
 namespace GeekStore.Domain.Interfaces;
 public interface IPaymentService
 {
-    Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId);
+    Task<ShoppingCart?> CreateOrUpdatePaymentIntent(ShoppingCart cart, decimal shippingPrice);
 }

@@ -14,14 +14,46 @@
           <dt>Frete</dt>
           <dd>{{ cartService.totals()?.shipping }}</dd>
         </dl>
-        <div class="input-group mb-3">
-          <label class="input-group-text" for="inputGroupSelect01">Calcular Frete</label>
-          <select class="form-select shadow-none" id="inputGroupSelect01">
-            <option selected>Escolha...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+        <dl class="d-flex align-items-center justify-content-between">
+          <dt>Prazo de entrega</dt>
+          <dd>0</dd>
+        </dl>
+        <div class="form-check mt-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1"
+            checked
+          />
+          <label class="form-check-label mb-2" for="flexRadioDefault1"
+            ><img
+              src="images/pac-correios-logo.png"
+              alt="PAC Correios Logo"
+              style="max-width: 100px"
+            />
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2"
+          />
+          <label class="form-check-label mb-4" for="flexRadioDefault2"
+            ><img src="/images/sedex.png" alt="SEDEX Correios" style="max-width: 100px" />
+          </label>
+        </div>
+        <div class="input-group mb-4">
+          <button class="input-group-text">Calcular Frete</button>
+          <input
+            type="text"
+            class="form-control shadow-none"
+            placeholder="Digite o CEP..."
+            aria-label="Example text with button addon"
+            aria-describedby="button-addon1"
+          />
         </div>
         <dl class="d-flex align-items-center justify-content-between">
           <dt>Desconto</dt>
@@ -33,8 +65,8 @@
             type="text"
             class="form-control shadow-none"
             placeholder="Código..."
-            aria-label="Example text with button addon"
-            aria-describedby="button-addon1"
+            aria-label="discount cupom"
+            aria-describedby="button-discount"
           />
         </div>
         <hr />
