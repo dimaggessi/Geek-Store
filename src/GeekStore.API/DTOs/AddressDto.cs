@@ -2,6 +2,7 @@
 
 public sealed record AddressDto
 {
+    public string? Number { get; set; }
     public string? Street { get; init; }
     public string? Neighborhood { get; init; }
     public string? City { get; init; }

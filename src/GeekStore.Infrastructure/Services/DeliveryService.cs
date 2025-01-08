@@ -30,7 +30,6 @@ public sealed class DeliveryService : IDeliveryService
         {
             Id = p.Id,
             Quantity = p.Quantity,
-            Price = p.Price,
             Width = p.Width,
             Height = p.Height,
             Length = p.Length,

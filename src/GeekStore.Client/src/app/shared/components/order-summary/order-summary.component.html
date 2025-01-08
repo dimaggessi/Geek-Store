@@ -12,21 +12,23 @@
         </dl>
         <dl class="d-flex align-items-center justify-content-between">
           <dt>Frete</dt>
-          <dd>{{ cartService.totals()?.shipping }}</dd>
+          <dd>{{ cartService.shippingCost | currency : 'BRL' }}</dd>
         </dl>
         <dl class="d-flex align-items-center justify-content-between">
           <dt>Prazo de entrega</dt>
-          <dd>0</dd>
+          <dd>{{ cartService.deliveryTime }} dias</dd>
         </dl>
         <div class="form-check mt-3">
           <input
             class="form-check-input"
             type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
+            name="deliveryMethod"
+            id="pacOption"
+            value="1"
+            (change)="onDeliveryMethodChange($event)"
             checked
           />
-          <label class="form-check-label mb-2" for="flexRadioDefault1"
+          <label class="form-check-label mb-2" for="pacOption"
             ><img
               src="images/pac-correios-logo.png"
               alt="PAC Correios Logo"
@@ -38,21 +40,31 @@
           <input
             class="form-check-input"
             type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
+            name="deliveryMethod"
+            id="sedexOption"
+            (change)="onDeliveryMethodChange($event)"
+            value="2"
           />
-          <label class="form-check-label mb-4" for="flexRadioDefault2"
+          <label class="form-check-label mb-4" for="sedexOption"
             ><img src="/images/sedex.png" alt="SEDEX Correios" style="max-width: 100px" />
           </label>
         </div>
         <div class="input-group mb-4">
-          <button class="input-group-text">Calcular Frete</button>
+          <button
+            class="input-group-text"
+            (click)="calculateDelivery(postalCodeInput.value, selectedDeliveryMethod)"
+          >
+            Calcular Frete
+          </button>
           <input
+            #postalCodeInput
             type="text"
+            maxlength="8"
             class="form-control shadow-none"
             placeholder="Digite o CEP..."
             aria-label="Example text with button addon"
             aria-describedby="button-addon1"
+            (input)="onInput($event)"
           />
         </div>
         <dl class="d-flex align-items-center justify-content-between">
@@ -76,13 +88,12 @@
         </dl>
       </div>
       <div class="checkout text-center">
-        <button
-          class="btn btn-outline-success w-100"
-          routerLink="/checkout"
-          [disabled]="this.cartService.itemCount() === 0"
-        >
+        <button class="btn btn-outline-success w-100" (click)="summaryValidator()">
           Finalizar Pedido
         </button>
+        <small *ngIf="this.cartService.shippingCost === 0" class="text-danger"
+          >calcule o frete para prosseguir</small
+        >
       </div>
     </div>
   </div>

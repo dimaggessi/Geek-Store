@@ -1,0 +1,18 @@
+.step-circle {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  font-weight: bold;
+  display: inline-block;
+  background-color: white;
+  color: #6c757d;
+}
+
+.step-circle.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}

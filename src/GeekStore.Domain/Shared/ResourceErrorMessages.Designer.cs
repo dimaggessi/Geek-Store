@@ -277,6 +277,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The house number in the address is required..
+        /// </summary>
+        public static string EMPTY_ADDRESS_NUMBER {
+            get {
+                return ResourceManager.GetString("EMPTY_ADDRESS_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer email is required..
         /// </summary>
         public static string EMPTY_CUSTOMER_EMAIL {
@@ -507,6 +516,15 @@ namespace GeekStore.Domain.Shared {
         public static string EMPTY_USER_PASSWORD {
             get {
                 return ResourceManager.GetString("EMPTY_USER_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User&apos;s address is null..
+        /// </summary>
+        public static string ERROR_ADDRESS_NULL {
+            get {
+                return ResourceManager.GetString("ERROR_ADDRESS_NULL", resourceCulture);
             }
         }
         

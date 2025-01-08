@@ -1,5 +1,6 @@
 ﻿using GeekStore.API.DTOs;
-using GeekStore.Application.Address;
+using GeekStore.Application.Address.Commands;
+using GeekStore.Application.Address.Queries;
 using GeekStore.Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,7 @@ public class AddressController(ISender mediator) : ApiController
 
         var request = new CreateOrUpdateAddressCommand
         {
+            Number = addressDto.Number,
             Street = addressDto.Street,
             Neighborhood = addressDto.Neighborhood,
             City = addressDto.City,
@@ -41,6 +43,25 @@ public class AddressController(ISender mediator) : ApiController
                 };
                 return BadRequest(errorResponse);
             }
+        );
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetUserAddress()
+    {
+        var user = User;
+
+        if (user is null)
+            return NotFound(ResourceErrorMessages.AUTH_USER_NOT_FOUND);
+
+        var request = new GetAddressQuery { User = user };
+
+        var result = await mediator.Send(request);
+
+        return result.Map<IActionResult>(
+            onSuccess: address => Ok(address),
+            onFailure: err => NoContent()
         );
     }
 }

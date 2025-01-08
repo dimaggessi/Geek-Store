@@ -426,4 +426,10 @@
   <data name="ERROR_EMPTY_PRODUCTS" xml:space="preserve">
     <value>No products were found.</value>
   </data>
+  <data name="EMPTY_ADDRESS_NUMBER" xml:space="preserve">
+    <value>The house number in the address is required.</value>
+  </data>
+  <data name="ERROR_ADDRESS_NULL" xml:space="preserve">
+    <value>User's address is null.</value>
+  </data>
 </root>

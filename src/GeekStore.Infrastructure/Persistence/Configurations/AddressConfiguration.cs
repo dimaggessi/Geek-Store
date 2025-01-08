@@ -9,6 +9,7 @@ namespace GeekStore.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.ToTable("Addresses", "ecommerce");
+            builder.Property(a => a.Number).IsRequired().HasMaxLength(100);
             builder.Property(a => a.Street).IsRequired().HasMaxLength(100);
             builder.Property(a => a.Neighborhood).HasMaxLength(100);
             builder.Property(a => a.City).IsRequired().HasMaxLength(50);

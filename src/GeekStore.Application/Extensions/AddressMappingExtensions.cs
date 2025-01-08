@@ -1,4 +1,4 @@
-﻿using GeekStore.Application.Address;
+﻿using GeekStore.Application.Address.Commands;
 using GeekStore.Domain.Entities;
 
 namespace GeekStore.Application.Extensions;
@@ -6,6 +6,7 @@ public static class AddressMappingExtensions
 {
     public static ApplicationUser UpdateUserAddress(this ApplicationUser user, CreateOrUpdateAddressCommand request)
     {
+        user.Address!.Number = request.Number!;
         user.Address!.Street = request.Street!;
         user.Address.Neighborhood = request.Neighborhood;
         user.Address.City = request.City!;
@@ -20,6 +21,7 @@ public static class AddressMappingExtensions
     {
         user.Address = new Domain.Entities.Address
         {
+            Number = request.Number!,
             Street = request.Street!,
             Neighborhood = request.Neighborhood,
             City = request.City!,

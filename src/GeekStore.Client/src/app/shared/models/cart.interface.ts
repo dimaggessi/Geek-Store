@@ -3,6 +3,10 @@ import {v4 as uuidv4} from 'uuid';
 export interface CartInterface {
   id: string;
   items: CartItemInterface[];
+  deliveryMethodId?: number;
+  postalCode?: string;
+  clientSecret?: string;
+  paymentIntentId?: string;
 }
 
 export interface CartItemInterface {
@@ -19,4 +23,8 @@ export interface CartItemInterface {
 export class Cart implements CartInterface {
   id = uuidv4();
   items: CartItemInterface[] = [];
+  deliveryMethodId?: number;
+  postalCode?: string;
+  clientSecret?: string;
+  paymentIntentId?: string;
 }

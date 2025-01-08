@@ -1,8 +1,9 @@
 export interface AddressInterface {
-  Street: string;
-  Neighborhood: string;
-  City: string;
-  State: string;
-  Country: string;
-  PostalCode: string;
+  number: string;
+  street: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  country: string;
+  postalCode: string;
 }

@@ -12,7 +12,7 @@ public class DeliveryController : ApiController
         _mediator = mediator;
     }
 
-    [HttpPost()]
+    [HttpPost]
     public async Task<IActionResult> GetDeliveryMethods(
         [FromBody]GetDeliveryMethodQuery request)
     {

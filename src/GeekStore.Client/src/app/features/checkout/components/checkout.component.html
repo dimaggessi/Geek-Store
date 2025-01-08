@@ -1,1 +1,175 @@
-<h1>dentro de checkout</h1>
+<div class="container mt-4">
+  <!-- Stepper Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <div id="address" class="step-circle" [class.active]="currentStep >= 1">Endereço</div>
+    </div>
+    <div>
+      <div class="step-circle" [class.active]="currentStep >= 2">Pagamento</div>
+    </div>
+    <div>
+      <div class="step-circle" [class.active]="currentStep >= 3">Pedido</div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress mb-4">
+    <div class="progress-bar" role="progressbar" [style.width.%]="(currentStep / 3) * 100"></div>
+  </div>
+
+  <!-- Step Content -->
+  <div class="card">
+    <div class="card-body">
+      <ng-container [ngSwitch]="currentStep">
+        <div *ngSwitchCase="1">
+          <div class="container">
+            <h2>Preencha o Endereço</h2>
+            <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm.value)" novalidate>
+              <div class="row">
+                <div class="col-md-2 mb-2">
+                  <label for="number" class="form-label text-primary ms-1">Número</label>
+                  <input
+                    type="text"
+                    id="number"
+                    name="Number"
+                    class="form-control"
+                    [(ngModel)]="address.number"
+                    required
+                    placeholder="Ex.: 123"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.number" class="text-danger">
+                    Informar o número.
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                  <label for="street" class="form-label text-primary ms-1">Rua</label>
+                  <input
+                    type="text"
+                    id="street"
+                    name="Street"
+                    class="form-control"
+                    [(ngModel)]="address.street"
+                    required
+                    placeholder="Ex.: Rua Principal"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.street" class="text-danger">
+                    O campo Rua é obrigatório.
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                  <label for="neighborhood" class="form-label text-primary ms-1">Bairro</label>
+                  <input
+                    type="text"
+                    id="neighborhood"
+                    name="Neighborhood"
+                    class="form-control"
+                    [(ngModel)]="address.neighborhood"
+                    required
+                    placeholder="Ex.: Centro"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.neighborhood" class="text-danger">
+                    O campo Bairro é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <label for="city" class="form-label text-primary ms-1">Cidade</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="City"
+                    class="form-control"
+                    [(ngModel)]="address.city"
+                    required
+                    placeholder="Ex.: São Paulo"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.city" class="text-danger">
+                    O campo Cidade é obrigatório.
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                  <label for="state" class="form-label text-primary ms-1">Estado</label>
+                  <input
+                    type="text"
+                    id="state"
+                    name="State"
+                    class="form-control"
+                    [(ngModel)]="address.state"
+                    required
+                    placeholder="Ex.: SP"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.state" class="text-danger">
+                    O campo Estado é obrigatório.
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                  <label for="country" class="form-label text-primary ms-1">País</label>
+                  <input
+                    type="text"
+                    id="country"
+                    name="Country"
+                    class="form-control"
+                    [(ngModel)]="address.country"
+                    required
+                    placeholder="Ex.: Brasil"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.country" class="text-danger">
+                    O campo País é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <label for="postalCode" class="form-label text-primary ms-1">CEP</label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    name="PostalCode"
+                    class="form-control"
+                    [(ngModel)]="address.postalCode"
+                    required
+                    placeholder="Ex.: 12345678"
+                  />
+                  <div *ngIf="addressForm.submitted && !address.postalCode" class="text-danger">
+                    O campo CEP é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary mt-4">Enviar</button>
+            </form>
+          </div>
+        </div>
+        <div *ngSwitchCase="2">
+          <h5>Step 2 Content</h5>
+          <p>Fill in the details for Step 2...</p>
+        </div>
+        <div *ngSwitchCase="3">
+          <h5>Step 3 Content</h5>
+          <p>Fill in the details for Step 3...</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-secondary" [disabled]="currentStep === 1" (click)="previousStep()">
+      Voltar
+    </button>
+    <button
+      class="btn btn-primary"
+      [disabled]="currentStep === 3 || !this.addressFilled"
+      (click)="nextStep()"
+    >
+      Próximo
+    </button>
+  </div>
+</div>

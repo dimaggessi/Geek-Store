@@ -426,4 +426,10 @@
   <data name="ERROR_EMPTY_PRODUCTS" xml:space="preserve">
     <value>Nenhum produto foi encontrado.</value>
   </data>
+  <data name="EMPTY_ADDRESS_NUMBER" xml:space="preserve">
+    <value>O número da residência deve ser informado.</value>
+  </data>
+  <data name="ERROR_ADDRESS_NULL" xml:space="preserve">
+    <value>O endereço do usuário está nulo.</value>
+  </data>
 </root>

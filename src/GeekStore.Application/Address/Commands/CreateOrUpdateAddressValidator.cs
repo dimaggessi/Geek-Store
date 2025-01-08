@@ -1,11 +1,14 @@
 ﻿using FluentValidation;
 using GeekStore.Domain.Shared;
 
-namespace GeekStore.Application.Address;
+namespace GeekStore.Application.Address.Commands;
 public class CreateOrUpdateAddressValidator : AbstractValidator<CreateOrUpdateAddressCommand>
 {
     public CreateOrUpdateAddressValidator()
     {
+        RuleFor(a => a.Number)
+            .NotEmpty()
+            .WithMessage(ResourceErrorMessages.EMPTY_ADDRESS_NUMBER);
         RuleFor(a => a.Street)
             .NotEmpty()
             .WithMessage(ResourceErrorMessages.ADDRESS_STREET)
