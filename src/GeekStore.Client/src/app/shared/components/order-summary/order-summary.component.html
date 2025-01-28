@@ -51,7 +51,7 @@
         </div>
         <div class="input-group mb-4">
           <button
-            class="input-group-text"
+            class="input-group-text bg-info"
             (click)="calculateDelivery(postalCodeInput.value, selectedDeliveryMethod)"
           >
             Calcular Frete
@@ -91,9 +91,6 @@
         <button class="btn btn-outline-success w-100" (click)="summaryValidator()">
           Finalizar Pedido
         </button>
-        <small *ngIf="this.cartService.shippingCost === 0" class="text-danger"
-          >calcule o frete para prosseguir</small
-        >
       </div>
     </div>
   </div>

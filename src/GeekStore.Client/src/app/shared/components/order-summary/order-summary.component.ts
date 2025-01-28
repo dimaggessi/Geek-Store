@@ -28,6 +28,10 @@ export class OrderSummaryComponent {
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     input.value = input.value.replace(/\D/g, '');
+
+    if (input.value.length === 8) {
+      this.calculateDelivery(input.value, this.selectedDeliveryMethod);
+    }
   }
 
   onDeliveryMethodChange(event: Event): void {
@@ -73,16 +77,20 @@ export class OrderSummaryComponent {
   }
 
   summaryValidator() {
-    if (this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0) {
-      this.openPostalCodeModal({
-        code: 'Calcular Frete',
-        message: 'É necessário calcular o valor do frete para prosseguir.',
-      });
-    } else {
-      this.route.navigateByUrl('/checkout');
-    }
-    // [disabled]="this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0"
+    this.route.navigateByUrl('/checkout');
   }
+
+  // summaryValidator() {
+  //   if (this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0) {
+  //     this.openPostalCodeModal({
+  //       code: 'Calcular Frete',
+  //       message: 'É necessário calcular o valor do frete para prosseguir.',
+  //     });
+  //   } else {
+  //     this.route.navigateByUrl('/checkout');
+  //   }
+  //   // [disabled]="this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0"
+  // }
 
   openPostalCodeModal(error: ErrorInterface): void {
     if (!this.modalService.hasOpenModals()) {

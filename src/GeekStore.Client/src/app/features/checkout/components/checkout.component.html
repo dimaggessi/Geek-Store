@@ -2,13 +2,15 @@
   <!-- Stepper Header -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-      <div id="address" class="step-circle" [class.active]="currentStep >= 1">Endereço</div>
+      <div id="address" class="step-circle" [ngClass]="{'fw-bold': currentStep === 1}">
+        Endereço de Entrega
+      </div>
     </div>
     <div>
-      <div class="step-circle" [class.active]="currentStep >= 2">Pagamento</div>
+      <div class="step-circle" [ngClass]="{'fw-bold': currentStep === 2}">Pagamento</div>
     </div>
     <div>
-      <div class="step-circle" [class.active]="currentStep >= 3">Pedido</div>
+      <div class="step-circle" [ngClass]="{'fw-bold': currentStep === 3}">Resumo do Pedido</div>
     </div>
   </div>
 
@@ -130,30 +132,171 @@
                   <label for="postalCode" class="form-label text-primary ms-1">CEP</label>
                   <input
                     type="text"
+                    maxlength="8"
                     id="postalCode"
                     name="PostalCode"
                     class="form-control"
                     [(ngModel)]="address.postalCode"
                     required
                     placeholder="Ex.: 12345678"
+                    (input)="onInput($event)"
                   />
                   <div *ngIf="addressForm.submitted && !address.postalCode" class="text-danger">
-                    O campo CEP é obrigatório.
+                    O campo CEP é obrigatório. Apenas números.
                   </div>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary mt-4">Enviar</button>
+              <button type="submit" class="btn btn-primary mt-2">Salvar Endereço</button>
             </form>
+
+            <div class="row">
+              <div class="col-md-4 mt-4 mb-2 ms-auto">
+                <label class="form-label text-primary ms-1">Selecione o Método de entrega:</label>
+                <div class="col-12">
+                  <input
+                    class="form-check-input ms-2"
+                    type="radio"
+                    name="deliveryMethod"
+                    id="pacOption"
+                    value="1"
+                    (change)="onDeliveryMethodChange($event)"
+                    checked
+                  />
+                  <label class="form-check-label ms-1" for="pacOption"
+                    ><img
+                      src="images/pac-correios-logo.png"
+                      alt="PAC Correios Logo"
+                      style="max-width: 100px"
+                    />
+                  </label>
+                  <input
+                    class="form-check-input ms-2"
+                    type="radio"
+                    name="deliveryMethod"
+                    id="sedexOption"
+                    (change)="onDeliveryMethodChange($event)"
+                    value="2"
+                  />
+                  <label class="form-check-label ms-1" for="sedexOption"
+                    ><img src="/images/sedex.png" alt="SEDEX Correios" style="max-width: 100px" />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-4 ms-auto">
+                <dl class="d-flex align-items-center justify-content-between">
+                  <dt>Frete</dt>
+                  <dd>{{ cartService.shippingCost | currency : 'BRL' }}</dd>
+                </dl>
+                <dl class="d-flex align-items-center justify-content-between">
+                  <dt>Prazo de entrega</dt>
+                  <dd>{{ cartService.deliveryTime }} dias</dd>
+                </dl>
+              </div>
+            </div>
           </div>
         </div>
         <div *ngSwitchCase="2">
-          <h5>Step 2 Content</h5>
-          <p>Fill in the details for Step 2...</p>
+          <h2>Pagamento do Pedido</h2>
+          <div class="container">
+            <ng-container *ngIf="paymentElement === undefined">
+              <div
+                class="d-flex justify-content-center align-items-center"
+                style="height: calc(100vh - 300px)"
+              >
+                <div
+                  class="spinner-border text-warning"
+                  style="width: 4rem; height: 4rem"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </ng-container>
+            <div id="payment-element"></div>
+            <div>
+              <small
+                ><strong>Utilize o seguinte número de Cartão de Crédito para testes:</strong>
+                <span class="text-danger"> 4242 4242 4242 4242</span></small
+              >
+            </div>
+          </div>
         </div>
         <div *ngSwitchCase="3">
-          <h5>Step 3 Content</h5>
-          <p>Fill in the details for Step 3...</p>
+          <h2>Resumo do Pedido</h2>
+          <div class="container">
+            <!-- Delivery Address -->
+            <div class="card mb-3">
+              <div class="card-header fw-bold">Endereço de Entrega</div>
+              <div class="card-body">
+                <p>
+                  <strong>Rua:</strong>
+                  <span class="text-muted"> {{ address.street }}, {{ address.number }}</span>
+                </p>
+                <p>
+                  <strong>Bairro:</strong>
+                  <span class="text-muted"> {{ address.neighborhood }}</span>
+                </p>
+                <p>
+                  <strong>Cidade:</strong>
+                  <span class="text-muted"> {{ address.city }} - {{ address.state }}</span>
+                </p>
+                <p>
+                  <strong>País:</strong> <span class="text-muted"> {{ address.country }}</span>
+                </p>
+                <p>
+                  <strong>CEP:</strong> <span class="text-muted"> {{ address.postalCode }}</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="card mb-3">
+              <div class="card-header fw-bold">Detalhes do Pagamento</div>
+              <div class="card-body">
+                <p>
+                  <strong>Método de Pagamento:</strong>
+                  <span class="text-muted">
+                    {{ confirmationToken?.payment_method_preview | paymentCard }}</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <!-- Cart Items -->
+            <div class="card">
+              <div class="card-header fw-bold">Itens do Carrinho</div>
+              <div class="card-body">
+                <div *ngFor="let item of cartService.cart()?.items">
+                  <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <div>
+                      <img
+                        [src]="item.picture"
+                        alt=""
+                        class="img-fluid rounded-3"
+                        style="max-width: 100px"
+                      />
+                    </div>
+                    <div>
+                      <p class="mb-0">
+                        <strong>{{ item.productName }}</strong>
+                      </p>
+                      <p class="mb-0 text-muted">Quantidade: {{ item.quantity }}</p>
+                    </div>
+                    <div>
+                      <p class="mb-0">{{ item.price | currency : 'BRL' }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-between">
+                  <p class="fw-bold">Total:</p>
+                  <p class="fw-bold">{{ cartService.totals()?.total | currency : 'BRL' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </ng-container>
     </div>
@@ -161,15 +304,62 @@
 
   <!-- Navigation Buttons -->
   <div class="d-flex justify-content-between mt-3">
-    <button class="btn btn-secondary" [disabled]="currentStep === 1" (click)="previousStep()">
+    <button
+      class="btn btn-secondary"
+      [disabled]="currentStep === 1"
+      [hidden]="currentStep === 3"
+      (click)="previousStep()"
+    >
       Voltar
     </button>
     <button
       class="btn btn-primary"
-      [disabled]="currentStep === 3 || !this.addressFilled"
+      [disabled]="!this.addressFilled"
+      [hidden]="currentStep === 3"
       (click)="nextStep()"
     >
       Próximo
     </button>
+    <button class="btn btn-success ms-auto" [hidden]="currentStep !== 3" (click)="confirmPayment()">
+      Confirmar Pedido
+    </button>
   </div>
+  <br />
 </div>
+
+<ng-container>
+  <div *ngIf="hasScrollDown" class="scroll-indicator" (click)="scrollDown()">
+    <span class="arrow-down"></span>
+  </div>
+</ng-container>
+
+<style>
+  .scroll-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000; /* Garantir que a seta fique visível acima de outros elementos */
+    display: block; /* Certifique-se de que está sendo exibido */
+  }
+
+  .arrow-down {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-right: 5px solid #28a745;
+    border-bottom: 5px solid #28a745;
+    transform: rotate(45deg);
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0) rotate(45deg);
+    }
+    50% {
+      transform: translateY(10px) rotate(45deg);
+    }
+  }
+</style>

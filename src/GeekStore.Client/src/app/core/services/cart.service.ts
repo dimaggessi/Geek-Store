@@ -4,10 +4,12 @@ import {environment} from '@environments/environment';
 import {Cart, CartItemInterface} from '@shared/models/cart.interface';
 import {ProductInterface} from '@shared/models/product.interface';
 import {map} from 'rxjs';
+import {ToastService} from './toast.service';
 
 @Injectable({providedIn: 'root'})
 export class CartService {
   private http = inject(HttpClient);
+  toastService = inject(ToastService);
   cart = signal<Cart | null>(null);
   shippingCost = 0;
   deliveryTime = 0;
@@ -56,6 +58,11 @@ export class CartService {
     }
     cart.items = this.addOrUpdateItem(cart.items, item, quantity);
     this.setCart(cart);
+    this.toastService.show({
+      message: 'Produto adicionado ao carrinho.',
+      type: 'success',
+      classname: 'bg-success text-white text-center',
+    });
   }
 
   removeItem(productId: number, quantity = 1): void {
@@ -75,6 +82,11 @@ export class CartService {
         this.setCart(cart);
       }
     }
+    this.toastService.show({
+      message: 'Produto removido do carrinho.',
+      type: 'success',
+      classname: 'bg-danger text-white text-center',
+    });
   }
 
   deleteCart(): void {

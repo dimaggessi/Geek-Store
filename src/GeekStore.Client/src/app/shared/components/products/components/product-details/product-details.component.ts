@@ -40,11 +40,6 @@ export class ProductDetailsComponent implements OnInit {
 
   addItem(product: ProductInterface, quantity: number): void {
     this.cartService.addItem(product, quantity);
-    this.toastService.show({
-      message: 'Produto adicionado ao carrinho!',
-      type: 'success',
-      classname: 'bg-success text-white text-center',
-    });
   }
 
   goBack(): void {
