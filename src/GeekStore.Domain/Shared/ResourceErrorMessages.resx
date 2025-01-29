@@ -432,4 +432,7 @@
   <data name="ERROR_ADDRESS_NULL" xml:space="preserve">
     <value>User's address is null.</value>
   </data>
+  <data name="ERROR_PAYMENT_INTENT" xml:space="preserve">
+    <value>An error ocurred while trying to update Payment Intent. Check if payment was already done.</value>
+  </data>
 </root>

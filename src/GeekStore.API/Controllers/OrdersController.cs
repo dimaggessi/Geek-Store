@@ -75,7 +75,6 @@ public class OrdersController : ApiController
     [HttpPost]
     public async Task<IActionResult> CreateOrder(CreateOrderDto orderDto)
     {
-        
         var email = User.FindFirstValue(ClaimTypes.Email);
 
         if (email is null)
@@ -83,7 +82,7 @@ public class OrdersController : ApiController
 
         var request = new CreateOrderCommand
         {
-            CustomerEmail = email,
+            CustomerEmail = orderDto.CustomerEmail,
             CartId = orderDto.CartId,
             DeliveryMethodId = orderDto.DeliveryMethodId,
             ShippingAddress = orderDto.ShippingAddress,

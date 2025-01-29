@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {
@@ -10,7 +10,7 @@ import {
 } from '@stripe/stripe-js';
 import {CartService} from './cart.service';
 import {Cart} from '@shared/models/cart.interface';
-import {firstValueFrom, map} from 'rxjs';
+import {catchError, firstValueFrom, map, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class StripeService {
     this.stripePromise = loadStripe(environment.stripePublicKey);
   }
 
-  getStripeInstance() {
+  async getStripeInstance() {
     return this.stripePromise;
   }
 
@@ -95,10 +95,15 @@ export class StripeService {
     const cart = this.cartService.cart();
 
     if (!cart) throw new Error('Há um problema com o carrinho.');
+
     return this.http.post<Cart>(url + '/payments/' + cart.id, {}).pipe(
       map((cart) => {
-        this.cartService.cart.set(cart); // signal method: cart set locally
+        this.cartService.cart.set(cart);
         return cart;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        const errorMessage = error?.error?.detail;
+        return throwError(() => new Error(errorMessage));
       })
     );
   }

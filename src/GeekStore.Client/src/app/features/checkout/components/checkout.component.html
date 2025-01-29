@@ -201,7 +201,7 @@
         <div *ngSwitchCase="2">
           <h2>Pagamento do Pedido</h2>
           <div class="container">
-            <ng-container *ngIf="paymentElement === undefined">
+            <ng-container *ngIf="paymentElement === undefined && paymentElementError === false">
               <div
                 class="d-flex justify-content-center align-items-center"
                 style="height: calc(100vh - 300px)"
@@ -215,88 +215,124 @@
                 </div>
               </div>
             </ng-container>
-            <div id="payment-element"></div>
-            <div>
-              <small
-                ><strong>Utilize o seguinte número de Cartão de Crédito para testes:</strong>
-                <span class="text-danger"> 4242 4242 4242 4242</span></small
+            <ng-container *ngIf="paymentElementError === true">
+              <div
+                class="d-flex justify-content-center align-items-center"
+                style="height: calc(100vh - 300px)"
               >
-            </div>
-          </div>
-        </div>
-        <div *ngSwitchCase="3">
-          <h2>Resumo do Pedido</h2>
-          <div class="container">
-            <!-- Delivery Address -->
-            <div class="card mb-3">
-              <div class="card-header fw-bold">Endereço de Entrega</div>
-              <div class="card-body">
-                <p>
-                  <strong>Rua:</strong>
-                  <span class="text-muted"> {{ address.street }}, {{ address.number }}</span>
-                </p>
-                <p>
-                  <strong>Bairro:</strong>
-                  <span class="text-muted"> {{ address.neighborhood }}</span>
-                </p>
-                <p>
-                  <strong>Cidade:</strong>
-                  <span class="text-muted"> {{ address.city }} - {{ address.state }}</span>
-                </p>
-                <p>
-                  <strong>País:</strong> <span class="text-muted"> {{ address.country }}</span>
-                </p>
-                <p>
-                  <strong>CEP:</strong> <span class="text-muted"> {{ address.postalCode }}</span>
-                </p>
-              </div>
-            </div>
-
-            <!-- Payment Details -->
-            <div class="card mb-3">
-              <div class="card-header fw-bold">Detalhes do Pagamento</div>
-              <div class="card-body">
-                <p>
-                  <strong>Método de Pagamento:</strong>
-                  <span class="text-muted">
-                    {{ confirmationToken?.payment_method_preview | paymentCard }}</span
+                <p class="text-center">
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-circle-exclamation"></i> Verifique se um pagamento para o
+                    pedido já foi realizado. <br />
+                  </span>
+                  <span
+                    >Ocorreu um erro ao processar as opções de pagamento. Contate o suporte.</span
                   >
                 </p>
               </div>
+            </ng-container>
+            <div id="payment-element"></div>
+            <ng-container *ngIf="paymentElement !== undefined">
+              <div class="mt-4">
+                <small
+                  >* Utilize o seguinte número de<strong> Cartão de Crédito para testes:</strong>
+                  <span class="text-danger"> 4242 4242 4242 4242</span></small
+                >
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngSwitchCase="3">
+          <ng-container *ngIf="loading === true">
+            <div
+              class="d-flex justify-content-center align-items-center"
+              style="height: calc(100vh - 300px)"
+            >
+              <div
+                class="spinner-border text-warning"
+                style="width: 4rem; height: 4rem"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
             </div>
+          </ng-container>
+          <ng-container *ngIf="loading === false">
+            <h2>Resumo do Pedido</h2>
+            <div class="container">
+              <!-- Delivery Address -->
+              <div class="card mb-3">
+                <div class="card-header fw-bold">Endereço de Entrega</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Rua:</strong>
+                    <span class="text-muted"> {{ address.street }}, {{ address.number }}</span>
+                  </p>
+                  <p>
+                    <strong>Bairro:</strong>
+                    <span class="text-muted"> {{ address.neighborhood }}</span>
+                  </p>
+                  <p>
+                    <strong>Cidade:</strong>
+                    <span class="text-muted"> {{ address.city }} - {{ address.state }}</span>
+                  </p>
+                  <p>
+                    <strong>País:</strong> <span class="text-muted"> {{ address.country }}</span>
+                  </p>
+                  <p>
+                    <strong>CEP:</strong> <span class="text-muted"> {{ address.postalCode }}</span>
+                  </p>
+                </div>
+              </div>
 
-            <!-- Cart Items -->
-            <div class="card">
-              <div class="card-header fw-bold">Itens do Carrinho</div>
-              <div class="card-body">
-                <div *ngFor="let item of cartService.cart()?.items">
-                  <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                    <div>
-                      <img
-                        [src]="item.picture"
-                        alt=""
-                        class="img-fluid rounded-3"
-                        style="max-width: 100px"
-                      />
-                    </div>
-                    <div>
-                      <p class="mb-0">
-                        <strong>{{ item.productName }}</strong>
-                      </p>
-                      <p class="mb-0 text-muted">Quantidade: {{ item.quantity }}</p>
-                    </div>
-                    <div>
-                      <p class="mb-0">{{ item.price | currency : 'BRL' }}</p>
+              <!-- Payment Details -->
+              <div class="card mb-3">
+                <div class="card-header fw-bold">Detalhes do Pagamento</div>
+                <div class="card-body">
+                  <p>
+                    <strong>Método de Pagamento:</strong>
+                    <span class="text-muted">
+                      {{ confirmationToken?.payment_method_preview | paymentCard }}</span
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <!-- Cart Items -->
+              <div class="card">
+                <div class="card-header fw-bold">Itens do Carrinho</div>
+                <div class="card-body">
+                  <div *ngFor="let item of cartService.cart()?.items">
+                    <div
+                      class="d-flex justify-content-between align-items-center border-bottom py-2"
+                    >
+                      <div>
+                        <img
+                          [src]="item.picture"
+                          alt=""
+                          class="img-fluid rounded-3"
+                          style="max-width: 100px"
+                        />
+                      </div>
+                      <div>
+                        <p class="mb-0">
+                          <strong>{{ item.productName }}</strong>
+                        </p>
+                        <p class="mb-0 text-muted">Quantidade: {{ item.quantity }}</p>
+                      </div>
+                      <div>
+                        <p class="mb-0">{{ item.price | currency : 'BRL' }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="mt-3 d-flex justify-content-between">
-                  <p class="fw-bold">Total:</p>
-                  <p class="fw-bold">{{ cartService.totals()?.total | currency : 'BRL' }}</p>
+                  <div class="mt-3 d-flex justify-content-between">
+                    <p class="fw-bold">Total:</p>
+                    <p class="fw-bold">{{ cartService.totals()?.total | currency : 'BRL' }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </ng-container>
     </div>

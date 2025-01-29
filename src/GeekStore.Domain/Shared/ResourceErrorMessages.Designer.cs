@@ -709,6 +709,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error ocurred while trying to update Payment Intent. Check if payment was already done..
+        /// </summary>
+        public static string ERROR_PAYMENT_INTENT {
+            get {
+                return ResourceManager.GetString("ERROR_PAYMENT_INTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picture must be a valid URI..
         /// </summary>
         public static string ERROR_PICTURE_URL {

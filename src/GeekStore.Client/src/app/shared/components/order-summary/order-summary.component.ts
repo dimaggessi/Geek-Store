@@ -53,7 +53,7 @@ export class OrderSummaryComponent {
       this.toastService.show({
         message: 'O carrinho não pode estar vazio para calcular o Frete!',
         type: 'info',
-        classname: 'bg-success text-white text-center',
+        classname: 'bg-info text-white text-center',
       });
       return;
     }
@@ -77,20 +77,16 @@ export class OrderSummaryComponent {
   }
 
   summaryValidator() {
-    this.route.navigateByUrl('/checkout');
+    if (this.cartService.itemCount() === 0) {
+      this.toastService.show({
+        message: 'O carrinho não pode estar vazio!',
+        type: 'error',
+        classname: 'bg-danger text-white text-center',
+      });
+    } else {
+      this.route.navigateByUrl('/checkout');
+    }
   }
-
-  // summaryValidator() {
-  //   if (this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0) {
-  //     this.openPostalCodeModal({
-  //       code: 'Calcular Frete',
-  //       message: 'É necessário calcular o valor do frete para prosseguir.',
-  //     });
-  //   } else {
-  //     this.route.navigateByUrl('/checkout');
-  //   }
-  //   // [disabled]="this.cartService.itemCount() === 0 || this.cartService.shippingCost === 0"
-  // }
 
   openPostalCodeModal(error: ErrorInterface): void {
     if (!this.modalService.hasOpenModals()) {

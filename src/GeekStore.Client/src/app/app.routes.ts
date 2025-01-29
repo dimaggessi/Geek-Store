@@ -27,4 +27,10 @@ export const routes: Routes = [
     loadChildren: () => import('@features/checkout/checkout.routes').then((r) => r.checkoutRoute),
     canActivate: [authGuard],
   },
+  {
+    path: 'pedidos',
+    loadChildren: () =>
+      import('@features/orders/components/order.routes').then((r) => r.orderRoute),
+    canActivate: [authGuard],
+  },
 ];

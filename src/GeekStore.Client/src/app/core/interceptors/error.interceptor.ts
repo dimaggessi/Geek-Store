@@ -25,8 +25,6 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next): Observable<Htt
           type: 'info',
           delay: 10000,
         });
-
-        alert(error.error.error.message);
       }
       if (error.status === 401) {
         toastService.show({

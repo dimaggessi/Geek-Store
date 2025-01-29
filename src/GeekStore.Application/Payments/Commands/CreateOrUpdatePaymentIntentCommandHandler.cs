@@ -97,7 +97,16 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
         shippingPrice = deliveryMethod[0].Price;
         #endregion
 
-        var updatedCart = await _paymentService.CreateOrUpdatePaymentIntent(cart, shippingPrice);
+        ShoppingCart? updatedCart;
+
+        try
+        {
+            updatedCart = await _paymentService.CreateOrUpdatePaymentIntent(cart, shippingPrice);
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure<ShoppingCart>(new Error(ResourceErrorMessages.DEFAULT_ERROR, ResourceErrorMessages.ERROR_PAYMENT_INTENT));
+        }
 
         if (updatedCart is null)
             return Result.Failure<ShoppingCart>(new Error(

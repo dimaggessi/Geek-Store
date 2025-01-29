@@ -432,4 +432,7 @@
   <data name="ERROR_ADDRESS_NULL" xml:space="preserve">
     <value>O endereço do usuário está nulo.</value>
   </data>
+  <data name="ERROR_PAYMENT_INTENT" xml:space="preserve">
+    <value>Erro ao atualizar as opções de pagamento para o carrinho. Verifique se já foi feito um pagamento para esse pedido.</value>
+  </data>
 </root>
