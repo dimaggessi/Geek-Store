@@ -4,6 +4,7 @@ using GeekStore.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
-    partial class GeekStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250130223703_ShippingAddressNumber")]
+    partial class ShippingAddressNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

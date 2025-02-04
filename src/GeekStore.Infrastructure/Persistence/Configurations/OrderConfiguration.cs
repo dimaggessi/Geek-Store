@@ -12,6 +12,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.OwnsOne(o => o.ShippingAddress, os => {
             os.WithOwner();
             os.Property(sa => sa.Name).HasMaxLength(50).IsRequired();
+            os.Property(sa => sa.Number).HasMaxLength(50).IsRequired();
             os.Property(sa => sa.Street).HasMaxLength(100).IsRequired();
             os.Property(sa => sa.Neighborhood).HasMaxLength(100);
             os.Property(sa => sa.State).HasMaxLength(50).IsRequired();

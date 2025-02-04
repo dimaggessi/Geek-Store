@@ -1,1 +1,84 @@
-<p>order-detailed works!</p>
+@if (order) {
+<div class="container mt-4">
+  <div class="row">
+    <div class="card col-md-8 mx-auto">
+      <div class="mt-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <h6 class="mb-0">Detalhes do Pedido # {{ order.id }}</h6>
+          <span class="text-muted mb-0">{{ order.orderDate | date }}</span>
+        </div>
+
+        <hr />
+        <div class="card mt-3">
+          <div class="card-header text-muted"><strong>Descrição do Pedido</strong></div>
+          <div class="card-body">
+            <div class="info col-md-6">
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Cliente:</dt>
+                <dd>{{ order.customerEmail }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Método de entrega:</dt>
+                <dd>{{ order.deliveryMethodName }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Previsão de entrega:</dt>
+                <dd>{{ order.deliveryTimeInDays }} dias</dd>
+              </dl>
+              <dl class="text-muted mb-0">
+                <dt class="fw-normal me-1 mb-2">Produtos:</dt>
+                <dd>
+                  @for(item of order.orderItems; track item.productId) {
+                  <div class="row p-0">
+                    <div class="d-flex align-items-center">
+                      <div class="image col-2">
+                        <a [routerLink]="['/loja/', item.productId]"
+                          ><img [src]="item.picture" alt="" class="img-fluid rounded-3"
+                        /></a>
+                      </div>
+                      <div class="col-10 d-flex align-items-center justify-content-between">
+                        <a
+                          [routerLink]="['/loja/', item.productId]"
+                          class="text-secondary ms-4 p-0"
+                          style="text-decoration: none"
+                          >{{ item.productName }}</a
+                        >
+                        <span>{{ item.quantity }}x</span>
+                        <span>{{ item.price | currency : 'BRL' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  }
+                </dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Frete:</dt>
+                <dd>{{ order.shippingPrice | currency : 'BRL' }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Total:</dt>
+                <dd>{{ order.total | currency : 'BRL' }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header text-muted"><strong>Endereço de Entrega</strong></div>
+          <div class="card-body text-muted">
+            {{ order.shippingAddress | address }}
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header text-muted"><strong>Informações de Pagamento</strong></div>
+          <div class="card-body text-muted">
+            {{ order.paymentSummary | paymentSummary }}
+          </div>
+        </div>
+      </div>
+      <div class="my-3 ms-auto">
+        <button routerLink="/pedidos" class="btn btn-primary">Todos os Pedidos</button>
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -435,4 +435,10 @@
   <data name="ERROR_PAYMENT_INTENT" xml:space="preserve">
     <value>An error ocurred while trying to update Payment Intent. Check if payment was already done.</value>
   </data>
+  <data name="EMPTY_PAYMENT_INTENT" xml:space="preserve">
+    <value>Payment Intent from Stripe was not found.</value>
+  </data>
+  <data name="ERROR_PAYMENT_INVALID_STATUS" xml:space="preserve">
+    <value>The payment status was not succeeded yet.</value>
+  </data>
 </root>

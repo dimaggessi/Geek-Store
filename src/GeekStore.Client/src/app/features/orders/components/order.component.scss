@@ -1,0 +1,9 @@
+tr {
+  transition: background-color 0.3s ease;
+}
+
+tr:hover {
+  background-color: #dee1e4 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

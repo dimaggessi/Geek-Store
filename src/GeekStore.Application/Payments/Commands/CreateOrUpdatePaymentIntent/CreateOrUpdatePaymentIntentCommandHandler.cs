@@ -5,7 +5,7 @@ using GeekStore.Infrastructure.Persistence;
 using GeekStore.Infrastructure.Services;
 using MediatR;
 
-namespace GeekStore.Application.Payments.Commands;
+namespace GeekStore.Application.Payments.Commands.CreateOrUpdatePaymentIntent;
 
 public sealed record CreateOrUpdatePaymentIntentCommand : IRequest<Result<ShoppingCart>>
 {
@@ -42,13 +42,13 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
                 ResourceErrorMessages.DEFAULT_NOT_FOUND,
                 ResourceErrorMessages.SHOPPING_CART_NULL));
 
-        var products = new List<Domain.Entities.Product>();
+        var products = new List<Product>();
 
         #region CheckProductValues
         foreach (var item in cart.Items)
         {
             var productItem = await _unityOfWork
-                .GetRepository<Domain.Entities.Product>()
+                .GetRepository<Product>()
                 .GetByIdAsync(item.ProductId);
 
             if (productItem is null)

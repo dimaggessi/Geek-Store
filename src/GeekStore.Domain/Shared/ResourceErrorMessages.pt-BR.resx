@@ -435,4 +435,10 @@
   <data name="ERROR_PAYMENT_INTENT" xml:space="preserve">
     <value>Erro ao atualizar as opções de pagamento para o carrinho. Verifique se já foi feito um pagamento para esse pedido.</value>
   </data>
+  <data name="EMPTY_PAYMENT_INTENT" xml:space="preserve">
+    <value>A ordem de pagamento emitida pelo Stripe não foi encontrada.</value>
+  </data>
+  <data name="ERROR_PAYMENT_INVALID_STATUS" xml:space="preserve">
+    <value>O pagamento ainda não obteve status de sucesso.</value>
+  </data>
 </root>

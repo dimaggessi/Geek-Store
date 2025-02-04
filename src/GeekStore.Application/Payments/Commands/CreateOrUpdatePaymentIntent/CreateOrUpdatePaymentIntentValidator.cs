@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using GeekStore.Domain.Shared;
 
-namespace GeekStore.Application.Payments.Commands;
+namespace GeekStore.Application.Payments.Commands.CreateOrUpdatePaymentIntent;
 public class CreateOrUpdatePaymentIntentValidator : AbstractValidator<CreateOrUpdatePaymentIntentCommand>
 {
     public CreateOrUpdatePaymentIntentValidator()

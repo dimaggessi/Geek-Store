@@ -17,9 +17,9 @@
             <div class="card-body">
               @if (cartService.cart() === null) {
               <div><h6>Seu carrinho está vazio.</h6></div>
-              } @for (item of cartService.cart()?.items; track item.productId ) {
+              } @else { @for (item of cartService.cart()?.items; track item.productId ) {
               <app-cart-item [item]="item"></app-cart-item>
-              }
+              } }
             </div>
           </div>
           <div class="summary col-lg-4 p-5 bg-light">

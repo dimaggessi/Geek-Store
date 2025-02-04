@@ -331,6 +331,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Intent from Stripe was not found..
+        /// </summary>
+        public static string EMPTY_PAYMENT_INTENT {
+            get {
+                return ResourceManager.GetString("EMPTY_PAYMENT_INTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No payment intent was found for this order..
         /// </summary>
         public static string EMPTY_PAYMENT_INTENT_ID {
@@ -714,6 +723,15 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_PAYMENT_INTENT {
             get {
                 return ResourceManager.GetString("ERROR_PAYMENT_INTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The payment status was not succeeded yet..
+        /// </summary>
+        public static string ERROR_PAYMENT_INVALID_STATUS {
+            get {
+                return ResourceManager.GetString("ERROR_PAYMENT_INVALID_STATUS", resourceCulture);
             }
         }
         
