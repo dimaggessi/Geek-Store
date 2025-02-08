@@ -5,7 +5,10 @@ import {
   Component,
   HostListener,
   inject,
+  OnChanges,
   OnInit,
+  signal,
+  SimpleChanges,
 } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AddressService} from '@core/services/address.service';
@@ -30,7 +33,7 @@ import {OrderService} from '@core/services/order.service';
   templateUrl: './checkout.component.html',
   imports: [CommonModule, FormsModule, PaymentCardPipe],
 })
-export class CheckoutComponent implements OnInit, AfterViewChecked {
+export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
   private stripeService = inject(StripeService);
@@ -41,7 +44,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   addressService = inject(AddressService);
   shippingService = inject(ShippingService);
   paymentElement?: StripePaymentElement;
-  paymentElementError: boolean = false;
+  paymentElementError = signal<boolean>(false);
   confirmationToken?: ConfirmationToken;
   currentStep: number = 1;
   addressFilled: boolean = false;
@@ -72,6 +75,14 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         console.log('Erro ao buscar endereço:', err);
       },
     });
+  }
+
+  ngOnChanges(): void {
+    if (this.paymentElementError()) {
+      setTimeout(() => {
+        this.previousStep();
+      }, 2000);
+    }
   }
 
   ngAfterViewChecked() {
@@ -197,12 +208,40 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.loading = true;
     try {
       if (this.confirmationToken) {
+        const order = this.createOrderModel();
+        const orderResult = await firstValueFrom(this.orderService.createOrder(order));
+
+        // Se o pagamento já foi confirmado
+        const paymentIntentResult = await this.stripeService.retrievePaymentIntentStatus();
+
+        if (paymentIntentResult?.paymentIntent?.status === 'succeeded') {
+          if (orderResult) {
+            this.orderService.orderComplete = true;
+            this.cartService.deleteCart();
+            this.toastService.show({
+              message: 'Pedido já foi processado com sucesso.',
+              type: 'success',
+              classname: 'bg-success text-white text-center',
+            });
+            this.router.navigateByUrl('/checkout/pedido-confirmado');
+            return;
+          } else {
+            this.toastService.show({
+              message: 'Falha ao criar o pedido. Contate o suporte imediatamente.',
+              type: 'error',
+              classname: 'bg-danger text-white text-center',
+            });
+            this.loading = false;
+            throw new Error('Falha ao criar pedido na base de dados.');
+          }
+        }
+
+        // Caso o pagamento não esteja confirmado
         const result = await this.stripeService.confirmPayment(this.confirmationToken);
 
         if (result.paymentIntent?.status === 'succeeded') {
-          const order = this.createOrderModel();
-          const orderResult = await firstValueFrom(this.orderService.createOrder(order));
           if (orderResult) {
+            this.orderService.orderComplete = true;
             this.cartService.deleteCart();
             this.toastService.show({
               message: 'Pedido realizado com sucesso.',
@@ -291,7 +330,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       });
       throw new Error(
         `Erro ao criar o pedido. CartdId: ${cart?.id}, DeliveryMethodId: ${cart?.deliveryMethodId}, 
-        OrderAddress: ${orderAddress}, UserEmail: ${userEmail}, Card: ${card}`
+				OrderAddress: ${orderAddress}, UserEmail: ${userEmail}, Card: ${card}`
       );
     }
 
@@ -325,7 +364,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       });
     } catch (error: any) {
       console.log('Um erro ocorreu ao processar o paymentElement:', error);
-      this.paymentElementError = true;
+      this.paymentElementError.set(true);
     }
   }
 

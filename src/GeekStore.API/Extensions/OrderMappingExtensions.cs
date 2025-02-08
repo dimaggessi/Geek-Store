@@ -5,6 +5,7 @@ namespace GeekStore.API.Extensions;
 
 public static class OrderMappingExtensions
 {
+    // Instead of use AutoMapper
     public static OrderDto ToDto(this Order order)
     {
         return new OrderDto

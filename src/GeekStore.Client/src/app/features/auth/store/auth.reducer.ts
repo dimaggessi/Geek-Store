@@ -39,6 +39,7 @@ const authFeature = createFeature({
     })),
     on(authActions.loginSuccess, (state, action) => ({
       ...state,
+      isLoggedIn: true,
       isSubmitting: false,
       user: action.user,
     })),
@@ -65,6 +66,7 @@ const authFeature = createFeature({
     on(authActions.logout, (state) => ({
       ...state,
       ...initialState,
+      isLoggedIn: false,
       user: null,
     })),
     // ngrx router-store package (clean errors on navigation)

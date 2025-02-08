@@ -9,6 +9,7 @@ import {CreateOrderDto, OrderInterface} from '@shared/models/order.interface';
 export class OrderService {
   url = `${environment.apiUrl}/orders`;
   private http = inject(HttpClient);
+  orderComplete: boolean = false;
 
   createOrder(createOrderDto: CreateOrderDto) {
     return this.http.post<OrderInterface>(this.url, createOrderDto, {withCredentials: true});

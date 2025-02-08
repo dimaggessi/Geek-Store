@@ -1,3 +1,4 @@
+import {SignalrService} from '@core/services/signalr.service';
 import {AuthService} from '@features/auth/services/auth.service';
 import {inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
@@ -49,13 +50,18 @@ export const redirectAfterRegisterSuccess = createEffect(
 
 // listening for login action
 export const loginEffect = createEffect(
-  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+  (
+    actions$ = inject(Actions),
+    authService = inject(AuthService),
+    signalRService = inject(SignalrService)
+  ) => {
     return actions$.pipe(
       ofType(authActions.login),
       switchMap(({request}) => {
         return authService.login(request).pipe(
           switchMap(() => {
             return authService.getUserInfo().pipe(
+              tap(() => signalRService.createHubConnection()),
               map((user: UserInterface) => {
                 return authActions.loginSuccess({user});
               })
@@ -90,14 +96,18 @@ export const redirectAfterLoginEffect = createEffect(
 );
 
 export const getUserEffect = createEffect(
-  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+  (
+    actions$ = inject(Actions),
+    authService = inject(AuthService),
+    signalRService = inject(SignalrService)
+  ) => {
     return actions$.pipe(
       ofType(authActions.getUser),
       switchMap(() => {
         return authService.isAuthenticated().pipe(
           switchMap((isAuth) => {
-            console.log('User is authenticated:', isAuth);
             if (!isAuth) {
+              console.log('User is authenticated:', isAuth);
               return of(
                 authActions.getUserFailure({
                   errors: {error: {code: 'error', message: 'cookie not found'}},
@@ -105,6 +115,7 @@ export const getUserEffect = createEffect(
               );
             }
             return authService.getUserInfo().pipe(
+              tap(() => signalRService.createHubConnection()),
               map((user: UserInterface) => {
                 return authActions.getUserSuccess({user});
               })
@@ -121,13 +132,19 @@ export const getUserEffect = createEffect(
 );
 
 export const logoutEffect = createEffect(
-  (actions$ = inject(Actions), router = inject(Router), authService = inject(AuthService)) => {
+  (
+    actions$ = inject(Actions),
+    router = inject(Router),
+    authService = inject(AuthService),
+    signalrService = inject(SignalrService)
+  ) => {
     return actions$.pipe(
       ofType(authActions.logout),
       switchMap(() => {
         return authService.logout().pipe(
           tap(() => {
             localStorage.removeItem('auth');
+            signalrService.stopHubConnection();
             router.navigateByUrl('/');
           })
         );

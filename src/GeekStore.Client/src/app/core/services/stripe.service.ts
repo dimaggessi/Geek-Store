@@ -71,6 +71,18 @@ export class StripeService {
     }
   }
 
+  async retrievePaymentIntentStatus() {
+    const stripe = await this.getStripeInstance();
+    const elements = await this.initializeElements();
+    const result = await elements.submit();
+    if (result.error) throw new Error(result.error.message);
+
+    const paymentIntetResult = await stripe?.retrievePaymentIntent(
+      this.cartService.cart()?.clientSecret!
+    );
+    return paymentIntetResult;
+  }
+
   async confirmPayment(confirmationToken: ConfirmationToken) {
     const stripe = await this.getStripeInstance();
     const elements = await this.initializeElements();
@@ -96,7 +108,7 @@ export class StripeService {
 
     if (!cart) throw new Error('Há um problema com o carrinho.');
 
-    return this.http.post<Cart>(url + '/payments/' + cart.id, {}).pipe(
+    return this.http.post<Cart>(url + '/payments/' + cart.id, {}, {withCredentials: true}).pipe(
       map((cart) => {
         this.cartService.cart.set(cart);
         return cart;

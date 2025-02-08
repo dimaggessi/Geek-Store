@@ -7,11 +7,11 @@ using Stripe;
 
 namespace GeekStore.Application.Payments.Commands.UpdatePaymentStatus
 {
-    public sealed record UpdatePaymentStatusCommand : IRequest<Result>
+    public sealed record UpdatePaymentStatusCommand : IRequest<Result<Order>>
     {
         public PaymentIntent? PaymentIntent { get; set; }
     }
-    public class UpdatePaymentStatusCommandHandler : IRequestHandler<UpdatePaymentStatusCommand, Result>
+    public class UpdatePaymentStatusCommandHandler : IRequestHandler<UpdatePaymentStatusCommand, Result<Order>>
     {
         private readonly IUnityOfWork _unityOfWork;
 
@@ -19,21 +19,21 @@ namespace GeekStore.Application.Payments.Commands.UpdatePaymentStatus
         {
             _unityOfWork = unityOfWork;
         }
-        public async Task<Result> Handle(UpdatePaymentStatusCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Order>> Handle(UpdatePaymentStatusCommand request, CancellationToken cancellationToken)
         {
-            var spec = new OrderSpecification(request.PaymentIntent.Id, true);
+            var spec = new OrderSpecification(request.PaymentIntent!.Id, true);
             var order = await _unityOfWork.GetRepository<Order>().GetEntityWithSpecificationAsync(spec, cancellationToken);
 
             if (order is null)
             {
-                return Result.Failure(new Error(
+                return Result.Failure<Order>(new Error(
                     ResourceErrorMessages.DEFAULT_ERROR,
                     ResourceErrorMessages.ERROR_ORDER_NOT_FOUND));
             }
 
             if (request.PaymentIntent.Status is not "succeeded")
             {
-                return Result.Failure(new Error(
+                return Result.Failure<Order>(new Error(
                     ResourceErrorMessages.DEFAULT_ERROR,
                     ResourceErrorMessages.ERROR_PAYMENT_INVALID_STATUS));
             }
@@ -50,13 +50,10 @@ namespace GeekStore.Application.Payments.Commands.UpdatePaymentStatus
             var result = await _unityOfWork.CommitAsync(cancellationToken);
 
             return result ? 
-                Result.Success() : 
-                Result.Failure(new Error(
+                Result.Success(order) : 
+                Result.Failure<Order>(new Error(
                 ResourceErrorMessages.DEFAULT_ERROR, 
                 ResourceErrorMessages.UNEXPECTED_ERROR));
-
-
-            // TODO: SignalR ??
         }
     }
 }

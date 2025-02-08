@@ -12,7 +12,7 @@
         <div class="card mt-3">
           <div class="card-header text-muted"><strong>Descrição do Pedido</strong></div>
           <div class="card-body">
-            <div class="info col-md-6">
+            <div class="info">
               <dl class="d-flex justify-content-between text-muted mb-0">
                 <dt class="fw-normal me-1">Cliente:</dt>
                 <dd>{{ order.customerEmail }}</dd>
@@ -51,6 +51,7 @@
                   }
                 </dd>
               </dl>
+              <hr />
               <dl class="d-flex justify-content-between text-muted mb-0">
                 <dt class="fw-normal me-1">Frete:</dt>
                 <dd>{{ order.shippingPrice | currency : 'BRL' }}</dd>
@@ -58,6 +59,10 @@
               <dl class="d-flex justify-content-between text-muted mb-0">
                 <dt class="fw-normal me-1">Total:</dt>
                 <dd>{{ order.total | currency : 'BRL' }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Status do Pedido:</dt>
+                <dd>{{ order.status }}</dd>
               </dl>
             </div>
           </div>

@@ -3,7 +3,12 @@ import {ActionReducer, MetaReducer} from '@ngrx/store';
 // meta reducer is applied in every state change
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state, action) => {
-    const nextState = reducer(state, action);
+    // Reidrata o estado do localStorage antes de aplicar a ação
+    const rehydratedState = rehydrateState();
+    const initialState = {...state, ...rehydratedState};
+
+    // Aplica a ação ao estado inicial
+    const nextState = reducer(initialState, action);
 
     // console.log('--- Inside meta reducer ---');
     // console.log('Action Triggered -- Action:', action.type);
@@ -28,7 +33,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 
 export function rehydrateState(): any {
   const auth = localStorage.getItem('auth');
-  return auth ? {auth: JSON.parse(auth)} : undefined;
+  return auth ? {auth: JSON.parse(auth)} : {};
 }
 
 export const metaReducers: MetaReducer[] = [localStorageSyncReducer];

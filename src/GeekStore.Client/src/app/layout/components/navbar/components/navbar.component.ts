@@ -10,6 +10,7 @@ import {UserInterface} from '@shared/models/user.interface';
 import {authActions} from '@features/auth/store/auth.actions';
 import {FormsModule} from '@angular/forms';
 import {CartService} from '@core/services/cart.service';
+import {SignalrService} from '@core/services/signalr.service';
 
 @Component({
   standalone: true,
@@ -30,6 +31,7 @@ export class NavbarComponent implements OnInit {
   store = inject(Store<{auth: AuthStateInterface}>);
   router = inject(Router);
   cartService = inject(CartService);
+  signalRService = inject(SignalrService);
   data$!: Observable<{user: UserInterface | null | undefined}>;
   searchTerm: string = '';
   isCollapsed = false;
@@ -39,10 +41,7 @@ export class NavbarComponent implements OnInit {
       .select(selectUser)
       .pipe(take(1))
       .subscribe((user) => {
-        if (!user) {
-          this.store.dispatch(authActions.getUser());
-        } else {
-        }
+        this.store.dispatch(authActions.getUser());
       });
 
     this.data$ = combineLatest({

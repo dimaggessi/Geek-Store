@@ -33,8 +33,6 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
     }
     public async Task<Result<ShoppingCart>> Handle(CreateOrUpdatePaymentIntentCommand request, CancellationToken cancellationToken)
     {
-        
-
         var cart = await _cartRepository.GetCartAsync(request.CartId!);
 
         if (cart is null)
@@ -76,11 +74,9 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
                 ResourceErrorMessages.EMPTY_POSTAL_CODE));
         }
 
-        if (cart.DeliveryMethodId == 0)
+        if (cart.DeliveryMethodId is null)
         {
-            return Result.Failure<ShoppingCart>(new Error(
-                ResourceErrorMessages.DEFAULT_ERROR,
-                ResourceErrorMessages.EMPTY_DELIVERY_METHOD_ID));
+            cart.DeliveryMethodId = 1;
         }
 
         var shippingPrice = 0m;

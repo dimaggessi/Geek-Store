@@ -1,5 +1,5 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {UserInterface} from '@shared/models/user.interface';
 import {environment} from '@environments/environment';
@@ -10,7 +10,9 @@ import {RegisterRequestInterface} from '@features/auth/types/registerRequest.int
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(@Inject(HttpClient) private http: HttpClient) {}
+  http = inject(HttpClient);
+
+  // constructor(@Inject(HttpClient) private http: HttpClient) {}
 
   register(request: RegisterRequestInterface): Observable<UserInterface> {
     const url = environment.apiUrl + '/auth/register';

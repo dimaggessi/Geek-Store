@@ -84,7 +84,14 @@ export class OrderSummaryComponent {
         classname: 'bg-danger text-white text-center',
       });
     } else {
-      this.route.navigateByUrl('/checkout');
+      let auth = localStorage.getItem('auth');
+      let isLoggedIn = auth ? JSON.parse(auth).isLoggedIn : false;
+
+      if (!isLoggedIn) {
+        this.route.navigateByUrl('/entrar?returnUrl=/checkout');
+      } else {
+        this.route.navigateByUrl('/checkout');
+      }
     }
   }
 

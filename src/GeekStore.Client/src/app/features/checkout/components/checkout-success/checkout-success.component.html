@@ -1,35 +1,81 @@
-<section>
+<section *ngIf="signalRService.orderSignal() as order">
   <div class="container mt-4">
     <div class="card col-md-6 mx-auto">
-      <div class="card-header p-2">Pedido realizado com sucesso</div>
+      <div class="card-header p-2">Pedido #{{ order.id }} realizado com sucesso</div>
       <div class="card-body mx-4">
         <h4 class="card-title text-success p-2">Obrigado por "comprar" conosco!</h4>
         <div class="card-text p-2">
           <p class="text-muted">
-            O pagamento desse pedido é feito através do Stripe no
-            <span class="fw-bold">"modo de teste"</span> .<br />
+            O pagamento desse pedido é feito através do
+            <span class="fw-bold"> Stripe no "modo de teste"</span> .<br />
             Nenhuma cobrança será feita e nenhum produto físico existe.
           </p>
           <div class="p-2 mb-4 bg-light">
             <dl class="d-flex justify-content-between mb-0">
               <dt class="fw-normal text-muted">Data do pedido</dt>
-              <dd class="fw-bold">20/01/2025</dd>
+              <dd class="fw-bold">
+                {{ order.orderDate | date : 'dd/MM/yyyy' }}
+              </dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
               <dt class="fw-normal text-muted">Método de pagamento</dt>
-              <dd class="fw-bold">Visa</dd>
+              <dd class="fw-bold">
+                {{ order.paymentSummary! | paymentSummary }}
+              </dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
               <dt class="fw-normal text-muted">Endereço de entrega</dt>
-              <dd class="fw-bold">Rua Oliveira Quatro 267</dd>
+              <dd class="fw-bold">
+                {{ order.shippingAddress! | address }}
+              </dd>
+            </dl>
+            <dl class="d-flex justify-content-between mb-0">
+              <dt class="fw-normal text-muted">Status do Pedido</dt>
+              <dd class="fw-bold">{{ order.status }}</dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
               <dt class="fw-normal text-muted">Valor</dt>
-              <dd class="fw-bold">R$ 80,00</dd>
+              <dd class="fw-bold">{{ order.total | currency : 'BRL' }}</dd>
             </dl>
           </div>
-          <button class="btn btn-success btn-sm">Detalhes do pedido</button>
+          <button [routerLink]="['/pedidos/', order.id]" class="btn btn-success btn-sm">
+            Detalhes do pedido
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="!signalRService.orderSignal()">
+  <div class="container mt-4">
+    <div class="card col-md-6 mx-auto">
+      <div class="card-header p-2">Pedido em andamento</div>
+      <div class="card-body mx-4">
+        <h4 class="card-title text-success p-2">
+          Aguarde enquanto seu pedido está sendo processado...
+        </h4>
+        <div class="card-text p-2">
+          <p class="text-muted">
+            O pagamento desse pedido é feito através do
+            <span class="fw-bold">Stripe no "modo de teste"</span> .<br />
+            Nenhuma cobrança será feita e nenhum produto físico existe.
+          </p>
+          <br />
+
+          <div class="d-flex justify-content-center align-items-center">
+            <div
+              class="spinner-border text-warning"
+              style="width: 4rem; height: 4rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <br />
+        </div>
+
+        <button routerLink="/loja" class="btn btn-primary btn-sm">Voltar a Loja</button>
       </div>
     </div>
   </div>

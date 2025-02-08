@@ -4,6 +4,7 @@ using GeekStore.Infrastructure;
 using GeekStore.API.RequestPipeline;
 using GeekStore.API.Middlewares;
 using GeekStore.Domain.Entities;
+using GeekStore.API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -43,6 +45,7 @@ app.MapControllers();
 app.MapGroup("api/Auth")
     .MapGeekStoreCustomIdentityApi<ApplicationUser>()
     .WithTags("Auth");
+app.MapHub<NotificationHub>("/hub/Notifications");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

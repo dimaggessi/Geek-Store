@@ -201,7 +201,9 @@
         <div *ngSwitchCase="2">
           <h2>Pagamento do Pedido</h2>
           <div class="container">
-            <ng-container *ngIf="paymentElement === undefined && paymentElementError === false">
+            <ng-container
+              *ngIf="paymentElement === undefined && this.paymentElementError() === false"
+            >
               <div
                 class="d-flex justify-content-center align-items-center"
                 style="height: calc(100vh - 300px)"
@@ -215,19 +217,17 @@
                 </div>
               </div>
             </ng-container>
-            <ng-container *ngIf="paymentElementError === true">
+            <ng-container *ngIf="this.paymentElementError() === true">
               <div
                 class="d-flex justify-content-center align-items-center"
                 style="height: calc(100vh - 300px)"
               >
                 <p class="text-center">
                   <span class="text-danger"
-                    ><i class="fa-solid fa-circle-exclamation"></i> Verifique se um pagamento para o
-                    pedido já foi realizado. <br />
+                    ><i class="fa-solid fa-circle-exclamation"></i> Ocorreu um erro ao processar as
+                    opções de pagamento. <br />
                   </span>
-                  <span
-                    >Ocorreu um erro ao processar as opções de pagamento. Contate o suporte.</span
-                  >
+                  <span>Se o erro persistir, contate o suporte. Contate o suporte.</span>
                 </p>
               </div>
             </ng-container>
