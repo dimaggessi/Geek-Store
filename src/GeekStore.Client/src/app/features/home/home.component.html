@@ -1,0 +1,195 @@
+<section class="home">
+  <div class="banner-container mt-2">
+    <div class="banner-content">
+      <div class="container">
+        <div class="row align-items-center" style="height: 450px">
+          <div class="content text-center">
+            <div class="logo">
+              <span class="text-center">Geek<span class="text-primary">Store</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="typing row text-center mt-4" style="height: 30px">
+    <div class="col d-flex justify-content-center">
+      <a routerLink="/loja"
+        ><span id="typing-effect" class="d-none d-sm-block ms-5 fs-5 text-success"></span
+      ></a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <ngb-carousel
+        *ngIf="groupedProducts.length > 0"
+        [showNavigationArrows]="showNavigationArrows"
+        [showNavigationIndicators]="showNavigationIndicators"
+      >
+        <ng-template *ngFor="let productGroup of groupedProducts" ngbSlide>
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-4" *ngFor="let product of productGroup">
+              <div [routerLink]="['/loja', product.id]" class="card rounded bg-light my-4">
+                <img
+                  [src]="product.picture"
+                  class="card-img-top img-fluid"
+                  alt="{{ product.name }}"
+                />
+                <div class="card-body text-center">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text">{{ product.description }}</p>
+                  <button [routerLink]="['/loja', product.id]" class="btn btn-primary">
+                    Comprar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+
+  <div class="summary mt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mt-4 text-center">
+          <h3>Tópicos que foram abordados nesse projeto</h3>
+          <p class="text-muted mb-2">
+            O principal objetivo foi aplicar de maneira prática diversos conceitos estudados
+          </p>
+        </div>
+      </div>
+      <div class="row text-center mt-4">
+        <div class="topics d-md-flex align-items-top justify-content-between">
+          <div class="frontend col-12 col-md-6 me-md-4 mb-4 mb-lg-0">
+            <h6>Frontend em Angular:</h6>
+            <ul class="list-unstyled vstack gap-3 text-left">
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">NgRx:</strong>
+                <span class="text-muted">
+                  Abordagem de conceitos de Global State Management através da &#64;ngrx/store com a
+                  manipulação de actions e dos &#64;ngrx/effects para obter dados da API.
+                  <br />Também foi utilizado meta-reducer para obter informações no local storage do
+                  navegador.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">RxJS:</strong>
+                <span class="text-muted">
+                  Foram utilizados diversos métodos da biblioteca reativa do RxJS para a manipulação
+                  de Observables modificando as streams de dados provenientes do Backend.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Bootstrap 5:</strong>
+                <span class="text-muted">
+                  O framework Bootstrap foi utilizado para responsividade e para a estilização de
+                  componentes de maneira simples. Não obstante, a extensão SCSS foi aplicada para
+                  personalização de alguns estilos.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Angular versão 17+:</strong>
+                <span class="text-muted">
+                  Adoção de standalone components e alguns outros conceitos que o Angular 17
+                  implementou. A aplicação foi estruturada para permanecer organizada, com a
+                  utilização de guards, inteceptors, services, interfaces, pipes, etc.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Angular Signals:</strong>
+                <span class="text-muted">
+                  Essa funcionalidade foi utilizada em alguns componentes e services para
+                  reatividade, como a exemplo do cart.service.ts em que se buscava reagir a
+                  alterações no carrinho do cliente.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="backend col-12 col-md-6">
+            <h6>Backend em .NET 8:</h6>
+            <ul class="list-unstyled vstack gap-3 text-left">
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Integração com APIs externas (Stripe e MelhorEnvio):</strong>
+                <span class="text-muted">
+                  O sistema utiliza as classes DeliveryService e PaymentService para intregração com
+                  as APIs do MelhorEnvio (cálculo de frete) e do Stripe (para o pagamento de
+                  pedidos).
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Generic Repository e Specification Pattern:</strong>
+                <span class="text-muted">
+                  Abordagem do Generic Repository para encapsular a persistência das entidades em
+                  suas respectivas tabelas de dados, conjuntamente com o padrão de design
+                  Specification Pattern para possibilitar a especificidade de determinadas
+                  entidades.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">CQRS Pattern com MediatR:</strong>
+                <span class="text-muted"
+                  >Implementação do padrão CQRS para separar operações de leitura e gravação de
+                  dados utilizando a biblioteca MediatR do NuGet. <br />Além disso, foi adotado o
+                  Validation Pipeline Behavior com validações específicas da classe
+                  AbstractValidator<> para validar os campos necessários nas requisições.
+                  <br />Desta forma, foi possível que a lógica fosse separada dos Controllers
+                  estivesse presente apenas na camada de Application, reforçando os preceitos da
+                  Clean Architecture.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Result Pattern:</strong>
+                <span class="text-muted"
+                  >O padrão Result foi utilizado para encapsular o resultado das requisições com: o
+                  status de sucesso ou erro, com a mensagem de erro, e ainda o valor obtido. <br />
+                  Ademais, foi incorporado o ValidationResult que especifica o Result para armazenar
+                  os erros de validação obtidos no Validation Pipeline Behavior.
+                </span>
+              </li>
+              <li class="text-start">
+                <i class="fas fa-square me-1"></i>
+                <strong class="me-1">Resource Error Messages .resx:</strong>
+                <span class="text-muted">
+                  Criação de arquivos .resx para mensagens personalizadas de validação de campos ou
+                  mensagens de erro, em inglês e português. Na camada de API está presente um
+                  Culture Middleware para retornar as mensagens de acordo com a linguagem que é
+                  adotada pelo navegador do usuário.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message mt-4">
+    <div class="container">
+      <div class="row">
+        <div class="quote-container text-center text-muted">
+          <blockquote class="big-quote">
+            "A única maneira de ir rápido é ir bem. E a única maneira de ir bem é aprender."
+          </blockquote>
+          <p class="author">— Uncle Bob</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="products"></div>
+</section>
+
+<!-- <pre>{{ data$ | async | json }}</pre>-->
