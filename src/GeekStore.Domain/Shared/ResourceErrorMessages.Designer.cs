@@ -538,6 +538,15 @@ namespace GeekStore.Domain.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product back ordered..
+        /// </summary>
+        public static string ERROR_BACK_ORDERED {
+            get {
+                return ResourceManager.GetString("ERROR_BACK_ORDERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong while creating the product!.
         /// </summary>
         public static string ERROR_CREATE_PRODUCT {
@@ -588,6 +597,15 @@ namespace GeekStore.Domain.Shared {
         public static string ERROR_EMPTY_BRANDS {
             get {
                 return ResourceManager.GetString("ERROR_EMPTY_BRANDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your shopping cart has no items..
+        /// </summary>
+        public static string ERROR_EMPTY_CART_ITEMS {
+            get {
+                return ResourceManager.GetString("ERROR_EMPTY_CART_ITEMS", resourceCulture);
             }
         }
         

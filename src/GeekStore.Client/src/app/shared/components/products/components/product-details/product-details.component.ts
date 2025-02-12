@@ -38,8 +38,8 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  addItem(product: ProductInterface, quantity: number): void {
-    this.cartService.addItem(product, quantity);
+  addItem(product: ProductInterface, quantity: number, productQuantity: number): void {
+    this.cartService.addItem(product, quantity, productQuantity);
   }
 
   goBack(): void {

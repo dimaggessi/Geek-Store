@@ -224,19 +224,22 @@
               >
                 <p class="text-center">
                   <span class="text-danger"
-                    ><i class="fa-solid fa-circle-exclamation"></i> Ocorreu um erro ao processar as
-                    opções de pagamento. <br />
+                    ><i class="fa-solid fa-circle-exclamation"></i> Ocorreu um erro ao carregar as
+                    opções de pagamento. Atualize a página do navegador! <br />
                   </span>
-                  <span>Se o erro persistir, contate o suporte. Contate o suporte.</span>
+                  <span>Se o problema persistir, contate o suporte.</span>
                 </p>
               </div>
             </ng-container>
             <div id="payment-element"></div>
             <ng-container *ngIf="paymentElement !== undefined">
-              <div class="mt-4">
-                <small
-                  >* Utilize o seguinte número de<strong> Cartão de Crédito para testes:</strong>
-                  <span class="text-danger"> 4242 4242 4242 4242</span></small
+              <div class="mt-5">
+                <small class="text-danger"
+                  >*** Utilize o seguinte número de<strong class="text-black">
+                    Cartão de Crédito para testes:</strong
+                  >
+                  <span> ***</span>
+                  <span class="bg-warning text-muted ms-2"> 4242 4242 4242 4242</span></small
                 >
               </div>
             </ng-container>
@@ -326,6 +329,10 @@
                     </div>
                   </div>
                   <div class="mt-3 d-flex justify-content-between">
+                    <p class="fw-bold">Frete:</p>
+                    <p class="fw-bold">{{ cartService.totals()?.shipping | currency : 'BRL' }}</p>
+                  </div>
+                  <div class="mt-1 d-flex justify-content-between">
                     <p class="fw-bold">Total:</p>
                     <p class="fw-bold">{{ cartService.totals()?.total | currency : 'BRL' }}</p>
                   </div>

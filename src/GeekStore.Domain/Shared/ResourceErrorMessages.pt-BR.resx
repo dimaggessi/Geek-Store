@@ -316,7 +316,7 @@
     <value>A imagem deve conter uma URL válida.</value>
   </data>
   <data name="EMPTY_PAYMENT_INTENT_ID" xml:space="preserve">
-    <value>Nenhuma ordem de pagamento foi encontrada para esse pedido.</value>
+    <value>Ausência do identificador do PaymentIntent. Nenhuma ordem de pagamento foi encontrada para esse pedido. Tente novamente mais tarde.</value>
   </data>
   <data name="ERROR_DELIVERY_METHOD_SELECT" xml:space="preserve">
     <value>Nenhum método de entrega foi selecionado.</value>
@@ -440,5 +440,11 @@
   </data>
   <data name="ERROR_PAYMENT_INVALID_STATUS" xml:space="preserve">
     <value>O pagamento ainda não obteve status de sucesso.</value>
+  </data>
+  <data name="ERROR_BACK_ORDERED" xml:space="preserve">
+    <value>Produto temporariamente fora de estoque.</value>
+  </data>
+  <data name="ERROR_EMPTY_CART_ITEMS" xml:space="preserve">
+    <value>O carrinho está vazio.</value>
   </data>
 </root>

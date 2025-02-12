@@ -36,7 +36,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Res
                 ResourceErrorMessages.EMPTY_PAYMENT_INTENT_ID));
 
         var items = new List<OrderItem>();
-        var productsList = new List<Product>();
+        var orderedProductsList = new List<Product>();
 
         foreach (var item in cart.Items)
         {
@@ -50,9 +50,33 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Res
                     ResourceErrorMessages.ERROR_GET_PRODUCT));
             }
 
-            // cart.Quantity of product item
-            productItem.Quantity = item.Quantity;
-            productsList.Add(productItem);
+            // Decrement quantity of Product Item - (Table Products)
+            if (productItem.Quantity > item.Quantity)
+            {
+                productItem.Quantity -= item.Quantity;
+            } 
+            else
+            {
+                productItem.Quantity = 0;
+            }
+
+            // "Ordered Product" with new Cart Item quantity
+            var orderedProduct = new Product
+            {
+                Quantity = item.Quantity,
+                Id = productItem.Id,
+                Name = productItem.Name,
+                Width = productItem.Width,
+                Height = productItem.Height,
+                Length = productItem.Length,
+                Weight = productItem.Weight,
+                Description = productItem.Description,
+                Picture = productItem.Picture,
+                Type = productItem.Type,
+                Brand = productItem.Brand,
+            };
+
+            orderedProductsList.Add(orderedProduct);
 
             var productItemOrdered = new ProductItemOrdered
             {
@@ -71,13 +95,10 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Res
             items.Add(orderItem);
         }
 
-        //-----------------------------------------------------
-        // TODO: Check after frontend is created. (If this make sense)
-        var deliveryMethods = await _deliveryService.DeliveryMethods(productsList, 
+        var deliveryMethods = await _deliveryService.DeliveryMethods(orderedProductsList, 
             request.ShippingAddress!.PostalCode, cart.DeliveryMethodId);
-        //-----------------------------------------------------
 
-        if (deliveryMethods.IsNullOrEmpty())
+        if (deliveryMethods.IsNullOrEmpty() || deliveryMethods.FirstOrDefault() == null)
             return Result.Failure<Order>(new Error(
                     ResourceErrorMessages.DEFAULT_ERROR,
                     ResourceErrorMessages.ERROR_DELIVERY_METHOD_SELECT));
@@ -96,6 +117,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Res
         // Order is created only when payment is succeeded
         _unityOfWork.GetRepository<Order>().Add(order);
 
+        // Save Changes in data tables: Orders and Products
         if (await _unityOfWork.CommitAsync())
             return Result.Success(order);
 

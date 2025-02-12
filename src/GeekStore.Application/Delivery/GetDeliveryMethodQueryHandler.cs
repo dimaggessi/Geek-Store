@@ -34,6 +34,11 @@ public class GetDeliveryMethodQueryHandler : IRequestHandler<GetDeliveryMethodQu
                 ResourceErrorMessages.DEFAULT_NOT_FOUND,
                 ResourceErrorMessages.SHOPPING_CART_NULL));
 
+        if (!cart.Items.Any())
+            return Result.Failure<List<DeliveryMethod>>(new Error(
+                ResourceErrorMessages.DEFAULT_ERROR,
+                ResourceErrorMessages.ERROR_EMPTY_CART_ITEMS));
+
         var products = new List<Product>();
 
         foreach (var item in cart.Items) 
@@ -44,8 +49,7 @@ public class GetDeliveryMethodQueryHandler : IRequestHandler<GetDeliveryMethodQu
             {
                 return Result.Failure<List<DeliveryMethod>>(new Error(
                     ResourceErrorMessages.DEFAULT_NOT_FOUND,
-                    ResourceErrorMessages.PRODUCT_NOT_FOUND +
-                        $"{item.ProductName},Id: {item.ProductId}"));
+                    $"{ResourceErrorMessages.PRODUCT_NOT_FOUND}: {item.ProductName ?? "_"}, Id: {item.ProductId}"));
             }
 
             product.Quantity = item.Quantity;
@@ -54,7 +58,7 @@ public class GetDeliveryMethodQueryHandler : IRequestHandler<GetDeliveryMethodQu
 
         var response = await _deliveryService.DeliveryMethods(products, request.PostalCode!, request.DeliveryMethodId);
 
-        if (response is null)
+        if (response is null || !response.Any())
             return Result.Failure<List<DeliveryMethod>>(new Error(
                 ResourceErrorMessages.DEFAULT_NOT_FOUND,
                 ResourceErrorMessages.ERROR_DELIVERY_METHODS_NOT_FOUND));

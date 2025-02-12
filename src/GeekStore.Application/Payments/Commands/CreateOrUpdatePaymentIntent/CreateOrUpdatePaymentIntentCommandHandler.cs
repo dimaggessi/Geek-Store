@@ -40,6 +40,11 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
                 ResourceErrorMessages.DEFAULT_NOT_FOUND,
                 ResourceErrorMessages.SHOPPING_CART_NULL));
 
+        if (!cart.Items.Any())
+            return Result.Failure<ShoppingCart>(new Error(
+                ResourceErrorMessages.DEFAULT_NOT_FOUND,
+                ResourceErrorMessages.ERROR_EMPTY_CART_ITEMS));
+
         var products = new List<Product>();
 
         #region CheckProductValues
@@ -57,6 +62,16 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
                         $"{item.ProductName},Id: {item.ProductId}"));
             }
 
+            // Product item quantity validation
+            if (productItem.Quantity < item.Quantity)
+            {
+                return Result.Failure<ShoppingCart>(new Error(
+                    ResourceErrorMessages.DEFAULT_ERROR,
+                    $"{ResourceErrorMessages.ERROR_BACK_ORDERED} : {item.ProductName}"
+                    ));
+            }
+
+            // Product price validation
             if (item.Price != productItem.Price)
             {
                 item.Price = productItem.Price;
@@ -101,7 +116,7 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
         }
         catch (Exception ex)
         {
-            return Result.Failure<ShoppingCart>(new Error(ResourceErrorMessages.DEFAULT_ERROR, ResourceErrorMessages.ERROR_PAYMENT_INTENT));
+            return Result.Failure<ShoppingCart>(new Error(ResourceErrorMessages.DEFAULT_ERROR, ResourceErrorMessages.ERROR_PAYMENT_INTENT + $": {ex.Message}"));
         }
 
         if (updatedCart is null)

@@ -80,6 +80,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
     if (this.paymentElementError()) {
       setTimeout(() => {
         this.previousStep();
+        window.location.reload();
       }, 2000);
     }
   }

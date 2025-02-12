@@ -441,4 +441,10 @@
   <data name="ERROR_PAYMENT_INVALID_STATUS" xml:space="preserve">
     <value>The payment status was not succeeded yet.</value>
   </data>
+  <data name="ERROR_BACK_ORDERED" xml:space="preserve">
+    <value>Product back ordered.</value>
+  </data>
+  <data name="ERROR_EMPTY_CART_ITEMS" xml:space="preserve">
+    <value>Your shopping cart has no items.</value>
+  </data>
 </root>

@@ -12,29 +12,29 @@
           </p>
           <div class="p-2 mb-4 bg-light">
             <dl class="d-flex justify-content-between mb-0">
-              <dt class="fw-normal text-muted">Data do pedido</dt>
+              <dt class="col-6 fw-normal text-muted">Data do pedido</dt>
               <dd class="fw-bold">
                 {{ order.orderDate | date : 'dd/MM/yyyy' }}
               </dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
-              <dt class="fw-normal text-muted">Método de pagamento</dt>
+              <dt class="col-6 fw-normal text-muted">Método de pagamento</dt>
               <dd class="fw-bold">
                 {{ order.paymentSummary! | paymentSummary }}
               </dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
-              <dt class="fw-normal text-muted">Endereço de entrega</dt>
-              <dd class="fw-bold">
+              <dt class="col-6 fw-normal text-muted">Endereço de entrega</dt>
+              <dd class="fw-bold text-wrap text-right">
                 {{ order.shippingAddress! | address }}
               </dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
-              <dt class="fw-normal text-muted">Status do Pedido</dt>
+              <dt class="col-6 fw-normal text-muted">Status do Pedido</dt>
               <dd class="fw-bold">{{ order.status }}</dd>
             </dl>
             <dl class="d-flex justify-content-between mb-0">
-              <dt class="fw-normal text-muted">Valor</dt>
+              <dt class="col-6 fw-normal text-muted">Valor</dt>
               <dd class="fw-bold">{{ order.total | currency : 'BRL' }}</dd>
             </dl>
           </div>

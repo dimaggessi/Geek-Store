@@ -51,8 +51,17 @@ export class CartService {
     });
   }
 
-  addItem(item: CartItemInterface | ProductInterface, quantity = 1) {
+  addItem(item: CartItemInterface | ProductInterface, quantity = 1, productQuantity?: number) {
     const cart = this.cart() ?? this.createCart();
+    if (productQuantity && quantity > productQuantity) {
+      this.toastService.show({
+        message: 'Não há estoque disponível do produto.',
+        type: 'error',
+        classname: 'bg-danger text-white text-center',
+      });
+      return;
+    }
+
     if (this.isProduct(item)) {
       item = this.mapProductToCartItem(item);
     }

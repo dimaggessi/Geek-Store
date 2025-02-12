@@ -115,6 +115,7 @@ export class StripeService {
       }),
       catchError((error: HttpErrorResponse) => {
         const errorMessage = error?.error?.detail;
+        console.error('Stripe error:', errorMessage);
         return throwError(() => new Error(errorMessage));
       })
     );

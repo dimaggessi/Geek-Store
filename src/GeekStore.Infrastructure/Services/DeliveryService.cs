@@ -139,11 +139,11 @@ public sealed class DeliveryService : IDeliveryService
         if (element.ValueKind == JsonValueKind.String)
         {
             decimal.TryParse(element.GetString(), out decimal result);
-            return result;
+            return result / 100;
         }
         if (element.ValueKind == JsonValueKind.Number)
         {
-            return element.GetDecimal();
+            return element.GetDecimal() / 100;
         }
         return 0m;
     }

@@ -59,7 +59,7 @@
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-success w-100"
-                  (click)="cartService.addItem(product)"
+                  (click)="cartService.addItem(product, 1, product.quantity)"
                 >
                   <small>ADICIONAR</small><i class="fa fa-cart-shopping ms-2"></i>
                 </button>
