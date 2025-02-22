@@ -2,9 +2,9 @@
 using GeekStore.Domain.Shared;
 
 namespace GeekStore.Application.Orders.Queries.GetAllOrdersByUserEmail;
-public class GetAllOrdersValidator : AbstractValidator<GetAllOrdersQuery>
+public class GetAllOrdersByCustomerEmailQueryValidator : AbstractValidator<GetAllOrdersByCustomerEmailQuery>
 {
-    public GetAllOrdersValidator()
+    public GetAllOrdersByCustomerEmailQueryValidator()
     {
         RuleFor(x => x.CustomerEmail)
             .NotNull()

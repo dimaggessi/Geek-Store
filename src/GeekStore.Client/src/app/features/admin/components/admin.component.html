@@ -1,0 +1,293 @@
+<div class="container">
+  <div class="row">
+    <div class="nav-toolbar col-md-8 mt-4">
+      <ul ngbNav #nav="ngbNav" class="nav-pills">
+        <li ngbNavItem class="me-1">
+          <button ngbNavLink>Gerenciar Pedidos</button>
+          <ng-template ngbNavContent>
+            <div class="nav-content d-flex flex-column">
+              <div class="status ms-auto">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm dropdown-toggle rounded-2"
+                    id="dropdownBasic1"
+                    ngbDropdownToggle
+                  >
+                    Status do Pedido
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.All)">Todos</button>
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.Pending)">
+                      Pagamento Pendente
+                    </button>
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.PaymentFailed)">
+                      Pagamento Falhou
+                    </button>
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.PaymentMismatch)">
+                      Pagamento Incompleto
+                    </button>
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.PaymentReceived)">
+                      Pagamento Recebido
+                    </button>
+                    <button ngbDropdownItem (click)="setStatus(orderStatus.Refunded)">
+                      Pagamento Reembolsado
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="orders">
+                <ng-container *ngIf="loading">
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    style="height: 200px"
+                  >
+                    <div
+                      class="spinner-border text-warning"
+                      style="width: 4rem; height: 4rem"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="loading === false">
+                  <div class="orders-content">
+                    <div class="mt-4">
+                      <table class="w-100 fixed-table">
+                        <thead class="bg-danger text-white text-center">
+                          <tr>
+                            <th style="width: 10%">Id</th>
+                            <th class="d-none d-md-block" style="width: 30%">Data</th>
+                            <th style="width: 10%">Total</th>
+                            <th style="width: 30%">Status</th>
+                            <th style="width: 10%"></th>
+                            <th style="width: 10%"></th>
+                          </tr>
+                        </thead>
+                        <tbody class="bg-light text-center">
+                          @for(order of orders; track order.id) {
+                          <tr class="hover">
+                            <th class="p-2">#{{ order.id }}</th>
+                            <td class="d-none d-md-block">{{ order.orderDate | date }}</td>
+                            <td>{{ order.total | currency : 'BRL' : 'symbol' }}</td>
+                            <td>{{ order.status | status }}</td>
+                            <td>
+                              <i
+                                [routerLink]="['/admin/pedidos/', order.id]"
+                                class="fa-solid fa-eye text-info"
+                                ngbTooltip="Visualizar"
+                              ></i>
+                            </td>
+                            <td>
+                              <i
+                                class="fa-solid fa-rotate-right text-danger"
+                                ngbTooltip="Reembolsar"
+                                (click)="refund(order)"
+                              ></i>
+                            </td>
+                          </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <div class="pagination d-flex justify-content-center mt-2">
+                  <ngb-pagination
+                    [(page)]="orderParams.pageIndex"
+                    [pageSize]="orderParams.pageSize"
+                    [collectionSize]="orderParams.totalItems"
+                    aria-label="pagination"
+                    (pageChange)="onOrdersPageChange($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem>
+          <button ngbNavLink>Gerenciar Produtos</button>
+          <ng-template ngbNavContent>
+            <div class="products">
+              <ng-container *ngIf="loading">
+                <div class="d-flex justify-content-center align-items-center" style="height: 200px">
+                  <div
+                    class="spinner-border text-warning"
+                    style="width: 4rem; height: 4rem"
+                    role="status"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="loading === false">
+                <div class="products-content">
+                  <div class="mt-4">
+                    <div class="search d-flex form-group left-inner-addon w-50 mb-3 text-primary">
+                      <span class="fa-stack">
+                        <div class="search-icon" (click)="onSearch()">
+                          <i class="fas fa-circle fa-stack-2x"></i>
+                          <i class="fas fa-magnifying-glass fa-stack-1x text-white"></i>
+                        </div>
+                      </span>
+                      <input
+                        type="text"
+                        class="input-search form-control form-control-sm shadow-none pt-2"
+                        placeholder="Buscar.."
+                        (keydown.enter)="onSearch()"
+                      />
+                      <div
+                        class="reload ms-3 align-self-center"
+                        ngbTooltip="Todos os produtos"
+                        (click)="reload()"
+                      >
+                        <i class="fa-solid fa-rotate"></i>
+                      </div>
+                    </div>
+
+                    <table class="w-100 fixed-table">
+                      <thead class="bg-danger text-white text-center">
+                        <tr>
+                          <th style="width: 10%">Id</th>
+                          <th style="width: 30%">Nome</th>
+                          <th style="width: 20%">Preço</th>
+                          <th style="width: 20%">Quantidade</th>
+                          <th style="width: 10%"></th>
+                          <th style="width: 10%"></th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-light text-center">
+                        @for(product of products; track product.id) {
+                        <tr class="hover">
+                          <th class="p-2">#{{ product.id }}</th>
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.price | currency : 'BRL' : 'symbol' }}</td>
+                          <td>{{ product.quantity }}</td>
+                          <td>
+                            <i
+                              [routerLink]="['/loja', product.id]"
+                              class="fa-solid fa-eye text-info"
+                              ngbTooltip="Visualizar"
+                            ></i>
+                          </td>
+                          <td>
+                            <i
+                              class="fa-solid fa-trash text-danger"
+                              ngbTooltip="Excluir"
+                              (click)="deleteProduct(product)"
+                            ></i>
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="pagination d-flex justify-content-center mt-2">
+                <ngb-pagination
+                  [(page)]="productParams.pageIndex"
+                  [pageSize]="productParams.pageSize"
+                  [collectionSize]="productParams.totalItems"
+                  aria-label="pagination"
+                  (pageChange)="onProductsPageChange($event)"
+                />
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div [ngbNavOutlet]="nav" class="mt-4 mx-auto"></div>
+  </div>
+</div>
+
+<ng-template #orderModal>
+  <div class="modal-header bg-danger d-flex justify-content-between">
+    <h4 class="modal-title text-white">Cancelar Pedido #{{ this.selectedOrder?.id }}</h4>
+    <i class="fa-regular fa-circle-xmark text-white" aria-label="Close" (click)="dismiss()"></i>
+  </div>
+
+  <div class="modal-body">
+    <span
+      >Você tem certeza que deseja <b>reembolsar o pedido</b> #{{ this.selectedOrder?.id }} ?</span
+    >
+    <br />
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="confirmOrderRefund(this.selectedOrder)">
+      Confirmar
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #productModal>
+  <div class="modal-header bg-danger d-flex justify-content-between">
+    <h4 class="modal-title text-white">Excluir Produto #{{ this.selectedProduct?.id }}</h4>
+    <i class="fa-regular fa-circle-xmark text-white" aria-label="Close" (click)="dismiss()"></i>
+  </div>
+
+  <div class="modal-body">
+    <span
+      >Você tem certeza que deseja <b>excluir o produto de id:</b> #{{
+        this.selectedProduct?.id
+      }}
+      ?</span
+    >
+    <br />
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="dismiss()">Cancelar</button>
+    <button class="btn btn-primary" (click)="confirmDeleteProduct(this.selectedProduct?.id)">
+      Confirmar
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #orderErrorModal>
+  <div class="modal-header bg-danger d-flex justify-content-between">
+    <h4 class="modal-title text-white">Erro ao carregar pedidos</h4>
+    <i class="fa-regular fa-circle-xmark text-white" aria-label="Close" (click)="dismiss()"></i>
+  </div>
+
+  <div class="modal-body">
+    <div class="text-center text-muted mt-6">
+      <b>Nenhum pedido foi encontrado para: </b>" Pagina: {{ orderParams.pageIndex }} /
+      {{ orderParams.pageSize }} - Status: {{ orderParams.status }}"<br />
+      <b>Mensagem de erro: </b>"{{ errorMessage }}"<br />
+      <i class="fa-solid fa-circle-info ms-0"></i>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="dismiss()">Fechar</button>
+  </div>
+</ng-template>
+
+<ng-template #productErrorModal>
+  <div class="modal-header bg-danger d-flex justify-content-between">
+    <h4 class="modal-title text-white">Erro ao carregar produtos</h4>
+    <i class="fa-regular fa-circle-xmark text-white" aria-label="Close" (click)="dismiss()"></i>
+  </div>
+
+  <div class="modal-body">
+    <div class="text-center text-muted mt-6">
+      <b>A pesquisa não retornou produtos: </b>" Pagina: {{ productParams.pageIndex }} /
+      {{ productParams.pageSize }} - Termo de busca: {{ productParams.search }}"<br />
+      <b>Mensagem de erro: </b>"{{ errorMessage }}"<br />
+      <i class="fa-solid fa-circle-info ms-0"></i>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="dismiss()">Fechar</button>
+  </div>
+</ng-template>

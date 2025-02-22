@@ -142,12 +142,14 @@
   [pageIndex]="currentPage"
 ></app-products>
 
-<div class="container">
+<div class="container" *ngIf="totalCount() !== null">
   <div class="row">
     <div class="pagination d-flex justify-content-center mt-2">
       <ngb-pagination
-        [collectionSize]="totalCount"
+        [collectionSize]="totalCount()!"
         [(page)]="currentPage"
+        [hidden]="totalCount() === 0"
+        above
         aria-label="pagination"
       />
     </div>

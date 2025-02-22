@@ -14,7 +14,7 @@ export interface OrderInterface {
   orderItems: CartItemInterface[];
   subTotal: number;
   total: number;
-  status: string;
+  status: OrderStatus;
   paymentIntentId: string;
 }
 
@@ -24,4 +24,20 @@ export interface CreateOrderDto {
   deliveryMethodId: number;
   shippingAddress: AddressInterface;
   paymentSummary: PaymentSummaryInterface;
+}
+
+export class OrderParams {
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  totalItems: number = 0;
+  status: OrderStatus = OrderStatus.All;
+}
+
+export enum OrderStatus {
+  Pending,
+  PaymentReceived,
+  PaymentFailed,
+  PaymentMismatch,
+  Refunded,
+  All,
 }

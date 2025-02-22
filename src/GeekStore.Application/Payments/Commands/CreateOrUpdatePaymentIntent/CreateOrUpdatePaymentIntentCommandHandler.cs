@@ -77,6 +77,7 @@ public class CreateOrUpdatePaymentIntentCommandHandler : IRequestHandler<CreateO
                 item.Price = productItem.Price;
             }
 
+            productItem.Quantity = item.Quantity;
             products.Add(productItem);
         }
         #endregion

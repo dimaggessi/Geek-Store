@@ -1,11 +1,11 @@
 import {AuthStateInterface} from '@features/auth/types/authState.interface';
-import {combineLatest, Observable, take} from 'rxjs';
+import {combineLatest, Observable, Subject, take} from 'rxjs';
 import {CommonModule} from '@angular/common';
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router, RouterLink, RouterModule} from '@angular/router';
 import {NgbCollapseModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
-import {selectUser} from '@features/auth/store/auth.selectors';
+import {selectIsAdmin, selectUser} from '@features/auth/store/auth.selectors';
 import {UserInterface} from '@shared/models/user.interface';
 import {authActions} from '@features/auth/store/auth.actions';
 import {FormsModule} from '@angular/forms';
@@ -32,9 +32,9 @@ export class NavbarComponent implements OnInit {
   router = inject(Router);
   cartService = inject(CartService);
   signalRService = inject(SignalrService);
-  data$!: Observable<{user: UserInterface | null | undefined}>;
+  data$!: Observable<{user: UserInterface | null | undefined; isAdmin: boolean}>;
   searchTerm: string = '';
-  isCollapsed = false;
+  isCollapsed: boolean = false;
 
   ngOnInit(): void {
     this.store
@@ -46,6 +46,7 @@ export class NavbarComponent implements OnInit {
 
     this.data$ = combineLatest({
       user: this.store.select(selectUser),
+      isAdmin: this.store.select(selectIsAdmin),
     });
   }
 

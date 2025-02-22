@@ -1,6 +1,6 @@
 <div class="cart-item row align-items-center py-3">
-  <div class="col-6 d-flex p-0">
-    <div class="row align-items-center">
+  <div class="col-4 col-sm-6 d-flex p-0">
+    <div class="image-details row align-items-center">
       <div class="image col-5">
         <a [routerLink]="['/loja/', item().productId]"
           ><img [src]="item().picture" alt="" class="img-fluid rounded-3"
@@ -10,16 +10,16 @@
         <div class="row">
           <a
             [routerLink]="['/loja/', item().productId]"
-            class="p-0"
+            class="d-none d-sm-block p-0"
             style="text-decoration: none"
             >{{ item().productName }}</a
           >
         </div>
-        <div class="row text-muted">{{ item().type }}</div>
+        <div class="row d-none d-sm-block text-muted">{{ item().type }}</div>
       </div>
     </div>
   </div>
-  <div class="quantity col-2">
+  <div class="quantity col-2 me-4 me-sm-0">
     <div class="input-group d-flex align-items-center justify-content-center">
       <a (click)="incrementQuantity()" class="text-secondary"><i class="fa-solid fa-plus"></i></a>
       <input

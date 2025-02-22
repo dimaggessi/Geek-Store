@@ -20,7 +20,8 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next): Observable<Htt
       }
       if (error.status === 400) {
         toastService.show({
-          message: error.error.error.message,
+          message: 'Solicitação inválida. Verifique os dados da requisição.',
+          // message: error.error.error.message,
           classname: 'bg-danger text-light',
           type: 'info',
           delay: 10000,
@@ -28,7 +29,15 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next): Observable<Htt
       }
       if (error.status === 401) {
         toastService.show({
-          message: error.error.error.message,
+          message: 'Usuário não está autenticado. É necessário Efetuar o Login.',
+          classname: 'bg-danger text-light',
+          type: 'error',
+          delay: 10000,
+        });
+      }
+      if (error.status === 403) {
+        toastService.show({
+          message: 'Acesso não autorizado.',
           classname: 'bg-danger text-light',
           type: 'error',
           delay: 10000,
@@ -36,7 +45,8 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next): Observable<Htt
       }
       if (error.status === 404) {
         toastService.show({
-          message: error.error.error.message,
+          message: 'Recurso indisponível ou não encontrado.',
+          // message: error.error.error.message,
           classname: 'bg-danger text-light',
           type: 'error',
           delay: 10000,

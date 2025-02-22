@@ -1,11 +1,21 @@
 import {GetProductsRequestInterface} from '@shared/components/products/types/getProductsRequest.interface';
-import {CommonModule} from '@angular/common';
-import {Component, EventEmitter, inject, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {CommonModule, ViewportScroller} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import {ProductService} from '../services/product.service';
 import {Store} from '@ngrx/store';
 import {ProductStateInterface} from '../types/productState.interface';
 import {brandActions, productActions, typesActions} from '../store/products.actions';
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, Subject, takeUntil} from 'rxjs';
 import {
   selectApiErrors,
   selectBrands,
@@ -17,8 +27,6 @@ import {
   selectTypes,
   selectTypesAreLodaded,
 } from '../store/products.selectors';
-import {Pagination} from '@shared/models/pagination.interface';
-import {ProductInterface} from '@shared/models/product.interface';
 import {RouterModule} from '@angular/router';
 import {CartService} from '@core/services/cart.service';
 
@@ -29,7 +37,9 @@ import {CartService} from '@core/services/cart.service';
   styleUrl: './products.component.scss',
   imports: [CommonModule, RouterModule],
 })
-export class ProductComponent implements OnInit, OnChanges {
+export class ProductComponent implements OnInit, OnChanges, OnDestroy {
+  private viewportScroller = inject(ViewportScroller);
+  private destroy$ = new Subject<void>();
   store = inject(Store<{product: ProductStateInterface}>);
   productService = inject(ProductService);
   cartService = inject(CartService);
@@ -42,7 +52,7 @@ export class ProductComponent implements OnInit, OnChanges {
   @Input() pageSize?: number = 9;
   @Output() totalCountChange = new EventEmitter<number>();
   request: GetProductsRequestInterface = {};
-  result!: Pagination<ProductInterface[]>;
+  totalCount = signal<number | undefined>(1);
 
   ngOnChanges(): void {
     this.request = {
@@ -67,6 +77,8 @@ export class ProductComponent implements OnInit, OnChanges {
         this.store.dispatch(typesActions.getTypesList());
       }
     });
+
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   ngOnInit(): void {
@@ -80,11 +92,22 @@ export class ProductComponent implements OnInit, OnChanges {
       types: this.store.select(selectTypes),
     });
 
-    this.data$.subscribe((response) => {
-      if (response.products) {
-        this.totalCountChange.emit(response.products.totalCount);
-      }
+    this.data$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (response) => {
+        if (response.products && this.totalCount() != response.products.totalCount) {
+          // console.log('Dados recebidos:', response);
+          this.totalCount.set(response.products?.totalCount);
+          // console.log('Total count atualizado:', this.totalCount());
+          this.totalCountChange.emit(this.totalCount());
+        }
+      },
     });
+  }
+
+  // Avoid memory leak on data$ subscription
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   reload(): void {

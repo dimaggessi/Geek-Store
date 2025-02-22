@@ -65,9 +65,16 @@ namespace GeekStore.Infrastructure.Persistence.Repositories
             return await _context.Set<T>().AnyAsync(x => x.Id == id, cancellationToken);
         }
 
-        public async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        public async Task<int> CountAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
         {
-            return await _context.Set<T>().CountAsync(cancellationToken);
+            IQueryable<T> query = _context.Set<T>().AsQueryable();
+
+            if (specification.Criteria is not null)
+            {
+                query = query.Where(specification.Criteria);
+            }
+
+            return await query.CountAsync(cancellationToken);
         }
 
         private IQueryable<T> ApplySpecification(ISpecification<T> specification)

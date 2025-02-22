@@ -51,7 +51,7 @@
         </div>
         <div class="input-group mb-4">
           <button
-            class="input-group-text bg-info"
+            class="input-group-text bg-info d-none d-xl-block"
             (click)="calculateDelivery(postalCodeInput.value, selectedDeliveryMethod)"
           >
             Calcular Frete
@@ -72,11 +72,11 @@
           <dd>{{ cartService.totals()?.discount }}</dd>
         </dl>
         <div class="input-group mb-4">
-          <button class="input-group-text">Aplicar Cupom</button>
+          <button class="input-group-text d-none d-xl-block">Aplicar Cupom</button>
           <input
             type="text"
             class="form-control shadow-none"
-            placeholder="Código..."
+            placeholder="Código do cupom..."
             aria-label="discount cupom"
             aria-describedby="button-discount"
           />

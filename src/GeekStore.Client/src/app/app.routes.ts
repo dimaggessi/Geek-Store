@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import {adminGuard} from '@core/guards/admin.guard';
 import {authGuard} from '@core/guards/auth.guard';
 import {HomeComponent} from '@features/home/home.component';
 
@@ -37,5 +38,10 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@features/orders/components/order.routes').then((r) => r.orderRoute),
     canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('@features/admin/admin.routes').then((r) => r.adminRoute),
+    canActivate: [authGuard, adminGuard],
   },
 ];

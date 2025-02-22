@@ -109,8 +109,8 @@ export class StripeService {
     if (!cart) throw new Error('Há um problema com o carrinho.');
 
     return this.http.post<Cart>(url + '/payments/' + cart.id, {}, {withCredentials: true}).pipe(
-      map((cart) => {
-        this.cartService.cart.set(cart);
+      map(async (cart) => {
+        await firstValueFrom(this.cartService.setCart(cart));
         return cart;
       }),
       catchError((error: HttpErrorResponse) => {

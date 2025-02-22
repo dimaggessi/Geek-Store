@@ -48,6 +48,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
   currentStep: number = 1;
   addressFilled: boolean = false;
   loading: boolean = false;
+  error: boolean = false;
   address: AddressInterface = {
     number: '',
     street: '',
@@ -67,6 +68,9 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
         if (data) {
           this.address = data;
           this.addressFilled = true;
+          if (this.cartService.cart()) {
+            this.cartService.updatePostalCode(this.address.postalCode);
+          }
           this.calculateDelivery(this.address.postalCode, this.selectedDeliveryMethod);
         }
       },
@@ -114,6 +118,11 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
         console.log('Endereço enviado com sucesso:', response);
       },
       error: (err) => {
+        this.toastService.show({
+          message: `Erro ao enviar endereço.`,
+          type: 'error',
+          classname: 'bg-danger text-white text-center',
+        });
         console.error('Erro ao enviar o endereço:', err);
       },
     });
@@ -157,7 +166,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
     this.shippingService
       .shippingCalculator(this.cartService.cart()!.id, deliveryMethod, postalCode)
       .subscribe({
-        next: (response: DeliveryInterface[]) => {
+        next: async (response: DeliveryInterface[]) => {
           const currentCart = this.cartService.cart();
           if (currentCart) {
             this.cartService.shippingCost = response[0].price;
@@ -169,7 +178,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
               postalCode: postalCode,
             };
 
-            this.cartService.setCart(updatedCart);
+            await this.cartService.setCart(updatedCart);
           }
         },
         error: (err) => {
@@ -192,7 +201,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
       const result = await this.stripeService.createConfirmationToken();
       if (result.error) throw new Error(result.error.message);
       this.confirmationToken = result.confirmationToken;
-      console.log('Confirmation Token de Pagamento:', this.confirmationToken);
+      // console.log('Confirmation Token de Pagamento:', this.confirmationToken);
     } catch (error: any) {
       this.previousStep();
       this.toastService.show({
@@ -358,7 +367,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
 
       return new Promise((resolve) => {
         this.paymentElement?.on('ready', () => {
-          console.log('Elemento de pagamento montado!');
+          // console.log('Elemento de pagamento montado!');
           resolve();
         });
       });

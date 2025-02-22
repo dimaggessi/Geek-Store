@@ -27,10 +27,14 @@ import {loadingInterceptor} from '@core/interceptors/loading.interceptor';
 
 function initialize(initializerService: InitializerService) {
   return () => {
-    initializerService.init().subscribe({
-      next: (cart) => console.log('Carrinho carregado:', cart),
-      error: (err) => console.warn('Erro ao carregar carrinho:', err),
-    });
+    initializerService
+      .init()
+      .subscribe
+      // 	{
+      // 	next: (cart) => console.log('Carrinho carregado:', cart),
+      // 	error: (err) => console.warn('Erro ao carregar carrinho:', err),
+      // }
+      ();
   };
 }
 

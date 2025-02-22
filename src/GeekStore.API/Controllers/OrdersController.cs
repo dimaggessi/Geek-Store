@@ -23,7 +23,7 @@ public class OrdersController : ApiController
     {
         var email = User.FindFirstValue(ClaimTypes.Email);
 
-        var request = new GetAllOrdersQuery
+        var request = new GetAllOrdersByCustomerEmailQuery
         {
             CustomerEmail = email
         };
@@ -49,7 +49,7 @@ public class OrdersController : ApiController
     {
         var email = User.FindFirstValue(ClaimTypes.Email);
 
-        var request = new GetOrderByIdQuery
+        var request = new GetOrderByIdAndCustomerEmailQuery
         {
             CustomerEmail = email,
             OrderId = orderId

@@ -107,7 +107,7 @@ export const getUserEffect = createEffect(
         return authService.isAuthenticated().pipe(
           switchMap((isAuth) => {
             if (!isAuth) {
-              console.log('User is authenticated:', isAuth);
+              // console.log('User is authenticated:', isAuth);
               return of(
                 authActions.getUserFailure({
                   errors: {error: {code: 'error', message: 'cookie not found'}},
@@ -145,7 +145,9 @@ export const logoutEffect = createEffect(
           tap(() => {
             localStorage.removeItem('auth');
             signalrService.stopHubConnection();
-            router.navigateByUrl('/');
+            router.navigateByUrl('/').then(() => {
+              window.location.reload();
+            });
           })
         );
       })

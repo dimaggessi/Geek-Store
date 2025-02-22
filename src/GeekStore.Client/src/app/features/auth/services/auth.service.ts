@@ -12,8 +12,6 @@ import {RegisterRequestInterface} from '@features/auth/types/registerRequest.int
 export class AuthService {
   http = inject(HttpClient);
 
-  // constructor(@Inject(HttpClient) private http: HttpClient) {}
-
   register(request: RegisterRequestInterface): Observable<UserInterface> {
     const url = environment.apiUrl + '/auth/register';
 

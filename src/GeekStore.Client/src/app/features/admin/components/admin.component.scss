@@ -1,0 +1,17 @@
+tr {
+  transition: background-color 0.3s ease;
+}
+
+tr:hover {
+  background-color: #dee1e4 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.reload:active {
+  color: var(--main-secondary);
+  transition: color 0.5 ease-in-out;
+}

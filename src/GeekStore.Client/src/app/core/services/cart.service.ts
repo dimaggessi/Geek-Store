@@ -3,7 +3,7 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {environment} from '@environments/environment';
 import {Cart, CartItemInterface} from '@shared/models/cart.interface';
 import {ProductInterface} from '@shared/models/product.interface';
-import {map} from 'rxjs';
+import {firstValueFrom, map, tap} from 'rxjs';
 import {ToastService} from './toast.service';
 
 @Injectable({providedIn: 'root'})
@@ -46,12 +46,14 @@ export class CartService {
   setCart(cart: Cart) {
     const url = environment.apiUrl;
 
-    return this.http.post<Cart>(url + '/cart', cart).subscribe({
-      next: (cart) => this.cart.set(cart),
-    });
+    return this.http.post<Cart>(url + '/cart', cart).pipe(tap((cart) => this.cart.set(cart)));
   }
 
-  addItem(item: CartItemInterface | ProductInterface, quantity = 1, productQuantity?: number) {
+  async addItem(
+    item: CartItemInterface | ProductInterface,
+    quantity = 1,
+    productQuantity?: number
+  ) {
     const cart = this.cart() ?? this.createCart();
     if (productQuantity && quantity > productQuantity) {
       this.toastService.show({
@@ -66,7 +68,7 @@ export class CartService {
       item = this.mapProductToCartItem(item);
     }
     cart.items = this.addOrUpdateItem(cart.items, item, quantity);
-    this.setCart(cart);
+    await firstValueFrom(this.setCart(cart));
     this.toastService.show({
       message: 'Produto adicionado ao carrinho.',
       type: 'success',
@@ -74,7 +76,7 @@ export class CartService {
     });
   }
 
-  removeItem(productId: number, quantity = 1): void {
+  async removeItem(productId: number, quantity = 1) {
     const cart = this.cart();
     if (!cart) return;
 
@@ -88,7 +90,7 @@ export class CartService {
       if (cart.items.length === 0) {
         this.deleteCart();
       } else {
-        this.setCart(cart);
+        await firstValueFrom(this.setCart(cart));
       }
     }
     this.toastService.show({
@@ -96,6 +98,20 @@ export class CartService {
       type: 'success',
       classname: 'bg-danger text-white text-center',
     });
+  }
+
+  async updatePostalCode(postalCode: string) {
+    const currentCart = this.cart();
+    if (currentCart) {
+      const updatedCart: Cart = {
+        ...currentCart,
+        postalCode: postalCode,
+      };
+      this.cart.set(updatedCart);
+      await firstValueFrom(this.setCart(updatedCart));
+    } else {
+      console.warn('Carrinho não está disponível para atualização.');
+    }
   }
 
   deleteCart(): void {

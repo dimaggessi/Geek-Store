@@ -36,10 +36,8 @@ export class HomeComponent implements OnInit {
       .select(selectProductsPaginated)
       .pipe(
         tap((response) => {
-          console.log('selectProductsPaginated', response);
           if (response?.data) {
             this.groupedProducts = this.sliceArray(response.data, 3);
-            console.log('groupedProducts', this.groupedProducts);
           }
         })
       )

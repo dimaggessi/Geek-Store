@@ -1,12 +1,11 @@
-using GeekStore.API.Extensions;
 using GeekStore.Application.Brands.Queries.GetBrands;
 using GeekStore.Application.Products.Commands.CreateProduct;
 using GeekStore.Application.Products.Commands.DeleteProduct;
 using GeekStore.Application.Products.Commands.UpdateProduct;
 using GeekStore.Application.Products.Queries.GetProductById;
 using GeekStore.Application.Products.Queries.GetProducts;
-using GeekStore.Domain.Specifications.SpecParams;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeekStore.API.Controllers
@@ -113,6 +112,7 @@ namespace GeekStore.API.Controllers
             );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand request)
         {
@@ -133,6 +133,7 @@ namespace GeekStore.API.Controllers
             );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateProduct([FromRoute] int id,
             [FromBody] UpdateProductCommand request)
@@ -156,6 +157,7 @@ namespace GeekStore.API.Controllers
             );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteProduct(
             [FromRoute] DeleteProductCommand request)

@@ -162,7 +162,8 @@ public static class IdentityApiEndpointRouteBuilderExtensions
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Address = userWithAddress?.Address,
-                    IsEmailConfirmed = infoResponse.IsEmailConfirmed
+                    IsEmailConfirmed = infoResponse.IsEmailConfirmed,
+                    Roles = claimsPrincipal.FindFirstValue(ClaimTypes.Role)
                 }
             });
         });

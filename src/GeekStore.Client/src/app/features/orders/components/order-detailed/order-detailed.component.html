@@ -33,7 +33,7 @@
                     <div class="d-flex align-items-center">
                       <div class="image col-2">
                         <a [routerLink]="['/loja/', item.productId]"
-                          ><img [src]="item.picture" alt="" class="img-fluid rounded-3"
+                          ><img [src]="item.picture" alt="" class="img-fluid rounded-3 mb-2"
                         /></a>
                       </div>
                       <div class="col-10 d-flex align-items-center justify-content-between">
@@ -62,7 +62,7 @@
               </dl>
               <dl class="d-flex justify-content-between text-muted mb-0">
                 <dt class="fw-normal me-1">Status do Pedido:</dt>
-                <dd>{{ order.status }}</dd>
+                <dd>{{ order.status | status }}</dd>
               </dl>
             </div>
           </div>

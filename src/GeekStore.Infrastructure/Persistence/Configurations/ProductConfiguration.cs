@@ -11,7 +11,7 @@ namespace GeekStore.Infrastructure.Persistence.Configurations
             builder.ToTable("Products", "ecommerce");
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Property(p => p.Description).IsRequired().HasMaxLength(300);
+            builder.Property(p => p.Description).IsRequired().HasMaxLength(500);
             builder.Property(p => p.Picture).IsRequired();
             builder.Property(p => p.Type).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Brand).IsRequired().HasMaxLength(100);

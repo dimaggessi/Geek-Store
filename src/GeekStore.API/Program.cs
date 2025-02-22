@@ -50,4 +50,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-await app.RunAsync();
+await app.PopulateDatabase();
+await app.RunAsync().ConfigureAwait(false);

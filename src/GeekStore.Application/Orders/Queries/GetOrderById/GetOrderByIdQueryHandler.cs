@@ -8,7 +8,6 @@ namespace GeekStore.Application.Orders.Queries.GetOrderById;
 
 public sealed record GetOrderByIdQuery : IRequest<Result<Order>>
 {
-    public string? CustomerEmail { get; init; }
     public int OrderId { get; init; }
 }
 public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Result<Order>>
@@ -21,7 +20,7 @@ public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Resul
     public async Task<Result<Order>> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
 
-        var spec = new OrderSpecification(request.CustomerEmail!, request.OrderId);
+        var spec = new OrderSpecification(request.OrderId);
         var order = await _unitOfWork.GetRepository<Order>()
             .GetEntityWithSpecificationAsync(spec, cancellationToken);
 

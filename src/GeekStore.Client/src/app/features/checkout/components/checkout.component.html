@@ -234,12 +234,12 @@
             <div id="payment-element"></div>
             <ng-container *ngIf="paymentElement !== undefined">
               <div class="mt-5">
-                <small class="text-danger"
-                  >*** Utilize o seguinte número de<strong class="text-black">
-                    Cartão de Crédito para testes:</strong
-                  >
-                  <span> ***</span>
-                  <span class="bg-warning text-muted ms-2"> 4242 4242 4242 4242</span></small
+                <span class="text-black"
+                  >Utilize o seguinte número de<strong> Cartão de Crédito para testes: [</strong>
+                  <span class="text-danger ms-2"
+                    >4242 - 4242 - 4242 - 4242
+                    <strong class="text-black">&nbsp;&nbsp;]</strong></span
+                  ></span
                 >
               </div>
             </ng-container>
@@ -357,7 +357,7 @@
     </button>
     <button
       class="btn btn-primary"
-      [disabled]="!this.addressFilled"
+      [disabled]="!this.addressFilled || this.error === true"
       [hidden]="currentStep === 3"
       (click)="nextStep()"
     >

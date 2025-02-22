@@ -38,17 +38,17 @@
                 <h4
                   class="me-2"
                   [ngClass]="{
-                    'text-danger': product.quantity < 300,
-                    'text-success': product.quantity > 600,
-                    'text-warning': product.quantity >= 300 && product.quantity <= 600
+                    'text-danger': product.quantity < 100,
+                    'text-success': product.quantity > 200,
+                    'text-warning': product.quantity >= 100 && product.quantity <= 200
                   }"
                 >
                   <i
                     class="fa me-2"
                     [ngClass]="{
-                      'fa-circle-exclamation': product.quantity < 300,
-                      'fa-circle-check': product.quantity > 600,
-                      'fa-circle-info': product.quantity >= 300 && product.quantity <= 600
+                      'fa-circle-exclamation': product.quantity < 100,
+                      'fa-circle-check': product.quantity > 200,
+                      'fa-circle-info': product.quantity >= 100 && product.quantity <= 200
                     }"
                   ></i>
                   {{ product.quantity }} unidades

@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log('form', this.form.getRawValue());
+    // console.log('form', this.form.getRawValue());
     const request: RegisterRequestInterface = {
       firstName: this.form.get('firstName')?.value,
       lastName: this.form.get('lastName')?.value,

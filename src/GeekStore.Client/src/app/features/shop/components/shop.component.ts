@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgbDropdownModule, NgbPagination} from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,7 @@ import {selectBrands, selectTypes} from '@shared/components/products/store/produ
 import {ProductStateInterface} from '@shared/components/products/types/productState.interface';
 import {BrandsInterface} from '@shared/models/brands.interface';
 import {TypesInterface} from '@shared/models/types.interface';
-import {combineLatest, debounceTime, distinctUntilChanged, Observable, Subject} from 'rxjs';
+import {combineLatest, Observable, Subject} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -17,6 +17,7 @@ import {combineLatest, debounceTime, distinctUntilChanged, Observable, Subject} 
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
   imports: [CommonModule, ProductComponent, NgbDropdownModule, FormsModule, NgbPagination],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopComponent implements OnInit {
   router = inject(Router);
@@ -30,7 +31,7 @@ export class ShopComponent implements OnInit {
   sortBy: string = '';
   search: string = '';
   currentPage: number = 1;
-  totalCount: number = 0;
+  totalCount = signal<number | null>(null);
 
   ngOnInit(): void {
     this.data$ = combineLatest({
@@ -77,8 +78,9 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  onTotalCountChange(value: number) {
-    this.totalCount = value;
-    console.log('Total Count Atualizado', this.totalCount);
+  onTotalCountChange(value: number): void {
+    if (value !== this.totalCount()) {
+      this.totalCount.set(value > 1 ? value : 1);
+    }
   }
 }

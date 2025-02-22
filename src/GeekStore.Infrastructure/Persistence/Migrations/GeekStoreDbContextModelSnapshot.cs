@@ -218,8 +218,8 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,2)");
@@ -289,13 +289,13 @@ namespace GeekStore.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eaefcad0-e9c1-47a2-bdf1-ed5fdf747d89",
+                            Id = "9e8f2c8a-0419-4521-9ab2-5d4f4e8f47cb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9ec0a9e4-2b7a-48b8-bd99-9dff0e977cbf",
+                            Id = "b27cd934-36b0-4c4f-a282-d8637fd7d217",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });

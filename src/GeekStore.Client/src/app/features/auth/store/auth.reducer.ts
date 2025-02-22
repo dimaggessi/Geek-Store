@@ -9,6 +9,7 @@ const initialState: AuthStateInterface = {
   isLoading: false,
   user: null,
   errors: null,
+  isAdmin: false,
 };
 
 const authFeature = createFeature({
@@ -42,6 +43,11 @@ const authFeature = createFeature({
       isLoggedIn: true,
       isSubmitting: false,
       user: action.user,
+      isAdmin: action.user?.roles
+        ? Array.isArray(action.user.roles)
+          ? action.user.roles.includes('Admin')
+          : action.user.roles === 'Admin'
+        : false,
     })),
     on(authActions.loginFailure, (state, action) => ({
       ...state,

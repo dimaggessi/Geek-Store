@@ -16,26 +16,41 @@ public sealed class PaymentService : IPaymentService
     {
         _config = config;
         _cartRepository = cartRepository;
+        StripeConfiguration.ApiKey = _config["StripeKeys:Secret"];
     }
+
+
+    public async Task<string> RefundPayment(string paymentIntentId)
+    {
+        var refundOptions = new RefundCreateOptions
+        {
+            PaymentIntent = paymentIntentId
+        };
+
+        var refundService = new RefundService();
+        var result = await refundService.CreateAsync(refundOptions);
+
+        return result.Status;
+    }
+
     public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(ShoppingCart cart, decimal shippingPrice)
     {
-        StripeConfiguration.ApiKey = _config["StripeKeys:Secret"];
-
         var stripeService = new PaymentIntentService();
 
         PaymentIntent? intent = null;
+
+        var itemsTotal = cart.Items.Sum(x => x.Quantity * x.Price);
+        var totalAmount = itemsTotal + shippingPrice;
 
         if (string.IsNullOrWhiteSpace(cart.PaymentIntentId))
         {
             var options = new PaymentIntentCreateOptions
             {
-                // Multiplied by 100 because (conversion) to long type
-                Amount = (long)cart.Items.Sum(x => x.Quantity * (x.Price * 100))
-                    + (long)shippingPrice * 100,
+                // Amount in cents
+                Amount = (long)Math.Round(totalAmount * 100, MidpointRounding.AwayFromZero),
                 Currency = "brl",
                 PaymentMethodTypes = ["card"]
             };
-
             intent = await stripeService.CreateAsync(options);
             cart.PaymentIntentId = intent.Id;
             cart.ClientSecret = intent.ClientSecret;
@@ -45,8 +60,7 @@ public sealed class PaymentService : IPaymentService
             // Updating payment intent if already have one
             var options = new PaymentIntentUpdateOptions
             {
-                Amount = (long)cart.Items.Sum(x => x.Quantity * (x.Price * 100))
-                    + (long)shippingPrice * 100,
+                Amount = (long)Math.Round(totalAmount * 100, MidpointRounding.AwayFromZero),
             };
             await stripeService.UpdateAsync(cart.PaymentIntentId, options);
         }

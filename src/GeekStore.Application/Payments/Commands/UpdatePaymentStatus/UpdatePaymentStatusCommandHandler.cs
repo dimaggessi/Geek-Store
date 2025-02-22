@@ -31,6 +31,11 @@ namespace GeekStore.Application.Payments.Commands.UpdatePaymentStatus
                     ResourceErrorMessages.ERROR_ORDER_NOT_FOUND));
             }
 
+            // *100 to obtain total in cents (long)
+            // With MidpointRounding.AwayFromZero: 99.995, rounds to 10000, instead of 9999
+
+            var orderTotalInCents = (long)Math.Round(order.GetTotal() * 100, MidpointRounding.AwayFromZero);
+
             if (request.PaymentIntent.Status is not "succeeded")
             {
                 return Result.Failure<Order>(new Error(
@@ -38,7 +43,7 @@ namespace GeekStore.Application.Payments.Commands.UpdatePaymentStatus
                     ResourceErrorMessages.ERROR_PAYMENT_INVALID_STATUS));
             }
 
-            if ((long)order.GetTotal() * 100 != request.PaymentIntent.Amount)
+            if (orderTotalInCents != request.PaymentIntent.Amount)
             {
                 order.OrderStatus = OrderStatus.PaymentMismatch;
             }

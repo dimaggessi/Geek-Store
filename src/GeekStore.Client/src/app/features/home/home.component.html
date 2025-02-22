@@ -31,10 +31,10 @@
         <ng-template *ngFor="let productGroup of groupedProducts" ngbSlide>
           <div class="row align-items-center justify-content-center">
             <div class="col-md-4" *ngFor="let product of productGroup">
-              <div [routerLink]="['/loja', product.id]" class="card rounded bg-light my-4">
+              <div [routerLink]="['/loja', product.id]" class="card rounded-5 bg-light my-4">
                 <img
                   [src]="product.picture"
-                  class="card-img-top img-fluid"
+                  class="card-img-top img-fluid rounded-top-5"
                   alt="{{ product.name }}"
                 />
                 <div class="card-body text-center">

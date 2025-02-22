@@ -18,10 +18,11 @@ public class GetProductsQueryHandler
         CancellationToken cancellationToken)
     {
         var specification = new ProductSpecification(request);
+        var totalItems = await _unityOfWork.GetRepository<Product>().CountAsync(specification, cancellationToken);
         var products = await _unityOfWork.GetRepository<Product>()
             .GetAllWithSpecificationAsync(specification, cancellationToken);
 
-        if (products is null || products.Count <= 0)
+        if (products is null || !products.Any())
         {
             return Result.Failure<PaginatedResult<IReadOnlyList<Product>>>(new Error(
                     ResourceErrorMessages.DEFAULT_ERROR, 
@@ -32,7 +33,7 @@ public class GetProductsQueryHandler
         {
             PageIndex = request.PageIndex,
             PageSize = request.PageSize,
-            TotalCount = products.Count,
+            TotalCount = totalItems,
             Data = products
         };
 

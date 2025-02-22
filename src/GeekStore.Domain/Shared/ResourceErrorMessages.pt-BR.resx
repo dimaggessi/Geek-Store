@@ -447,4 +447,7 @@
   <data name="ERROR_EMPTY_CART_ITEMS" xml:space="preserve">
     <value>O carrinho está vazio.</value>
   </data>
+  <data name="ERROR_ORDER_STATUS" xml:space="preserve">
+    <value>Não houve pagamento efetuado para esse pedido.</value>
+  </data>
 </root>

@@ -19,6 +19,6 @@ namespace GeekStore.Domain.Interfaces
         void Update(T entity);
         void Remove(T entity);
         Task<bool> ExistsAsync(int id, CancellationToken cancellationToken = default);
-        Task<int> CountAsync(CancellationToken cancellationToken = default);
+        Task<int> CountAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
     }
 }

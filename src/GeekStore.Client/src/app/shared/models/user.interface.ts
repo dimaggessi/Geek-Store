@@ -6,4 +6,5 @@ export interface UserInterface {
   lastName: string;
   address: AddressInterface | null | undefined;
   isEmailConfirmed: boolean;
+  roles: string | string[];
 }

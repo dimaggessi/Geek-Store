@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    console.log('form', this.form.getRawValue());
+    // console.log('form', this.form.getRawValue());
     const request: LoginRequestInterface = {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value,
