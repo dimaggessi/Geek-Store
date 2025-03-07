@@ -33,6 +33,7 @@
               <li class="nav-item me-3">
                 <a
                   routerLink="/sobre"
+                  fragment="summary"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{exact: true}"
                   class="nav-link bar-hover"
@@ -51,8 +52,14 @@
             </ul>
           </div>
         </div>
-        <div class="dark-theme ms-auto d-none d-md-block">
-          <input type="checkbox" class="checkbox" id="checkbox" />
+        <div class="dark-theme ms-auto">
+          <input
+            [checked]="themeService.isDarkMode"
+            (change)="themeService.toggleTheme()"
+            type="checkbox"
+            class="checkbox"
+            id="checkbox"
+          />
           <label for="checkbox" class="checkbox-label">
             <i class="fas fa-moon"></i>
             <i class="fas fa-sun"></i>
@@ -114,7 +121,7 @@
         <button
           class="navbar-toggler ms-2"
           type="button"
-          (click)="isCollapsed = !isCollapsed"
+          (click)="toggleNavbar()"
           aria-controls="navbarNavDropdown"
           [attr.aria-expanded]="!isCollapsed"
           aria-label="Toggle navigation"
@@ -135,7 +142,7 @@
           <a routerLink="/loja" class="nav-link second-nav">Loja</a>
         </li>
         <li class="nav-item">
-          <a routerLink="/sobre" class="nav-link second-nav">Sobre</a>
+          <a routerLink="/sobre" fragment="summary" class="nav-link second-nav">Sobre</a>
         </li>
         <li class="nav-item">
           <a routerLink="/carrinho" class="nav-link second-nav">Carrinho</a>

@@ -1,7 +1,7 @@
 import {AuthStateInterface} from '@features/auth/types/authState.interface';
-import {combineLatest, Observable, Subject, take} from 'rxjs';
+import {combineLatest, Observable, Subject, take, takeUntil} from 'rxjs';
 import {CommonModule} from '@angular/common';
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router, RouterLink, RouterModule} from '@angular/router';
 import {NgbCollapseModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
@@ -11,6 +11,7 @@ import {authActions} from '@features/auth/store/auth.actions';
 import {FormsModule} from '@angular/forms';
 import {CartService} from '@core/services/cart.service';
 import {SignalrService} from '@core/services/signalr.service';
+import {ThemeService} from '@core/services/theme.service';
 
 @Component({
   standalone: true,
@@ -27,7 +28,9 @@ import {SignalrService} from '@core/services/signalr.service';
   styleUrl: './navbar.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  themeService = inject(ThemeService);
   store = inject(Store<{auth: AuthStateInterface}>);
   router = inject(Router);
   cartService = inject(CartService);
@@ -39,7 +42,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectUser)
-      .pipe(take(1))
+      .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((user) => {
         this.store.dispatch(authActions.getUser());
       });
@@ -50,7 +53,20 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  toggleNavbar() {
+    this.isCollapsed = !this.isCollapsed;
+    this.scrollToTop();
+  }
+
   logout(): void {
     this.store.dispatch(authActions.logout());
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(), this.destroy$.complete();
   }
 }

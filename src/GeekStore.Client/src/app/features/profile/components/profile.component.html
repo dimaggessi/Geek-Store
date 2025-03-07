@@ -1,0 +1,163 @@
+<section class="profile">
+  <div class="container d-flex flex-column mt-4">
+    <div class="row justify-content-center">
+      <ng-container *ngIf="data$ | async as data">
+        <div class="card mt-3 col-md-6">
+          <div class="card-header text-muted"><strong>Usuário:</strong></div>
+          <div class="card-body mb-2">
+            <div class="info">
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Email:</dt>
+                <dd>{{ data.user?.email }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Nome:</dt>
+                <dd>{{ data.user?.firstName }}</dd>
+              </dl>
+              <dl class="d-flex justify-content-between text-muted mb-0">
+                <dt class="fw-normal me-1">Sobrenome:</dt>
+                <dd>{{ data.user?.lastName }} dias</dd>
+              </dl>
+            </div>
+            <div class="d-flex">
+              <button routerLink="/pedidos" class="btn btn-primary mt-2 ms-auto">
+                Ver Pedidos
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row justify-content-center">
+      <div class="card mt-3 col-md-6">
+        <div class="card-header text-muted"><strong>Endereço:</strong></div>
+        <div class="card-body mb-2">
+          <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm.value)" novalidate>
+            <div class="row">
+              <div class="col-md-2 mb-2">
+                <label for="number" class="form-label text-primary ms-1">Número</label>
+                <input
+                  type="text"
+                  id="number"
+                  name="Number"
+                  class="form-control"
+                  [(ngModel)]="address.number"
+                  required
+                  placeholder="Ex.: 123"
+                />
+                <div *ngIf="addressForm.submitted && !address.number" class="text-danger">
+                  Informar o número.
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-2">
+                <label for="street" class="form-label text-primary ms-1">Rua</label>
+                <input
+                  type="text"
+                  id="street"
+                  name="Street"
+                  class="form-control"
+                  [(ngModel)]="address.street"
+                  required
+                  placeholder="Ex.: Rua Principal"
+                />
+                <div *ngIf="addressForm.submitted && !address.street" class="text-danger">
+                  O campo Rua é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label for="neighborhood" class="form-label text-primary ms-1">Bairro</label>
+                <input
+                  type="text"
+                  id="neighborhood"
+                  name="Neighborhood"
+                  class="form-control"
+                  [(ngModel)]="address.neighborhood"
+                  required
+                  placeholder="Ex.: Centro"
+                />
+                <div *ngIf="addressForm.submitted && !address.neighborhood" class="text-danger">
+                  O campo Bairro é obrigatório.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label for="city" class="form-label text-primary ms-1">Cidade</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="City"
+                  class="form-control"
+                  [(ngModel)]="address.city"
+                  required
+                  placeholder="Ex.: São Paulo"
+                />
+                <div *ngIf="addressForm.submitted && !address.city" class="text-danger">
+                  O campo Cidade é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label for="state" class="form-label text-primary ms-1">Estado</label>
+                <input
+                  type="text"
+                  id="state"
+                  name="State"
+                  class="form-control"
+                  [(ngModel)]="address.state"
+                  required
+                  placeholder="Ex.: SP"
+                />
+                <div *ngIf="addressForm.submitted && !address.state" class="text-danger">
+                  O campo Estado é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label for="country" class="form-label text-primary ms-1">País</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="Country"
+                  class="form-control"
+                  [(ngModel)]="address.country"
+                  required
+                  placeholder="Ex.: Brasil"
+                />
+                <div *ngIf="addressForm.submitted && !address.country" class="text-danger">
+                  O campo País é obrigatório.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label for="postalCode" class="form-label text-primary ms-1">CEP</label>
+                <input
+                  type="text"
+                  maxlength="8"
+                  id="postalCode"
+                  name="PostalCode"
+                  class="form-control"
+                  [(ngModel)]="address.postalCode"
+                  required
+                  placeholder="Ex.: 12345678"
+                  (input)="onInput($event)"
+                />
+                <div *ngIf="addressForm.submitted && !address.postalCode" class="text-danger">
+                  O campo CEP é obrigatório. Apenas números.
+                </div>
+              </div>
+            </div>
+            <div class="d-flex ms-auto">
+              <button type="submit" class="btn btn-primary mt-2 ms-auto">Salvar Endereço</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

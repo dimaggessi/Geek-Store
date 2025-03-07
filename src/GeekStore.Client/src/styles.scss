@@ -1,11 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
-body {
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: 100px; // Ajuste o valor conforme a altura da navbar
-}
-
 // Fonts - Baloo 2 / Lato
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
@@ -83,3 +75,117 @@ $input-border-radius-lg: $input-radius;
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+body {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding-top: 100px;
+  color: #343a40;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+body.dark-theme {
+  background-color: #222;
+  color: #fff;
+}
+
+// Navbar
+body.dark-theme .navbar {
+  background-color: #333 !important;
+  color: #fff;
+}
+
+body.dark-theme .nav-link {
+  color: white !important;
+  transition: color 0.3s ease-in-out;
+}
+
+body.dark-theme .nav-link:hover {
+  color: #ffa500 !important;
+}
+
+// Navbar Icon
+body.dark-theme .navbar .fa-stack {
+  color: #dc3545;
+}
+
+body.dark-theme .navbar-toggler {
+  background-color: #ffffff !important;
+}
+
+// Quote
+body.dark-theme .big-quote {
+  color: #fff !important;
+}
+
+// h2
+body.dark-theme h2 {
+  color: #fff;
+}
+
+// Text-black
+body.dark-theme strong {
+  color: #fff;
+}
+
+body.dark-theme strong {
+  color: #fff !important;
+}
+
+// Cards
+body.dark-theme .card {
+  background-color: #444 !important;
+  color: #fff !important;
+  transition: background-color 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+body.dark-theme .card .text-muted {
+  color: #fff !important;
+}
+
+// Card Body
+body.dark-theme .card-body {
+  background-color: #0f0f0f !important;
+}
+
+body.dark-theme .card-body .details {
+  background-color: #86898b !important;
+  color: #fff !important;
+}
+
+// Summary
+body.dark-theme .summary {
+  background-color: #86898b;
+  color: #ffa500 !important;
+}
+
+// Pagination
+body.dark-theme ngb-pagination .page-link {
+  background-color: #0f0f0f !important;
+}
+
+// Table
+body.dark-theme tbody {
+  background-color: #0f0f0f !important;
+}
+
+// Cart-Item
+body.dark-theme .cart-item {
+  background-color: #000000 !important;
+}
+
+body.dark-theme .cart-item .details {
+  background-color: #000000 !important;
+}
+
+// Profile
+body.dark-theme .profile .card {
+  background-color: #000000 !important;
+}
+
+// Checkout Success
+body.dark-theme app-checkout-success .bg-light {
+  background-color: #0f0f0f !important;
+}

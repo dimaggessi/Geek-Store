@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NgbCarousel, NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store';
 import {ProductService} from '@shared/components/products/services/product.service';
@@ -10,7 +10,7 @@ import {GetProductsRequestInterface} from '@shared/components/products/types/get
 import {ProductStateInterface} from '@shared/components/products/types/productState.interface';
 import {Pagination} from '@shared/models/pagination.interface';
 import {ProductInterface} from '@shared/models/product.interface';
-import {Observable, tap} from 'rxjs';
+import {Observable, Subject, takeUntil, tap} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -19,8 +19,12 @@ import {Observable, tap} from 'rxjs';
   styleUrl: './home.component.scss',
   imports: [CommonModule, NgbCarousel, NgbCarouselModule, RouterLink],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  private typingTimeout: any;
+  private isTypingActive: boolean = false;
   store = inject(Store<{product: ProductStateInterface}>);
+  activatedRoute = inject(ActivatedRoute);
   productService = inject(ProductService);
   data$!: Observable<{products: Pagination<ProductInterface[]> | null}>;
   request: GetProductsRequestInterface = {pageIndex: 1, pageSize: 9, maxPrice: 50};
@@ -29,7 +33,7 @@ export class HomeComponent implements OnInit {
   groupedProducts: any[][] = [];
 
   ngOnInit(): void {
-    this.typingEffect('typing-effect', 'Acesse nossa loja! As melhores ofertas!');
+    this.startTypingEffect('typing-effect', 'Acesse nossa loja! As melhores ofertas!');
     this.store.dispatch(productActions.getProductsList({request: this.request}));
 
     this.store
@@ -39,11 +43,20 @@ export class HomeComponent implements OnInit {
           if (response?.data) {
             this.groupedProducts = this.sliceArray(response.data, 3);
           }
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe();
 
     // this.store.select(selectProductsPaginated).subscribe((data) => console.log(data));
+  }
+
+  ngAfterViewInit(): void {
+    this.activatedRoute.fragment.pipe(takeUntil(this.destroy$)).subscribe((fragment) => {
+      if (fragment) {
+        document.getElementById(fragment)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    });
   }
 
   sliceArray(array: any[], pieceSize: number) {
@@ -54,31 +67,49 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
+  startTypingEffect(elementId: string, message: string): void {
+    this.isTypingActive = true;
+    this.typingEffect(elementId, message);
+  }
+
+  stopTypingEffect(): void {
+    this.isTypingActive = false;
+    if (this.typingTimeout) {
+      clearTimeout(this.typingTimeout);
+    }
+  }
+
   typingEffect(value: string, message: string) {
-    const text = message;
     const element = document.getElementById(value);
     const delay = 120;
 
-    if (element) {
+    if (element && this.isTypingActive) {
       element.textContent = '';
-      this.typeText(text, element, delay, () => {
-        setTimeout(() => {
+      this.typeText(message, element, delay, () => {
+        this.typingTimeout = setTimeout(() => {
           this.typingEffect(value, message);
         }, 1000);
       });
     }
   }
 
-  typeText(text: string, element: HTMLElement, delay: number, callback: () => void) {
-    element.textContent = '';
-
-    for (let i = 0; i < text.length; i++) {
-      setTimeout(() => {
+  typeText(text: string, element: HTMLElement, delay: number, callback: () => void): void {
+    let i = 0;
+    const type = () => {
+      if (i < text.length && this.isTypingActive) {
         element.textContent += text.charAt(i);
-        if (i === text.length - 1) {
-          callback();
-        }
-      }, delay * i);
-    }
+        i++;
+        setTimeout(type, delay);
+      } else {
+        callback();
+      }
+    };
+    type();
+  }
+
+  ngOnDestroy(): void {
+    this.stopTypingEffect();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

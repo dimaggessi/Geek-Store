@@ -1,8 +1,6 @@
 ﻿using GeekStore.Domain.Entities;
 using GeekStore.Domain.Interfaces;
 using GeekStore.Domain.Shared;
-using GeekStore.Infrastructure.Persistence;
-using GeekStore.Infrastructure.Services;
 using MediatR;
 
 namespace GeekStore.Application.Payments.Commands.CreateOrUpdatePaymentIntent;

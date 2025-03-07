@@ -1,8 +1,6 @@
 using GeekStore.Domain.Entities;
 using GeekStore.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace GeekStore.API.Extensions

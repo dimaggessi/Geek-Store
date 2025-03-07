@@ -9,12 +9,20 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'sobre',
+    component: HomeComponent,
+  },
+  {
     path: 'registro',
     loadChildren: () => import('@features/auth/auth.routes').then((r) => r.registerRoute),
   },
   {
     path: 'entrar',
     loadChildren: () => import('@features/auth/auth.routes').then((r) => r.loginRoute),
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('@features/profile/profile.route').then((r) => r.profileRoute),
   },
   {
     path: 'loja',

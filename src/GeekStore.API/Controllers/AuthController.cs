@@ -1,6 +1,5 @@
 ﻿using GeekStore.Application.Authentication.Register;
 using GeekStore.Domain.Entities;
-using GeekStore.Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

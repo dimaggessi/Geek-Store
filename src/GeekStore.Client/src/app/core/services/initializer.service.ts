@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {CartService} from './cart.service';
-import {catchError, of, timeout} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {catchError, of} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class InitializerService {

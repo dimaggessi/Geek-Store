@@ -1,5 +1,4 @@
-﻿using System.Security.Authentication;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace GeekStore.API.Extensions;
 

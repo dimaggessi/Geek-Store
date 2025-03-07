@@ -1,5 +1,4 @@
-﻿using GeekStore.Domain.Entities;
-using GeekStore.Domain.Shared;
+﻿using GeekStore.Domain.Shared;
 using MediatR;
 using System.Security.Claims;
 

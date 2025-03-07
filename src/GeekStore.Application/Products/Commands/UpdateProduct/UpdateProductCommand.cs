@@ -1,7 +1,6 @@
 ﻿using GeekStore.Domain.Entities;
 using GeekStore.Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GeekStore.Application.Products.Commands.UpdateProduct;
 public sealed class UpdateProductCommand : IRequest<Result<Product>>

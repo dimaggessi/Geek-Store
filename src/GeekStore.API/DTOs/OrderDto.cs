@@ -1,6 +1,4 @@
-﻿using GeekStore.Domain.Entities;
-using GeekStore.Domain.Entities.OrderAggregate;
-using System.Runtime.CompilerServices;
+﻿using GeekStore.Domain.Entities.OrderAggregate;
 
 namespace GeekStore.API.DTOs;
 
