@@ -23,7 +23,7 @@
             "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/assets/env.js"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/env.js", "src/public"],
             "styles": ["src/styles.scss", "node_modules/@fortawesome/fontawesome-free/css/all.css"],
             "scripts": [],
             "stylePreprocessorOptions": {
@@ -88,7 +88,7 @@
             "polyfills": ["zone.js", "zone.js/testing", "@angular/localize/init"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/assets/env.js"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/env.js", "src/public/images"],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

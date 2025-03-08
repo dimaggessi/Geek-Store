@@ -1,6 +1,6 @@
 .banner-container {
   position: relative;
-  background-image: url('../../../../public/images/geek_store_banner_fundo_teste.png');
+  background-image: url('assets/images/geek_store_banner_fundo_teste.png');
   background-size: 100% 100%;
   background-position: center;
   height: 500px;
@@ -93,10 +93,10 @@ ngb-carousel {
   .carousel-control-next {
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-      background-color: red !important; /* Cor das setas */
-      border-radius: 50%; /* Deixa as setas redondas */
-      padding: 10px; /* Aumenta o tamanho do ícone */
-      filter: none; /* Remove filtros anteriores */
+      background-color: red !important;
+      border-radius: 50%;
+      padding: 10px;
+      filter: none;
     }
   }
 }
@@ -107,6 +107,50 @@ ngb-carousel {
 
 .summary {
   background-color: lighten(#ffa500, 25%);
+}
+
+.profile {
+  border-radius: 50%;
+  border: 3px solid #ffa500;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+  max-width: 400px;
+  max-height: 400px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.profile-image {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+
+  clip-path: circle(200px at center);
+}
+
+.about ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about li {
+  position: relative;
+  padding-left: 25px; /* Espaço para o ícone */
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.about li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2em;
+  color: #ffa500;
 }
 
 .quote-container {
@@ -146,4 +190,11 @@ ngb-carousel {
   font-style: italic;
   color: #666;
   margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .profile {
+    width: 400px;
+    height: 400px;
+  }
 }

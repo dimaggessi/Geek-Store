@@ -189,3 +189,18 @@ body.dark-theme .profile .card {
 body.dark-theme app-checkout-success .bg-light {
   background-color: #0f0f0f !important;
 }
+
+// Register Icon
+body.dark-theme app-register .fa-solid {
+  color: #333 !important;
+}
+
+// Login Icon
+body.dark-theme app-login .fa-solid {
+  color: #333 !important;
+}
+
+// About
+body.dark-theme app-home li {
+  color: #ffa500 !important;
+}
