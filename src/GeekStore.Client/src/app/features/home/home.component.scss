@@ -1,6 +1,6 @@
 .banner-container {
   position: relative;
-  background-image: url('assets/images/geek_store_banner_fundo_teste.png');
+  background-image: url('/assets/images/geek_store_banner_fundo_teste.png');
   background-size: 100% 100%;
   background-position: center;
   height: 500px;
@@ -69,7 +69,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limita o número de linhas */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 

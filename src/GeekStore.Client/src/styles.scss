@@ -1,5 +1,35 @@
 // Fonts - Baloo 2 / Lato
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@font-face {
+  font-family: 'Baloo 2';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/baloo-2/Baloo2-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Baloo 2';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/baloo-2/Baloo2-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/lato/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/lato/Lato-Bold.ttf') format('truetype');
+}
 
 :root {
   --main-primary: #ffa500;
@@ -198,6 +228,11 @@ body.dark-theme app-register .fa-solid {
 // Login Icon
 body.dark-theme app-login .fa-solid {
   color: #333 !important;
+}
+
+// Login register
+body.dark-theme app-login span {
+  color: #333;
 }
 
 // About

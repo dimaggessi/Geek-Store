@@ -81,12 +81,30 @@ namespace GeekStore.API.Extensions
         {
             services.AddCors(options =>
             {
+                // Development Policy
                 options.AddPolicy("AllowAnyOrigin",
                     builder =>
                     {
                         builder.AllowAnyOrigin()
                                .AllowAnyMethod()
                                .AllowAnyHeader();
+                    });
+
+                // Production Policy
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins(
+                                "https://www.dimaggessi.info",
+                                "http://nginx-angular-app",    // frontend container
+                                "http://localhost:4200",       // local development
+                                "https://localhost",           // local development
+                                "http://localhost:80",
+                                "https://localhost:443")
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials() // cookies, tokens, etc.
+                               .SetIsOriginAllowed((host) => true); // websocket
                     });
             });
 

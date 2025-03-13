@@ -15,7 +15,7 @@ import {CartService} from '@core/services/cart.service';
 import {ShippingService} from '@core/services/shipping.service';
 import {StripeService} from '@core/services/stripe.service';
 import {ToastService} from '@core/services/toast.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {AddressInterface} from '@shared/models/address.interface';
 import {Cart} from '@shared/models/cart.interface';
 import {DeliveryInterface} from '@shared/models/delivery.interface';
@@ -30,7 +30,7 @@ import {OrderService} from '@core/services/order.service';
   standalone: true,
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  imports: [CommonModule, FormsModule, PaymentCardPipe],
+  imports: [CommonModule, FormsModule, PaymentCardPipe, NgbTooltipModule],
 })
 export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
   private router = inject(Router);
@@ -116,6 +116,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
     this.addressService.createOrUpdateAddress(formValue).subscribe({
       next: (response) => {
         console.log('Endereço enviado com sucesso:', response);
+        this.addressFilled = true;
       },
       error: (err) => {
         this.toastService.show({
@@ -126,7 +127,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
         console.error('Erro ao enviar o endereço:', err);
       },
     });
-    console.log('Endereço enviado:', formValue);
+    // console.log('Endereço enviado:', formValue);
   }
 
   onInput(event: Event): void {
@@ -333,7 +334,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
 
     if (!cart?.id || !cart?.deliveryMethodId || !orderAddress || !card || !userEmail) {
       this.toastService.show({
-        message: 'Não foi possível processar o pedido. Tente novamente em alguns instantes.',
+        message:
+          'Não foi possível processar o pedido. Atualize a página, e se o problema persistir, contate o suporte.',
         type: 'error',
         classname: 'bg-danger text-white text-center',
       });

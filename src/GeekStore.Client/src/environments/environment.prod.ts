@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
-  apiUrl: window['env']?.API_URL || 'https://localhost:5005/api',
-  hubUrl: window['env']?.NOTIFICATION_HUB_URL || 'https://localhost:5005/hub/notifications',
-  stripePublicKey: window['env']?.STRIPE_PUBLIC_KEY || 'default_key',
+  apiUrl: 'http://localhost:8080/api',
+  stripePublicKey:
+    'pk_test_51Q1BOXIzbDBtrqwbOQ0tIUNA91gYgehFZZkSaDUIn8DHbqxvCL9zYz22RPabu2IQpKtwqugSjNnI7tA97490a4qO00N3AldmLd',
+  hubUrl: 'http://localhost:8080/hub/notificationhub',
   limit: 20,
 };

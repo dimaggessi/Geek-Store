@@ -1,30 +1,30 @@
 # Build da aplicação Angular
-FROM node:18 AS build
+FROM node:20 AS build-stage
 
 WORKDIR /app
 
 # Copiar apenas package.json e package-lock.json para instalar dependências primeiro
-COPY ./src/GeekStore.Client/package*.json ./
+COPY package*.json ./
 
-RUN npm install
-RUN npm install -g @angular/cli
+# Instalar dependências e Angular CLI
+RUN npm cache clean --force && \
+    npm install && \
+    npm install -g @angular/cli@18.2.11
 
 # Copiar todo o projeto e rodar o build de produção
-COPY src/GeekStore.Client/ ./
+COPY . ./
 
-RUN npm run build -- --configuration=production
+# Executar o build
+RUN ng build
 
 # Configuração do Nginx
 FROM nginx:alpine
 
 # Copiar configuração do Nginx
-COPY ./src/GeekStore.Client/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copiar arquivos da build Angular para o Nginx
-COPY --from=build /app/dist/geek-store.client /usr/share/nginx/html
-
-# Copiar o arquivo env.js para a pasta de assets (verificando se ele existe)
-COPY ./src/GeekStore.Client/src/assets/env.js /usr/share/nginx/html/assets/env.js
+COPY --from=build-stage /app/dist/ /usr/share/nginx/html
 
 # Instalar openssl e gerar certificados de desenvolvimento
 RUN apk add --no-cache openssl && \

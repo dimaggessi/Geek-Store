@@ -46,9 +46,10 @@ namespace GeekStore.API.RequestPipeline
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<GeekStoreDbContext>();
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var config = services.GetRequiredService<IConfiguration>();
                 await context.Database.MigrateAsync();
 
-                await GeekStoreDbSeed.SeedAsync(context, userManager);
+                await GeekStoreDbSeed.SeedAsync(context, userManager, config);
 
             }
             catch (Exception ex)

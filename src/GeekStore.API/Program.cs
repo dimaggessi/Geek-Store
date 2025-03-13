@@ -32,23 +32,24 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowAnyOrigin");
+}
+else
+{
+    app.UseCors("AllowSpecificOrigins");
 }
 
-app.UseCors(policy =>
-    policy.WithOrigins("http://localhost:4200")
-          .AllowAnyHeader()
-          .AllowAnyMethod()
-          .AllowCredentials());
 app.UseMiddleware<CultureMiddleware>();
 app.UseGlobalErrorHandling();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 app.MapGroup("api/Auth")
     .MapGeekStoreCustomIdentityApi<ApplicationUser>()
     .WithTags("Auth");
 app.MapHub<NotificationHub>("/hub/Notifications");
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
 
 await app.PopulateDatabase();
 await app.RunAsync().ConfigureAwait(false);

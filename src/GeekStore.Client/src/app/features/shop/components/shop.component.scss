@@ -1,0 +1,15 @@
+.search {
+  position: relative;
+}
+
+.fa-stack {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.input-search {
+  padding-left: 40px;
+}

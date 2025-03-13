@@ -10,14 +10,14 @@ export const errorInterceptorFn: HttpInterceptorFn = (req, next): Observable<Htt
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 0) {
-        toastService.show({
-          message: 'O servidor não está em execução ou disponível.',
-          classname: 'bg-danger text-light',
-          type: 'error',
-          delay: 10000,
-        });
-      }
+      // if (error.status === 0) {
+      //   toastService.show({
+      //     message: 'O servidor não está em execução ou disponível.',
+      //     classname: 'bg-danger text-light',
+      //     type: 'error',
+      //     delay: 10000,
+      //   });
+      // }
       if (error.status === 400) {
         toastService.show({
           message: 'Solicitação inválida. Verifique os dados da requisição.',

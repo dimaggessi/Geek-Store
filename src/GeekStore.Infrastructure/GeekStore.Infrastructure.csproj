@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+	<None Include="Persistence\Data\**" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\GeekStore.Domain\GeekStore.Domain.csproj" />
   </ItemGroup>
 

@@ -1,26 +1,69 @@
+networks:
+  geekstore_network:
+    driver: bridge
+
 services:
   nginx-angular-app:
     image: nginx:alpine
     container_name: nginx-angular-app
     build:
-      context: .
-      dockerfile: src/GeekStore.Client/Dockerfile
+      context: ./src/GeekStore.Client
+      dockerfile: Dockerfile
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-    - ./src/GeekStore.Client/dist/geek-store.client:/usr/share/nginx/html
+      # - "443:443"
+    depends_on:
+      - backend-api
+    environment:
+      - API_URL=${API_URL}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - NOTIFICATION_HUB_URL=${NOTIFICATION_HUB_URL}
+    restart: always
+    # volumes:
+    # - ./src/GeekStore.Client/dist/geek-store.client:/usr/share/nginx/html
+    # - ./ssl:/etc/ssl/private
+    networks:
+      - geekstore_network
+
+  backend-api:
+    container_name: backend-api
+    build:
+      context: ./src
+      dockerfile: GeekStore.API/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql-database
+      - redis-database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__SqlServer=${ConnectionStrings__SqlServer}
+      - ConnectionStrings__Redis=${ConnectionStrings__Redis}
+      - StripeKeys__Publishable=${StripeKeys__Publishable}
+      - StripeKeys__Secret=${StripeKeys__Secret}
+      - StripeKeys__WhSecret=${StripeKeys__WhSecret}
+      - MelhorEnvio__PostalCode=${MelhorEnvio__PostalCode}
+      - MelhorEnvio__Email=${MelhorEnvio__Email}
+      - MelhorEnvio__Url=${MelhorEnvio__Url}
+      - MelhorEnvio__Token=${MelhorEnvio__Token}
+      - Admin__Password=${Admin__Password}
+    networks:
+      - geekstore_network
+
   mssql-database:
     container_name: sql-server-database
     image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-20.04
     restart: always
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Geek123Password"
+      SA_PASSWORD: ${SA_PASSWORD}
     ports:
       - 1433:1433
     volumes:
       - sql-data:/var/opt/mssql
+    networks:
+      - geekstore_network
+
   redis-database:
     container_name: redis-database
     image: redis:latest
@@ -28,6 +71,9 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data/
+    networks:
+      - geekstore_network
+
 volumes:
   sql-data:
   redis-data:
