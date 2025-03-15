@@ -32,16 +32,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("AllowAnyOrigin");
-}
-else
-{
-    app.UseCors("AllowSpecificOrigins");
 }
 
+app.UseCors("AllowSpecificOrigins");
 app.UseMiddleware<CultureMiddleware>();
 app.UseGlobalErrorHandling();
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

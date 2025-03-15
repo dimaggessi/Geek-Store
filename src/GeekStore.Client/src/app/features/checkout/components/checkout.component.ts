@@ -117,6 +117,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked, OnChanges {
       next: (response) => {
         console.log('Endereço enviado com sucesso:', response);
         this.addressFilled = true;
+
+        window.location.reload();
       },
       error: (err) => {
         this.toastService.show({
