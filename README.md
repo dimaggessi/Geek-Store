@@ -49,6 +49,17 @@ Link do projeto em: https://dimaggessi.info/
 </ul>
 </br>
 
+`Estrutura`
+<ul>
+  <li>Docker Compose: Utilizado para orquestrar a criação e execução dos containers das aplicações e bancos de dados.</li>
+   Frontend: nginx-angular-app</br>
+   Backend: backend-api</br>
+   Banco de Dados em Memória (Redis): redis-database</br>
+   Banco de Dados Relacional (SQL Server): mssql-database</br>
+  </br>
+  <li>Nginx: Configurado como proxy reverso para o Backend, além de fornecer acesso à aplicação com SSL para garantir segurança nas comunicações.</li>
+</ul>
+
 ## 📷 Imagens do projeto 
 Página Inicial (index.html)
 <img style="padding-top:10px;" src="https://github.com/dimaggessi/Geek-Store/blob/main/screenshots/index.jpg"/>
