@@ -402,3 +402,6 @@ appsettings.Development.json
 
 # .env variables
 .env
+
+# vscode
+.vscode
